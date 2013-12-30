@@ -25,7 +25,7 @@
             <td>@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new{ id = order.CustomerID}, null)</td>
             <td>@Html.ActionLink(@order.Employee.FirstName+ " " + @order.Employee.LastName, "Details", "Employee", new{ id = order.EmployeeID}, null)</td>
             <td>@order.Shipper.CompanyName</td>
-            <td>@order.OrderDate</td>
+            <td>@order.OrderDate.Value.ToShortTimeString()</td>
             <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new{ id = order.OrderID}, null)</td>
         </tr>
         
