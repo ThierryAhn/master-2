@@ -20,15 +20,15 @@
     </tr>
     <tr>
         <td>Date de commande :</td>
-        <td>@Model.OrderDate</td>
+        <td>@Model.OrderDate.Value.ToShortDateString()</td>
     </tr>
     <tr>
         <td>Date requise :</td>
-        <td>@Model.RequiredDate</td>
+        <td>@Model.RequiredDate.Value.ToShortDateString()</td>
     </tr>
     <tr>
         <td>Date de livraison :</td>
-        <td>@Model.ShippedDate</td>
+        <td>@Model.ShippedDate.Value.ToShortDateString()</td>
     </tr>
     <tr>
         <td>En passant par :</td>
