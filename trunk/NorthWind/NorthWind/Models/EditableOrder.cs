@@ -35,7 +35,7 @@ namespace NorthWind.Models
                     List<Customer> customers = customerRepository.FindAllCustomers().ToList();
                     foreach(Customer customer in customers)
                     {
-                        listCustomer.Add(new SelectListItem(){Text = customer.ContactName, Value = customer.ContactName});
+                        listCustomer.Add(new SelectListItem() { Text = customer.CustomerID, Value = customer.CompanyName });
                     }
                           
                 };
