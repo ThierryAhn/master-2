@@ -47,6 +47,21 @@ namespace NorthWind.Controllers
 
         public ActionResult Create()
         {
+
+            List<SelectListItem> listCustomer = new List<SelectListItem>();
+            using (var dao = new Entities())
+            {
+
+                CustomerRepository customerRepository = new CustomerRepository(dao);
+                List<Customer> customers = customerRepository.FindAllCustomers().ToList();
+                foreach (Customer customer in customers)
+                {
+                    listCustomer.Add(new SelectListItem() { Text = customer.CustomerID, Value = customer.CompanyName });
+                }
+
+            };
+
+            ViewData["list"] = listCustomer;
             return View();
         }
 
