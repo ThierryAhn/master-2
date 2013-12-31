@@ -1,0 +1,27 @@
+﻿@using NorthWind.Models
+
+@model EditableOrder
+
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Ajouter une nouvelle commande</h2>
+
+@using (Html.BeginForm("/Order/Create/"))
+{ 
+    @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
+
+    <table style="border: none">
+        <tr>
+            <td>@Html.LabelFor(m => Model.CustomerID) : </td>
+            <td>
+                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers)
+                @Html.ValidationMessageFor(m => Model.CustomerID)
+            </td>
+   
+        </tr>
+    </table>
+    
+}
