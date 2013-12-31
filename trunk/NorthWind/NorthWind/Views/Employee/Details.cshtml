@@ -19,7 +19,15 @@
         <td>Prénom :</td>
         <td>@Model.FirstName</td>
     </tr>
-        <tr>
+    <tr>
+        <td>Date de naissance :</td>
+        <td>@Model.BirthDate.Value.ToShortDateString()</td>
+    </tr>
+    <tr>
+        <td>Addresse :</td>
+        <td>@Model.Address</td>
+    </tr>
+    <tr>
         <td>image :</td>
         <td>
             <img src='@Url.Action( "GetImage", "Employee", new { id = Model.EmployeeID } )' />
