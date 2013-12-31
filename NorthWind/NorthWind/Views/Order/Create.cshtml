@@ -17,10 +17,93 @@
         <tr>
             <td>@Html.LabelFor(m => Model.CustomerID) : </td>
             <td>
-                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers)
-                @Html.ValidationMessageFor(m => Model.CustomerID)
+@*                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers)
+                @Html.ValidationMessageFor(m => Model.CustomerID)*@
             </td>
-   
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.EmployeeID) : </td>
+                        <td>
+@*                @Html.DropDownListFor(m => Model.EmployeeID, (List<SelectListItem>)Model.Customers)
+                @Html.ValidationMessageFor(m => Model.EmployeeID)*@
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.OrderDate) : </td>
+            <td>
+
+                @Html.ValidationMessageFor(m => Model.OrderDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.RequiredDate) : </td>
+            <td>
+
+                @Html.ValidationMessageFor(m => Model.RequiredDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShippedDate) : </td>
+            <td>
+                
+                @Html.ValidationMessageFor(m => Model.ShippedDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipVia) : </td>
+            <td>
+               @* @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers) *@
+                @Html.ValidationMessageFor(m => Model.ShipVia)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.Freight) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Freight)
+                @Html.ValidationMessageFor(m => Model.Freight)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipName) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipName)
+                @Html.ValidationMessageFor(m => Model.ShipName)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipAddress) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipAddress)
+                @Html.ValidationMessageFor(m => Model.ShipAddress)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipCity) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipCity)
+                @Html.ValidationMessageFor(m => Model.ShipCity)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipRegion) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipRegion)
+                @Html.ValidationMessageFor(m => Model.ShipRegion)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipPostalCode) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipPostalCode)
+                @Html.ValidationMessageFor(m => Model.ShipPostalCode)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipCountry) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipCountry)
+                @Html.ValidationMessageFor(m => Model.ShipCountry)
+            </td>
         </tr>
     </table>
     
