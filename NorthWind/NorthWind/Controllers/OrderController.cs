@@ -26,6 +26,9 @@ namespace NorthWind.Controllers
             
         }
 
+
+        // Order details
+
         public ActionResult Details(int id)
         {
             using (var dao = new Entities())
@@ -37,7 +40,6 @@ namespace NorthWind.Controllers
                 ViewData["clientName"] = order.Customer.CompanyName;
                 ViewData["phone"] = order.Shipper.Phone;
                 ViewData["shipVia"] = order.Shipper.CompanyName;
-
 
                 return View(order);
             }
