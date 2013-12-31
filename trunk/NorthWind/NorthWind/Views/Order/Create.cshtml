@@ -1,11 +1,13 @@
 ﻿@using NorthWind.Models
 
 @model EditableOrder
-
-
 @{
     ViewBag.Title = "Create";
 }
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <h2>Ajouter une nouvelle commande</h2>
 
@@ -23,36 +25,45 @@
         </tr>
         <tr>
             <td>@Html.LabelFor(m => Model.EmployeeID) : </td>
-                        <td>
-@*                @Html.DropDownListFor(m => Model.EmployeeID, (List<SelectListItem>)Model.Customers)
+            <td>
+                @*                @Html.DropDownListFor(m => Model.EmployeeID, (List<SelectListItem>)Model.Customers)
                 @Html.ValidationMessageFor(m => Model.EmployeeID)*@
             </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(m => Model.OrderDate) : </td>
             <td>
-
+                @Html.TextBoxFor(m => Model.OrderDate, new { id = "datepicker1" })
+                <script>
+                    $("#datepicker1").datepicker();
+                </script>
                 @Html.ValidationMessageFor(m => Model.OrderDate)
             </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(m => Model.RequiredDate) : </td>
             <td>
-
+                @Html.TextBoxFor(m => Model.RequiredDate, new { id = "datepicker2" })
+                <script>
+                    $("#datepicker2").datepicker();
+                </script>
                 @Html.ValidationMessageFor(m => Model.RequiredDate)
             </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(m => Model.ShippedDate) : </td>
             <td>
-                
+                @Html.TextBoxFor(m => Model.ShippedDate, new { id = "datepicker3" })
+                <script>
+                    $("#datepicker3").datepicker();
+                </script>
                 @Html.ValidationMessageFor(m => Model.ShippedDate)
             </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(m => Model.ShipVia) : </td>
             <td>
-               @* @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers) *@
+                @* @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers) *@
                 @Html.ValidationMessageFor(m => Model.ShipVia)
             </td>
         </tr>
