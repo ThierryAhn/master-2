@@ -12,11 +12,11 @@
     </tr>
     <tr> 
         <td>Client :</td>
-        <td>@Html.ActionLink(@Model.CustomerID, "Details", "Customer", new{ id = Model.CustomerID}, null)</td>
+        <td>@Html.ActionLink(""+ViewData["clientName"], "Details", "Customer", new{ id = Model.CustomerID}, null)</td>
     </tr>
     <tr>
         <td>Employé :</td>
-        <td>@Html.ActionLink(""+@Model.EmployeeID, "Details", "Employee", new{ id = Model.EmployeeID}, null)</td>
+        <td>@Html.ActionLink(""+ViewData["customerName"], "Details", "Employee", new{ id = Model.EmployeeID}, null)</td>
     </tr>
     <tr>
         <td>Date de commande :</td>
@@ -32,7 +32,7 @@
     </tr>
     <tr>
         <td>En passant par :</td>
-        <td>@Model.ShipVia</td>
+        <td>@ViewData["shipVia"]</td>
     </tr>
     <tr>
         <td>Expéditeur :</td>
@@ -40,7 +40,7 @@
     </tr>
     <tr>
         <td>Téléphone Expéditeur :</td>
-        @*<td>@Model.Shipper.Phone</td>*@
+        <td>@ViewData["phone"]</td>
     </tr>
     <tr>
         <td>Fret :</td>
@@ -48,22 +48,6 @@
     </tr>
     <tr>
         <td>Adresse de la compagnie :</td>
-        <td>@Model.ShipAddress</td>
-    </tr>
-    <tr>
-        <td>Ville de la compagnie :</td>
-        <td>@Model.ShipCity</td>
-    </tr>
-    <tr>
-        <td>Region de la compagnie :</td>
-        <td>@Model.ShipRegion</td>
-    </tr>
-    <tr>
-        <td>Code postal de la compagnie :</td>
-        <td>@Model.ShipPostalCode</td>
-    </tr>
-    <tr>
-        <td>Pays de la compagnie :</td>
-        <td>@Model.ShipCountry</td>
+        <td>@Model.ShipAddress , @Model.ShipCity ( @Model.ShipRegion ), @Model.ShipPostalCode @Model.ShipCountry</td>
     </tr>
 </table>
