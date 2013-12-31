@@ -17,8 +17,8 @@
         <tr>
             <td>@Html.LabelFor(m => Model.CustomerID) : </td>
             <td>
-@*                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers)
-                @Html.ValidationMessageFor(m => Model.CustomerID)*@
+                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)ViewData["list"])
+                @Html.ValidationMessageFor(m => Model.CustomerID)
             </td>
         </tr>
         <tr>

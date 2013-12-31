@@ -23,26 +23,6 @@ namespace NorthWind.Models
         public string ShipPostalCode { get; set; }
         public string ShipCountry { get; set; }
 
-        public List<SelectListItem> Customers
-        {
-            get
-            {
-                List<SelectListItem> listCustomer = new List<SelectListItem>();
-                using (var dao = new Entities())
-                {
-
-                    CustomerRepository customerRepository = new CustomerRepository(dao);
-                    List<Customer> customers = customerRepository.FindAllCustomers().ToList();
-                    foreach(Customer customer in customers)
-                    {
-                        listCustomer.Add(new SelectListItem() { Text = customer.CustomerID, Value = customer.CompanyName });
-                    }
-                          
-                };
-                return listCustomer;
-            }
-        }
-
 
         public EditableOrder(Order order)
         {
