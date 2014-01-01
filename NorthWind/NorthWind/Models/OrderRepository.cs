@@ -30,7 +30,7 @@ namespace NorthWind.Models
 
         public void Delete(Order order)
         {
-            //db.Orders.de
+            db.Orders.Remove(order);
         }
         public void Save() { db.SaveChanges(); }
     }

@@ -19,15 +19,15 @@
         <tr>
             <td>@Html.LabelFor(m => Model.CustomerID) : </td>
             <td>
-                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)ViewData["list"])
+                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)ViewData["Customers"])
                 @Html.ValidationMessageFor(m => Model.CustomerID)
             </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(m => Model.EmployeeID) : </td>
             <td>
-                @*                @Html.DropDownListFor(m => Model.EmployeeID, (List<SelectListItem>)Model.Customers)
-                @Html.ValidationMessageFor(m => Model.EmployeeID)*@
+                @Html.DropDownListFor(m => Model.EmployeeID, (List<SelectListItem>)ViewData["Employees"])
+                @Html.ValidationMessageFor(m => Model.EmployeeID)
             </td>
         </tr>
         <tr>
@@ -63,7 +63,7 @@
         <tr>
             <td>@Html.LabelFor(m => Model.ShipVia) : </td>
             <td>
-                @* @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)Model.Customers) *@
+                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)ViewData["Shippers"])
                 @Html.ValidationMessageFor(m => Model.ShipVia)
             </td>
         </tr>
@@ -115,6 +115,9 @@
                 @Html.TextBoxFor(m => Model.ShipCountry)
                 @Html.ValidationMessageFor(m => Model.ShipCountry)
             </td>
+        </tr>
+        <tr>
+
         </tr>
     </table>
     
