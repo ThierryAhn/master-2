@@ -15,5 +15,20 @@ namespace NorthWind.Models
         {
             return db.Employees.SingleOrDefault(employee => employee.EmployeeID == id);
         }
+
+        public IQueryable<Employee> FindAllEmployees()
+        {
+            return db.Employees;
+        }
+
+        public void Add(Employee employee)
+        {
+        }
+
+        public void Delete(Employee employee)
+        {
+        }
+
+        public void Save() { db.SaveChanges(); }
     }
 }
