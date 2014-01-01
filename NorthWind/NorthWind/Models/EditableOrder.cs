@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -9,20 +10,31 @@ namespace NorthWind.Models
     public class EditableOrder
     {
         public int OrderID { get; set; }
+        [Display(Name = "Customer")]
         public string CustomerID { get; set; }
+        [Display(Name="Employe")]
         public int? EmployeeID { get; set; }
+        [Display(Name = "Order Date")]
         public System.DateTime? OrderDate { get; set; }
+        [Display(Name = "Required Date")]
         public System.DateTime? RequiredDate { get; set; }
+        [Display(Name = "Shipped Date")]
         public System.DateTime? ShippedDate { get; set; }
+        [Display(Name = "Ship Via")]
         public int? ShipVia { get; set; }
         public decimal? Freight { get; set; }
+        [Display(Name = "Ship Name")]
         public string ShipName { get; set; }
+        [Display(Name = "Ship Address")]
         public string ShipAddress { get; set; }
+        [Display(Name = "Ship City")]
         public string ShipCity { get; set; }
+        [Display(Name = "Ship Region")]
         public string ShipRegion { get; set; }
+        [Display(Name = "Ship Postal Code")]
         public string ShipPostalCode { get; set; }
+        [Display(Name = "Ship Country")]
         public string ShipCountry { get; set; }
-
 
         public EditableOrder(Order order)
         {
