@@ -12,23 +12,35 @@ namespace NorthWind.Controllers
         //
         // GET: /Product/
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             using (var dao = new Entities())
             {
 
                 ProductRepository productRepository = new ProductRepository(dao);
-                List<Product> products = productRepository.FindAllProducts().ToList();
+                //List<Product> products = productRepository.FindAllProducts().ToList();
 
-                return View(products);
+                const int pageSize = 10;
+                var upcomingProducts = productRepository.FindAllProducts();
+                
+                var paginatedProducts = new PaginatedList<Product>(upcomingProducts, page ?? 0, pageSize);
+
+                ViewBag.HasPreviousPage = paginatedProducts.HasPreviousPage;
+                ViewBag.HasNextPage = paginatedProducts.HasNextPage;
+                ViewBag.PageIndex = (page ?? 0);
+                
+                return View(paginatedProducts);
+                //return View(products);
             }
         }
 
+        // GET Create Product
         public ActionResult Create()
         {
             return View(new EditableProduct());
         }
 
+        // POST Create Product
         [HttpPost]
         public ActionResult Create(EditableProduct editableProduct)
         {
@@ -60,8 +72,92 @@ namespace NorthWind.Controllers
                     return View(editableProduct);
                 }
             }
+        }
 
-            
+        // GET Edit Product
+        public ActionResult Edit(int id)
+        {
+            using (var dao = new Entities())
+            {
+                ProductRepository productRepository = new ProductRepository(dao);
+                Product product = productRepository.GetProduct(id);
+
+                EditableProduct editableProduct = new EditableProduct(product);
+
+                return View(editableProduct);
+            }
+        }
+
+        // POST Edit Product
+        [HttpPost]
+        public ActionResult Edit(EditableProduct editableProduct)
+        {
+            System.Diagnostics.Debug.WriteLine("Edit " + editableProduct.ProductID);
+            using (var dao = new Entities())
+            {
+                if (ModelState.IsValid)
+                {
+                    ProductRepository productRepository = new ProductRepository(dao);
+
+                    Product product = productRepository.GetProduct(editableProduct.ProductID);
+
+                    product.ProductName = editableProduct.ProductName;
+                    product.SupplierID = editableProduct.SupplierID;
+                    product.CategoryID = editableProduct.CategoryID;
+                    product.QuantityPerUnit = editableProduct.QuantityPerUnit;
+                    product.UnitPrice = editableProduct.UnitPrice;
+                    product.UnitsInStock = editableProduct.UnitsInStock;
+                    product.UnitsOnOrder = editableProduct.UnitsOnOrder;
+                    product.ReorderLevel = editableProduct.ReorderLevel;
+                    product.Discontinued = editableProduct.Discontinued;
+
+                    UpdateModel(product);
+                    productRepository.Save();
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(editableProduct);
+                }
+            }
+        }
+
+        // GET Delete Product
+        public ActionResult Delete(int id)
+        {
+            using (var dao = new Entities())
+            {
+                ProductRepository productRepository = new ProductRepository(dao);
+                Product product = productRepository.GetProduct(id);
+
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(product);
+            }
+        }
+
+        // POST Delete Dinner
+        [HttpPost]
+        public ActionResult Delete(int id, String action)
+        {
+            using (var dao = new Entities())
+            {
+                ProductRepository productRepository = new ProductRepository(dao);
+                Product product = productRepository.GetProduct(id);
+
+                if (product == null)
+                {
+                    return HttpNotFound();
+                }
+
+                productRepository.Delete(product);
+                productRepository.Save();
+                return RedirectToAction("Index");
+            }
         }
 
     }

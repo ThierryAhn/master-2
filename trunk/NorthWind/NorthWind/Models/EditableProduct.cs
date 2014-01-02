@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,14 +11,23 @@ namespace NorthWind.Models
     {
 
         public int ProductID { get; set; }
+        [Display(Name = "Nom du produit")]
         public string ProductName { get; set; }
+        [Display(Name = "Fournisseur")]
         public int? SupplierID { get; set; }
+        [Display(Name = "Catégorie")]
         public int? CategoryID { get; set; }
+        [Display(Name = "Quantité")]
         public string QuantityPerUnit { get; set; }
+        [Display(Name = "Prix")]
         public decimal? UnitPrice { get; set; }
+        [Display(Name = "Nombre de produits en stock")]
         public short? UnitsInStock { get; set; }
+        [Display(Name = "Nombre de produits en commande")]
         public short? UnitsOnOrder { get; set; }
+        [Display(Name = "Niveau de réorganisation")]
         public short? ReorderLevel { get; set; }
+        [Display(Name = "Fin de série")]
         public bool Discontinued { get; set; }
 
         public List<SelectListItem> Suppliers

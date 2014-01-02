@@ -11,7 +11,7 @@ namespace NorthWind.Models
 
         public ProductRepository(Entities entities) { this.db = entities; }
 
-        public IQueryable<Product> FindAllProducts() { return db.Products.Include("Category").Include("Supplier"); }
+        public IQueryable<Product> FindAllProducts() { return db.Products.Include("Category").Include("Supplier").OrderBy(product => product.ProductName); }
 
         public Product GetProduct(int id)
         {

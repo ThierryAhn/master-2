@@ -1,0 +1,99 @@
+﻿@using NorthWind.Models
+
+@model EditableProduct
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("/Product/Edit/"))
+{
+    @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
+
+    @Html.HiddenFor(m => Model.ProductID, Model.ProductID)
+
+    <table style="border: none">
+        <tr>
+            <td>@Html.LabelFor(m => Model.ProductName) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ProductName)
+                @Html.ValidationMessageFor(m => Model.ProductName)
+            </td>
+        </tr>
+
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.SupplierID) : </td>
+            <td>
+                @Html.DropDownListFor(m => Model.SupplierID, Model.Suppliers)
+                @Html.ValidationMessageFor(m => Model.SupplierID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.CategoryID) : </td>
+            <td>
+                @Html.DropDownListFor(m => Model.CategoryID, Model.Categories)
+                @Html.ValidationMessageFor(m => Model.CategoryID)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.QuantityPerUnit) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.QuantityPerUnit)
+                @Html.ValidationMessageFor(m => Model.QuantityPerUnit)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.UnitPrice) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.UnitPrice)
+                @Html.ValidationMessageFor(m => Model.UnitPrice)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.UnitsInStock) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.UnitsInStock)
+                @Html.ValidationMessageFor(m => Model.UnitsInStock)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.UnitsOnOrder) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.UnitsOnOrder)
+                @Html.ValidationMessageFor(m => Model.UnitsOnOrder)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.ReorderLevel) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ReorderLevel)
+                @Html.ValidationMessageFor(m => Model.ReorderLevel)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.Discontinued) : </td>
+            <td>
+
+                @Html.DropDownListFor(m => Model.Discontinued, 
+                    new List<SelectListItem>{
+                           new SelectListItem{Text = "False", Value = "False"},
+                           new SelectListItem{Text = "True", Value = "True"}
+                    })
+                @Html.ValidationMessageFor(m => Model.Discontinued)
+
+                
+            </td>
+        </tr>
+    </table>
+    
+    <input type="submit" value="Modifier" />
+}

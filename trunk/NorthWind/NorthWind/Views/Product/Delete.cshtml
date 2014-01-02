@@ -1,0 +1,17 @@
+﻿@using NorthWind.Models
+
+@model Product
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+
+@Html.ActionLink("Retourner aux produits", "Index")
+<h2>Delete</h2>
+@using (Html.BeginForm()) {
+    <p>Veuillez confirmer !</p>
+    
+    <input type="submit" value="Confirmer" />
+}

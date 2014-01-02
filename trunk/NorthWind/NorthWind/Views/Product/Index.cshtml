@@ -37,6 +37,20 @@
             <td>@product.UnitsOnOrder</td>
             <td>@product.ReorderLevel</td>
             <td>@product.Discontinued</td>
+
+            <td>@Html.ActionImage("Edit", new {id = product.ProductID}, "~/Content/Images/edit.png", "Modifier")</td>
+            <td>@Html.ActionImage("Delete", new {id = product.ProductID}, "~/Content/Images/delete.png", "Supprimer")</td>
+
         </tr>
     }
 </table>
+
+@if (ViewBag.HasPreviousPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex-1) }, "~/Content/Images/previous.png", "Précédent")
+}
+
+@if (ViewBag.HasNextPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex + 1) }, "~/Content/Images/next.png", "Suivant")
+}   
