@@ -90,7 +90,6 @@ namespace NorthWind.Controllers
         [HttpPost]
         public ActionResult Edit(EditableProduct editableProduct)
         {
-            System.Diagnostics.Debug.WriteLine("Edit " + editableProduct.ProductID);
             using (var dao = new Entities())
             {
                 if (ModelState.IsValid)
@@ -138,7 +137,7 @@ namespace NorthWind.Controllers
             }
         }
 
-        // POST Delete Dinner
+        // POST Delete Product
         [HttpPost]
         public ActionResult Delete(int id, String action)
         {
