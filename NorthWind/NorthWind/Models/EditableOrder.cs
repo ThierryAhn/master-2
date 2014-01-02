@@ -54,5 +54,67 @@ namespace NorthWind.Models
             this.ShipPostalCode = order.ShipPostalCode;
             this.ShipCountry = order.ShipCountry;
         }
+
+        public EditableOrder(){ }
+
+        public List<SelectListItem> Customers
+        {
+            get
+            {
+                using (var dao = new Entities())
+                {
+                    List<SelectListItem> items = new List<SelectListItem>();
+                    foreach (Customer e in dao.Customers)
+                    {
+                        items.Add(new SelectListItem
+                        {
+                            Text = e.CompanyName,
+                            Value = e.CustomerID.ToString(),
+                        });
+                    }
+                    return items;
+                }
+            }
+        }
+
+        public List<SelectListItem> Employees
+        {
+            get
+            {
+                using (var dao = new Entities())
+                {
+                    List<SelectListItem> items = new List<SelectListItem>();
+                    foreach (Employee e in dao.Employees)
+                    {
+                        items.Add(new SelectListItem
+                        {
+                            Text = e.FirstName + " " + e.LastName,
+                            Value = e.EmployeeID.ToString(),
+                        });
+                    }
+                    return items;
+                }
+            }
+        }
+
+        public List<SelectListItem> Shippers
+        {
+            get
+            {
+                using (var dao = new Entities())
+                {
+                    List<SelectListItem> items = new List<SelectListItem>();
+                    foreach (Shipper e in dao.Shippers)
+                    {
+                        items.Add(new SelectListItem
+                        {
+                            Text = e.CompanyName,
+                            Value = e.ShipperID.ToString(),
+                        });
+                    }
+                    return items;
+                }
+            }
+        }
     }
 }

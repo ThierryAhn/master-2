@@ -47,38 +47,9 @@ namespace NorthWind.Controllers
 
         public ActionResult Create()
         {
-            using (var dao = new Entities())
-            {
-                List<SelectListItem> listCustomers = new List<SelectListItem>();
-                CustomerRepository customerRepository = new CustomerRepository(dao);
-                List<Customer> customers = customerRepository.FindAllCustomers().ToList();
-                foreach (Customer customer in customers)
-                {
-                    listCustomers.Add(new SelectListItem() { Text = customer.CompanyName, Value = customer.CustomerID });
-                }
-
-                List<SelectListItem> listEmployees = new List<SelectListItem>();
-                EmployeeRepository employeeRepository = new EmployeeRepository(dao);
-                List<Employee> employees = employeeRepository.FindAllEmployees().ToList();
-                foreach (Employee employee in employees)
-                {
-                    listEmployees.Add(new SelectListItem() { Text = (employee.FirstName + " " + employee.LastName) , Value = employee.EmployeeID.ToString() });
-                }
-
-                List<SelectListItem> listShippers = new List<SelectListItem>();
-                ShipperRepository shipperRepository = new ShipperRepository(dao);
-                List<Shipper> shippers = shipperRepository.FindAllShippers().ToList();
-                foreach (Shipper shipper in shippers)
-                {
-                    listShippers.Add(new SelectListItem() { Text = shipper.CompanyName , Value = shipper.ShipperID.ToString() });
-                }
-
-                ViewData["Customers"] = listCustomers;
-                ViewData["Employees"] = listEmployees;
-                ViewData["Shippers"] = listShippers;
-            }
-            return View();
+            return View(new EditableOrder());
         }
+
 
         [HttpPost]
         public ActionResult Create(EditableOrder edtOrder)
@@ -88,8 +59,8 @@ namespace NorthWind.Controllers
                 if (ModelState.IsValid)
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
+
                     Order order = new Order();
-                    //order.OrderID = edtOrder.OrderID;
                     order.CustomerID = edtOrder.CustomerID;
                     order.EmployeeID = edtOrder.EmployeeID;
                     order.OrderDate = edtOrder.OrderDate;
@@ -114,8 +85,44 @@ namespace NorthWind.Controllers
                 {
                     return View(edtOrder);
                 }
+            }
+        }
 
+        public ActionResult AllOrdersSortedByDate() {
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+                List<Order> orders = orderRepository.FindAllOrders().ToList();
 
+                var ords = (from order in orders orderby order.OrderDate descending select order).ToList();
+
+                return View(ords);
+            }
+        }
+
+        public ActionResult NextOrders()
+        {
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+                List<Order> orders = orderRepository.FindAllOrders().ToList();
+
+                var ords = (from order in orders where order.OrderDate >= DateTime.Now && order.OrderDate <= DateTime.Now.AddDays(7) orderby order.OrderDate ascending select order).ToList();
+
+                return View(ords);
+            }
+        }
+
+        public ActionResult ViewByClient()
+            {
+            using (var dao = new Entities())
+            {
+                 OrderRepository orderRepository = new OrderRepository(dao);
+                List<Order> orders = orderRepository.FindAllOrders().ToList();
+
+                var ords = (from order in orders  orderby order.CustomerID ascending select order).ToList();
+
+                return View(ords);
             }
         }
     }
