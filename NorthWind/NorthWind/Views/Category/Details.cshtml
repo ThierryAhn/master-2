@@ -1,5 +1,31 @@
-﻿@{
+﻿@using NorthWind.Models
+
+@model Category
+@{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Details de la catégorie</h2>
+
+<table>
+    <tr>
+        <td>Id :</td>
+        <td>@Model.CategoryID</td>
+    </tr>
+
+    <tr>
+        <td>Nom de la catégorie :</td>
+        <td>@Model.CategoryName</td>
+    </tr>
+
+    <tr>
+        <td>Description :</td>
+        <td>@Model.Description</td>
+    </tr>
+    <tr>
+        <td>Image :</td>
+         <td>
+            <img src='@Url.Action( "GetImage", "Category", new { id = Model.CategoryID } )' />
+        </td>
+    </tr>
+</table>

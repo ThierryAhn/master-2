@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NorthWind.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,16 @@ namespace NorthWind.Controllers
         public ActionResult Index()
         {
             return View();
+        }
+
+        public ActionResult Details(int id)
+        {
+            using (var dao = new Entities())
+            {
+                SupplierRepository supplierRepository = new SupplierRepository(dao);
+                Supplier supplier = supplierRepository.GetSupplier(id);
+                return View(supplier);
+            }
         }
 
     }
