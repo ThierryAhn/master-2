@@ -81,8 +81,15 @@
         <tr>
             <td>@Html.LabelFor(m => Model.Discontinued) : </td>
             <td>
-                @Html.TextBoxFor(m => Model.Discontinued)
+
+                @Html.DropDownListFor(m => Model.Discontinued, 
+                    new List<SelectListItem>{
+                           new SelectListItem{Text = "False", Value = "False"},
+                           new SelectListItem{Text = "True", Value = "True"}
+                    })
                 @Html.ValidationMessageFor(m => Model.Discontinued)
+
+                
             </td>
         </tr>
     </table>
