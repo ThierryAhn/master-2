@@ -38,3 +38,13 @@
         
     }
 </table>
+
+@if (ViewBag.HasPreviousPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex-1) }, "~/Content/Images/previous.png", "Précédent")
+}
+
+@if (ViewBag.HasNextPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex + 1) }, "~/Content/Images/next.png", "Suivant")
+} 
