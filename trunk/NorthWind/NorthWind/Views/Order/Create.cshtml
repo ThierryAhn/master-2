@@ -16,17 +16,24 @@
     @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
 
     <table style="border: none">
+@*        <tr>
+            <td>@Html.LabelFor(m => Model.OrderID) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.OrderID)
+                @Html.ValidationMessageFor(m => Model.OrderID)
+            </td>
+        </tr>*@
         <tr>
             <td>@Html.LabelFor(m => Model.CustomerID) : </td>
             <td>
-                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)ViewData["Customers"])
+                @Html.DropDownListFor(m => Model.CustomerID, Model.Customers)
                 @Html.ValidationMessageFor(m => Model.CustomerID)
             </td>
         </tr>
         <tr>
             <td>@Html.LabelFor(m => Model.EmployeeID) : </td>
             <td>
-                @Html.DropDownListFor(m => Model.EmployeeID, (List<SelectListItem>)ViewData["Employees"])
+                @Html.DropDownListFor(m => Model.EmployeeID, Model.Employees)
                 @Html.ValidationMessageFor(m => Model.EmployeeID)
             </td>
         </tr>
@@ -63,7 +70,7 @@
         <tr>
             <td>@Html.LabelFor(m => Model.ShipVia) : </td>
             <td>
-                @Html.DropDownListFor(m => Model.CustomerID, (List<SelectListItem>)ViewData["Shippers"])
+                @Html.DropDownListFor(m => Model.CustomerID, Model.Shippers)
                 @Html.ValidationMessageFor(m => Model.ShipVia)
             </td>
         </tr>
@@ -116,9 +123,7 @@
                 @Html.ValidationMessageFor(m => Model.ShipCountry)
             </td>
         </tr>
-        <tr>
-
-        </tr>
     </table>
+    <input id="submit" type="submit" value="Ajouter la commande" />
     
 }
