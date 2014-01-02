@@ -1,0 +1,38 @@
+﻿@using NorthWind.Models
+@model List<Order>
+@{
+    ViewBag.Title = "NextOrders";
+}
+
+<h2>Prochaines commandes</h2>
+
+@Html.ActionLink("Ajouter une commande", "Create") @Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate") @Html.ActionLink("Prochaines commandes", "NextOrders")
+
+<br/>
+<br/>
+
+<table>
+
+    <tr>
+        <th>Numero Commande</th>
+        <th>Client</th>
+        <th>Employé</th>
+        <th>Expéditeur</th>
+        <th>Date de Commande</th>
+    </tr>
+    
+
+    @foreach (Order order in Model)
+    {
+        
+        <tr>
+            <td>@Html.ActionLink(@order.OrderID.ToString(), "Details", "Order", new{ id = order.OrderID}, null)</td>
+            <td>@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new{ id = order.CustomerID}, null)</td>
+            <td>@Html.ActionLink(@order.Employee.FirstName+ " " + @order.Employee.LastName, "Details", "Employee", new{ id = order.EmployeeID}, null)</td>
+            <td>@order.Shipper.CompanyName</td>
+            <td>@order.OrderDate.Value.ToShortDateString()</td>
+            <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new{ id = order.OrderID}, null)</td>
+        </tr>
+        
+    }
+</table>
