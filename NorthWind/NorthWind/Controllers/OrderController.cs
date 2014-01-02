@@ -13,15 +13,20 @@ namespace NorthWind.Controllers
         //
         // GET: /Commande/
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
             using (var dao = new Entities())
             {
-
                 OrderRepository orderRepository = new OrderRepository(dao);
-                List<Order> orders = orderRepository.FindAllOrders().ToList();
 
-                return View(orders);
+                const int pageSize = 10;
+                var upcomingOrders = orderRepository.FindAllOrders().OrderBy(ord => ord.OrderID);
+                var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
+                ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
+                ViewBag.HasNextPage = paginatedOrders.HasNextPage;
+                ViewBag.PageIndex = (page ?? 0);
+
+                return View(paginatedOrders);
             }
 
         }
