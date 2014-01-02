@@ -12,9 +12,24 @@ namespace NorthWind.Controllers
         //
         // GET: /Supplier/
 
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View();
+            using (var dao = new Entities())
+            {
+
+                SupplierRepository supplierRepository = new SupplierRepository(dao);
+                
+                const int pageSize = 10;
+                var upcomingSuppliers = supplierRepository.FindAllSuppliers();
+
+                var paginatedSuppliers = new PaginatedList<Supplier>(upcomingSuppliers, page ?? 0, pageSize);
+
+                ViewBag.HasPreviousPage = paginatedSuppliers.HasPreviousPage;
+                ViewBag.HasNextPage = paginatedSuppliers.HasNextPage;
+                ViewBag.PageIndex = (page ?? 0);
+
+                return View(paginatedSuppliers);
+            }
         }
 
         public ActionResult Details(int id)
