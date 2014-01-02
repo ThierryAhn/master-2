@@ -12,7 +12,7 @@ namespace NorthWind.Models
 
         public SupplierRepository(Entities entities) { this.db = entities; }
 
-        public IQueryable<Supplier> FindAllSuppliers() { return db.Suppliers; }
+        public IQueryable<Supplier> FindAllSuppliers() { return db.Suppliers.Include("Products").OrderBy(supplier => supplier.CompanyName); }
 
         public Supplier GetSupplier(int id)
         {

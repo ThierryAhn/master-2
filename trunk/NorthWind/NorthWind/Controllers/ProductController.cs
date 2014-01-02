@@ -18,8 +18,7 @@ namespace NorthWind.Controllers
             {
 
                 ProductRepository productRepository = new ProductRepository(dao);
-                //List<Product> products = productRepository.FindAllProducts().ToList();
-
+                
                 const int pageSize = 10;
                 var upcomingProducts = productRepository.FindAllProducts();
                 
@@ -30,7 +29,6 @@ namespace NorthWind.Controllers
                 ViewBag.PageIndex = (page ?? 0);
                 
                 return View(paginatedProducts);
-                //return View(products);
             }
         }
 

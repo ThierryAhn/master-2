@@ -1,0 +1,54 @@
+﻿@using NorthWind.Models
+
+@model List<Supplier>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des fournisseurs</h2>
+
+@Html.ActionLink("Ajouter un fournisseur", "Create")
+
+<br/>
+<br/>
+
+
+<table>
+    <tr>
+        <th>Nom de la compagnie</th>
+        <th>Nom du contact</th>
+        <th>Adresse</th>
+        <th>Téléphone</th>
+        <th>Fax</th>
+        <th>Site web</th>
+        <th>Nombre de produits</th>
+    </tr>
+
+
+    @foreach (Supplier supplier in Model)
+    {
+        <tr>
+            <td>@supplier.CompanyName</td>
+            <td>@supplier.ContactName (@supplier.ContactTitle)</td>
+            <td>@supplier.PostalCode , @supplier.City (@supplier.Region), @supplier.Country</td>
+            <td>@supplier.Phone</td>
+            <td>@supplier.Fax</td>
+            <td>@supplier.HomePage</td>
+            <td>@supplier.Products.Count()</td>
+
+            <td>@Html.ActionImage("Edit", new {id = supplier.SupplierID}, "~/Content/Images/edit.png", "Modifier")</td>
+            <td>@Html.ActionImage("Delete", new {id = supplier.SupplierID}, "~/Content/Images/delete.png", "Supprimer")</td>
+
+        </tr>
+    }
+</table>
+
+@if (ViewBag.HasPreviousPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex-1) }, "~/Content/Images/previous.png", "Précédent")
+}
+
+@if (ViewBag.HasNextPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex + 1) }, "~/Content/Images/next.png", "Suivant")
+}   
