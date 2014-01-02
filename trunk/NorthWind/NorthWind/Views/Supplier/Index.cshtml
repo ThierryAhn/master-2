@@ -30,6 +30,9 @@
         <tr>
             <td>@supplier.CompanyName</td>
             <td>@supplier.ContactName (@supplier.ContactTitle)</td>
+
+            @* <td>@Html.ActionLink(@supplier.ContactName, "Details", "Contact", new {id = product.CategoryID} , null) </td>*@
+
             <td>@supplier.PostalCode , @supplier.City (@supplier.Region), @supplier.Country</td>
             <td>@supplier.Phone</td>
             <td>@supplier.Fax</td>
