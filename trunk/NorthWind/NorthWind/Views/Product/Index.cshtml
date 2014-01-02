@@ -1,0 +1,42 @@
+﻿@using NorthWind.Models
+@model List<Product>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des commandes</h2>
+
+@Html.ActionLink("Ajouter un produit", "Create")
+
+<br/>
+<br/>
+
+<table>
+
+    <tr>
+        <th>Nom du produit</th>
+        <th>Fournisseur</th>
+        <th>Catégorie</th>
+        <th>Quantity per unit</th>
+        <th>Unit Price</th>
+        <th>Unit in stock</th>
+        <th>Unit on order</th>
+        <th>Reorder level</th>
+        <th>Discontinued</th>
+    </tr>
+    
+    @foreach (Product product in Model)
+    {
+        <tr>
+            <td>@product.ProductName</td>
+            <td>@Html.ActionLink(@product.Supplier.CompanyName.ToString(), "Details", "Supplier", new {id = product.SupplierID} , null) </td>
+            <td>@Html.ActionLink(@product.Category.CategoryName.ToString(), "Details", "Category", new {id = product.CategoryID} , null) </td>
+            <td>@product.QuantityPerUnit</td>
+            <td>@product.UnitPrice</td>
+            <td>@product.UnitsInStock</td>
+            <td>@product.UnitsOnOrder</td>
+            <td>@product.ReorderLevel</td>
+            <td>@product.Discontinued</td>
+        </tr>
+    }
+</table>
