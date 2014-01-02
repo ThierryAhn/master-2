@@ -130,5 +130,18 @@ namespace NorthWind.Controllers
                 return View(ords);
             }
         }
+
+        public ActionResult ViewByEmployee()
+        {
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+                List<Order> orders = orderRepository.FindAllOrders().ToList();
+
+                var ords = (from order in orders orderby order.EmployeeID ascending select order).ToList();
+
+                return View(ords);
+            }
+        }
     }
 }

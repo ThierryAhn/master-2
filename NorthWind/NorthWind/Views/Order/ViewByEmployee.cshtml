@@ -1,0 +1,73 @@
+﻿@using NorthWind.Models
+@model List<Order>
+@{
+    ViewBag.Title = "ViewByEmployee";
+}
+
+<h2>ViewByEmployee</h2>
+@Html.ActionLink("Ajouter une commande", "Create") 
+@Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate")
+@Html.ActionLink("Prochaines commandes", "NextOrders") 
+@Html.ActionLink("Vu par Client", "ViewByClient")
+
+<br />
+<br />
+
+<table>
+
+    <tr>
+        <th>Employé</th>
+        <th>Numero Commande</th>
+        <th>Client</th>
+        <th>Expéditeur</th>
+        <th>Date de Commande</th>
+    </tr>
+
+
+
+    @{
+    
+        int employee = -1;
+        List<Order> listOrderTmp = new List<Order>();
+
+        foreach (Order order in Model)
+        {
+            if (employee != order.EmployeeID)
+            {
+                bool first = true;
+                foreach (Order ord in listOrderTmp)
+                {
+                    if (first == true)
+                    {
+                        <tr>
+                            <td rowspan="@listOrderTmp.Count">@Html.ActionLink(@ord.Employee.FirstName + " " + @ord.Employee.LastName, "Details", "Employee", new { id = ord.EmployeeID }, null)</td>
+                            <td>@Html.ActionLink(@ord.OrderID.ToString(), "Details", "Order", new { id = ord.OrderID }, null)</td>
+                            <td>@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new { id = order.CustomerID }, null)</td>
+                            <td>@ord.Shipper.CompanyName</td>
+                            <td>@ord.OrderDate.Value.ToShortDateString()</td>
+                            <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new { id = ord.OrderID }, null)</td>
+                        </tr>
+                        first = false;
+                    }
+                    else
+                    {
+                    <tr>
+                        <td>@Html.ActionLink(@ord.OrderID.ToString(), "Details", "Order", new { id = ord.OrderID }, null)</td>
+                            <td>@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new { id = order.CustomerID }, null)</td>
+                            <td>@ord.Shipper.CompanyName</td>
+                            <td>@ord.OrderDate.Value.ToShortDateString()</td>
+                            <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new { id = ord.OrderID }, null)</td>
+                    </tr>
+                    }
+                }
+                employee = (int)order.EmployeeID;
+                listOrderTmp.Clear();
+                listOrderTmp.Add(order);
+            }
+            else
+            {
+                listOrderTmp.Add(order);
+            }
+        }
+    }
+</table>
