@@ -8,9 +8,6 @@ namespace NorthWind.Models
 {
     public class PaginatedList<T> : List<T>
     {
-        private List<Product> upcomingProducts;
-        private int p;
-
         public int PageIndex { get; private set; }
         public int PageSize { get; private set; }
         public int TotalCount { get; private set; }
