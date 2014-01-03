@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,8 +11,6 @@ namespace NorthWind.Controllers
 {
     public class OrderController : Controller
     {
-        //
-        // GET: /Commande/
 
         public ActionResult Index(int? page)
         {
@@ -30,9 +29,6 @@ namespace NorthWind.Controllers
             }
 
         }
-
-
-        // Order details
 
         public ActionResult Details(int id)
         {
@@ -55,7 +51,6 @@ namespace NorthWind.Controllers
             return View(new EditableOrder());
         }
 
-
         [HttpPost]
         public ActionResult Create(EditableOrder edtOrder)
         {
@@ -64,8 +59,8 @@ namespace NorthWind.Controllers
                 if (ModelState.IsValid)
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
-
                     Order order = new Order();
+
                     order.CustomerID = edtOrder.CustomerID;
                     order.EmployeeID = edtOrder.EmployeeID;
                     order.OrderDate = edtOrder.OrderDate;
@@ -83,8 +78,7 @@ namespace NorthWind.Controllers
                     orderRepository.Add(order);
                     orderRepository.Save();
 
-                    List<Order> orders = orderRepository.FindAllOrders().ToList();
-                    return RedirectToAction("Index", orders);
+                    return RedirectToAction("Index");
                 }
                 else
                 {
@@ -93,39 +87,61 @@ namespace NorthWind.Controllers
             }
         }
 
-        public ActionResult AllOrdersSortedByDate() {
+        public ActionResult Edit(int id)
+        {
             using (var dao = new Entities())
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
-                List<Order> orders = orderRepository.FindAllOrders().ToList();
-
-                var ords = (from order in orders orderby order.OrderDate descending select order).ToList();
-
-                return View(ords);
+                Order order = orderRepository.GetOrder(id);
+                EditableOrder editableorder = new EditableOrder(order);
+                return View(editableorder);
             }
         }
 
-        public ActionResult NextOrders()
+        public ActionResult AllOrdersSortedByDate(int? page)
+        {
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+
+                const int pageSize = 10;
+                var upcomingOrders = orderRepository.FindAllOrders().OrderByDescending(ord => ord.OrderDate);
+                var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
+                ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
+                ViewBag.HasNextPage = paginatedOrders.HasNextPage;
+                ViewBag.PageIndex = (page ?? 0);
+
+                return View(paginatedOrders);
+            }
+        }
+
+        public ActionResult NextOrders(int? page)
+        {
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+
+                const int pageSize = 10;
+                var upcomingOrders = orderRepository.FindAllOrders().Where(order => order.OrderDate >= DateTime.Now)
+                                                                    .Where(order => order.OrderDate <= EntityFunctions.AddDays(DateTime.Now, 7))
+                                                                    .OrderBy(ord => ord.OrderDate);
+
+                var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
+                ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
+                ViewBag.HasNextPage = paginatedOrders.HasNextPage;
+                ViewBag.PageIndex = (page ?? 0);
+                return View(paginatedOrders);
+            }
+        }
+
+        public ActionResult ViewByClient()
         {
             using (var dao = new Entities())
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
                 List<Order> orders = orderRepository.FindAllOrders().ToList();
 
-                var ords = (from order in orders where order.OrderDate >= DateTime.Now && order.OrderDate <= DateTime.Now.AddDays(7) orderby order.OrderDate ascending select order).ToList();
-
-                return View(ords);
-            }
-        }
-
-        public ActionResult ViewByClient()
-            {
-            using (var dao = new Entities())
-            {
-                 OrderRepository orderRepository = new OrderRepository(dao);
-                List<Order> orders = orderRepository.FindAllOrders().ToList();
-
-                var ords = (from order in orders  orderby order.CustomerID ascending select order).ToList();
+                var ords = (from order in orders orderby order.CustomerID ascending select order).ToList();
 
                 return View(ords);
             }
