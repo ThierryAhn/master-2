@@ -9,6 +9,12 @@
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
+@Html.ActionLink("Ajouter une commande", "Create") 
+@Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate") 
+@Html.ActionLink("Prochaines commandes", "NextOrders")
+@Html.ActionLink("Vue par client", "ViewByClient")
+@Html.ActionLink("Vue par employee", "ViewByEmployee")
+
 <h2>Ajouter une nouvelle commande</h2>
 
 @using (Html.BeginForm("/Order/Create/"))
