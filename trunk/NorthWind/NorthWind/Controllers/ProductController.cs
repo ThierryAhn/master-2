@@ -9,8 +9,6 @@ namespace NorthWind.Controllers
 {
     public class ProductController : Controller
     {
-        //
-        // GET: /Product/
 
         public ActionResult Index(int? page)
         {
