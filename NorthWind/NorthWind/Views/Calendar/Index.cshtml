@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Calendrier des commandes</h2>
+<hr />
+<br /><br />
+<script type="text/javascript" src="@Url.Content("~/Scripts/fullcalendar.js")"></script>
+<link href="@Url.Content("~/Content/fullcalendar.css")" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui.custom.min.js")"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay'
+            },
+            theme: false,
+            editable: false,
+            events: "/Calendar/GetEvents"
+        });
+    });
+</script>
+
+<div id="calendar"></div>
