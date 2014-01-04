@@ -64,6 +64,8 @@ namespace NorthWind.Controllers
                     order.CustomerID = edtOrder.CustomerID;
                     order.EmployeeID = edtOrder.EmployeeID;
                     order.OrderDate = edtOrder.OrderDate;
+
+
                     order.RequiredDate = edtOrder.RequiredDate;
                     order.ShippedDate = edtOrder.ShippedDate;
                     order.ShipVia = edtOrder.ShipVia;
@@ -136,9 +138,11 @@ namespace NorthWind.Controllers
                 OrderRepository orderRepository = new OrderRepository(dao);
 
                 const int pageSize = 10;
-                var upcomingOrders = orderRepository.FindAllOrders().Where(order => order.OrderDate >= DateTime.Now)
+
+                 var upcomingOrders = orderRepository.FindAllOrders().Where(order => order.OrderDate >= DateTime.Now)
                                                                     .Where(order => order.OrderDate <= EntityFunctions.AddDays(DateTime.Now, 7))
                                                                     .OrderBy(ord => ord.OrderDate);
+
 
                 var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
                 ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
