@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
 
 namespace NorthWind.Models
 {
-    public class EditableSupplier
+    public class EditableCustomer
     {
-        public int SupplierID { get; set; }
+        [Display(Name = "Identifiant")]
+        public string CustomerID { get; set; }
         [Display(Name = "Nom de la compagnie")]
         public string CompanyName { get; set; }
         [Display(Name = "Nom du contact")]
@@ -30,27 +30,24 @@ namespace NorthWind.Models
         public string Phone { get; set; }
         [Display(Name = "Fax")]
         public string Fax { get; set; }
-        [Display(Name = "Site web")]
-        public string HomePage { get; set; }
 
-        public EditableSupplier()
+        public EditableCustomer()
         {
         }
 
-        public EditableSupplier(Supplier supplier)
+        public EditableCustomer(Customer customer)
         {
-            this.SupplierID = supplier.SupplierID;
-            this.CompanyName = supplier.CompanyName;
-            this.ContactName = supplier.ContactName;
-            this.ContactTitle = supplier.ContactTitle;
-            this.Address = supplier.Address;
-            this.City = supplier.City;
-            this.Region = supplier.Region;
-            this.PostalCode = supplier.PostalCode;
-            this.Country = supplier.Country;
-            this.Phone = supplier.Phone;
-            this.Fax = supplier.Fax;
-            this.HomePage = supplier.HomePage;
+            this.CustomerID = customer.CustomerID;
+            this.CompanyName = customer.CompanyName;
+            this.ContactName = customer.ContactName;
+            this.ContactTitle = customer.ContactTitle;
+            this.Address = customer.Address;
+            this.City = customer.City;
+            this.Region = customer.Region;
+            this.PostalCode = customer.PostalCode;
+            this.Country = customer.Country;
+            this.Phone = customer.Phone;
+            this.Fax = customer.Fax;
         }
     }
 }
