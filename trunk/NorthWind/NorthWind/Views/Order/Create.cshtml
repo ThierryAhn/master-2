@@ -22,13 +22,6 @@
     @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
 
     <table style="border: none">
-@*        <tr>
-            <td>@Html.LabelFor(m => Model.OrderID) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.OrderID)
-                @Html.ValidationMessageFor(m => Model.OrderID)
-            </td>
-        </tr>*@
         <tr>
             <td>@Html.LabelFor(m => Model.CustomerID) : </td>
             <td>
@@ -76,7 +69,7 @@
         <tr>
             <td>@Html.LabelFor(m => Model.ShipVia) : </td>
             <td>
-                @Html.DropDownListFor(m => Model.CustomerID, Model.Shippers)
+                @Html.DropDownListFor(m => Model.ShipVia, Model.Shippers)
                 @Html.ValidationMessageFor(m => Model.ShipVia)
             </td>
         </tr>

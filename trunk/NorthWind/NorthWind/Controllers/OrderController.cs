@@ -73,11 +73,25 @@ namespace NorthWind.Controllers
                     order.ShipCity = edtOrder.ShipCity;
                     order.ShipRegion = edtOrder.ShipRegion;
                     order.ShipPostalCode = edtOrder.ShipPostalCode;
-                    order.ShipCountry = order.ShipCountry;
+                    order.ShipCountry = edtOrder.ShipCountry;
+
+                    System.Diagnostics.Debug.Write("CustomerID: " + order.CustomerID + "\n"
+                                + "EmployeeID: " + order.EmployeeID + "\n"
+                                + "OrderDate: " + order.OrderDate + "\n"
+                                + "RequiredDate: " + order.RequiredDate + "\n"
+                                + "ShippedDate: " + order.ShippedDate + "\n"
+                                + "ShipVia: " + order.ShipVia + "\n"
+                                + "Freight: " + order.Freight + "\n"
+                                + "ShipName: " + order.ShipName + "\n"
+                                + "ShipAddress: " + order.ShipAddress + "\n"
+                                + "ShipCity: " + order.ShipCity + "\n"
+                                + "ShipRegion: " + order.ShipRegion + "\n"
+                                + "ShipPostalCode: " + order.ShipPostalCode + "\n"
+                                + "ShipCountry: " + order.ShipCountry + "\n");
 
                     orderRepository.Add(order);
                     orderRepository.Save();
-
+                    
                     return RedirectToAction("Index");
                 }
                 else
@@ -159,5 +173,49 @@ namespace NorthWind.Controllers
                 return View(ords);
             }
         }
+        
+        //public ActionResult CalendarView()
+        //{
+        //    return View();
+        //}
+
+        //public JsonResult GetEvents(double start, double end)
+        //{
+        //    using (var dao = new Entities())
+        //    {
+        //        var events = new List<CalendarEvent>();
+        //        var dtstart = ConvertFromUnixTimestamp(start);
+        //        var dtend = ConvertFromUnixTimestamp(end);
+
+        //        OrderRepository orderRepository = new OrderRepository(dao);
+        //        List<Order> ol = orderRepository.FindAllOrders().ToList();
+        //        var onCalls = from p in ol
+        //                      select new { p.OrderID, p.ShippedDate, p.Customer.CompanyName };
+
+        //        DateTime currStart;
+        //        DateTime currEnd;
+        //        foreach (var p in onCalls)
+        //        {
+        //            currStart = Convert.ToDateTime(p.ShippedDate);
+        //            currEnd = Convert.ToDateTime(p.ShippedDate);
+        //            events.Add(new CalendarEvent()
+        //            {
+        //                id = p.OrderID.ToString(),
+        //                title = p.CompanyName,
+        //                start = p.ShippedDate.ToString(),
+        //                end = p.ShippedDate.ToString(),
+        //                url = "/Order/Details/" + p.OrderID
+        //            });
+        //        }
+        //        var rows = events.ToArray();
+        //        return Json(rows, JsonRequestBehavior.AllowGet);
+        //    }
+        //}
+
+        //private static DateTime ConvertFromUnixTimestamp(double timetamp)
+        //{
+        //    var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+        //    return origin.AddSeconds(timetamp);
+        //}
     }
 }
