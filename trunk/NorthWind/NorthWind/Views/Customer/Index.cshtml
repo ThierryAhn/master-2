@@ -1,0 +1,73 @@
+﻿@using NorthWind.Models
+
+@model List<Customer>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des clients</h2>
+
+@Html.ActionLink("Ajouter un client", "Create")
+
+<br/>
+<br/>
+
+
+<table>
+    <tr>
+        <th>Nom du contact</th>
+        <th>Fournisseur</th>
+        <th>Adresse</th>
+        <th>Téléphone</th>
+        <th>Fax</th>
+    </tr>
+
+
+    @foreach (Customer customer in Model)
+    {
+        foreach (var pairOfCustomer in ViewBag.supplierOfCustomer)
+        {
+
+            if (customer.CustomerID.Equals(pairOfCustomer.Key))
+            {
+                <tr>
+                    <td>@customer.CompanyName</td>
+                    <td>
+                        @{Dictionary<string, int> dico = new Dictionary<string, int>();}
+                        @foreach (var pairSupplier in pairOfCustomer.Value)
+                        {
+                            foreach(var value in pairSupplier.Key)
+                            {
+                                if (!dico.ContainsKey(value.Key + "(" + pairSupplier.Value + " commande(s))"))
+                                {
+                                    dico.Add(value.Key + "(" + pairSupplier.Value +" commande(s))", value.Value);
+                                }
+                                    
+                            }                                                
+                                
+                        }
+                        @Html.ListBox("SuppliersOfClients", new SelectList(dico, "Value", "Key"), new { size = 5 })
+                    </td>
+
+                    <td>@customer.PostalCode , @customer.City (@customer.Region), @customer.Country</td>
+                    <td>@customer.Phone</td>
+                    <td>@customer.Fax</td>
+                      
+                    <td>@Html.ActionImage("Edit", new {id = customer.CustomerID}, "~/Content/Images/edit.png", "Modifier")</td>
+                    <td>@Html.ActionImage("Delete", new {id = customer.CustomerID}, "~/Content/Images/delete.png", "Supprimer")</td>
+                </tr>
+            }
+                
+        }
+    }
+</table>
+
+@if (ViewBag.HasPreviousPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex-1) }, "~/Content/Images/previous.png", "Précédent")
+}
+
+@if (ViewBag.HasNextPage)
+{
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex + 1) }, "~/Content/Images/next.png", "Suivant")
+}   

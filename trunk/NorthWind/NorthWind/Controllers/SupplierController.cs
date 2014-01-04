@@ -48,6 +48,7 @@ namespace NorthWind.Controllers
             return View(new EditableSupplier());
         }
 
+        // GET Create Supplier
         [HttpPost]
         public ActionResult Create(EditableSupplier editableSupplier)
         {

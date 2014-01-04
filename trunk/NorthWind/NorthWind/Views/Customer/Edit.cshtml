@@ -1,19 +1,20 @@
 ﻿@using NorthWind.Models
 
-@model EditableSupplier
+@model EditableCustomer
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Modifier le fournisseur </h2>
+<h2>Modifier le client </h2>
 
-@using (Html.BeginForm("/Supplier/Edit/"))
+@using (Html.BeginForm("/Customer/Edit/"))
 {
     @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
 
-    @Html.HiddenFor(m => Model.SupplierID, Model.SupplierID)
-
+    @Html.HiddenFor(m => Model.CustomerID, Model.CustomerID)
+    
     <table style="border: none">
+        
         <tr>
             <td>@Html.LabelFor(m => Model.CompanyName) : </td>
             <td>
@@ -38,6 +39,7 @@
             </td>
         </tr>
 
+        
         <tr>
             <td>@Html.LabelFor(m => Model.Address) : </td>
             <td>
@@ -93,17 +95,7 @@
                 @Html.ValidationMessageFor(m => Model.Fax)
             </td>
         </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.HomePage) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.HomePage)
-                @Html.ValidationMessageFor(m => Model.HomePage)
-            </td>
-        </tr>
-
-    
     </table>
     
-    <input type="submit" value="Modifer" />
+    <input type="submit" value="Modifier" />
 }
