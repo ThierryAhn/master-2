@@ -1,0 +1,23 @@
+﻿@using NorthWind.Models
+@model Shipper
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(ship => Model.ShipperID)</td>
+        <td>@Model.ShipperID</td>
+    </tr>
+    <tr> 
+        <td>@Html.LabelFor(ship => Model.CompanyName)</td>
+        <td>@Model.CompanyName</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(ship => Model.Phone)</td>
+        <td>@Model.Phone</td>
+    </tr>
+</table>

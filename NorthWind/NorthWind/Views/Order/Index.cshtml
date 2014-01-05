@@ -6,15 +6,6 @@
 
 <h2>Liste des commandes</h2>
 
-@Html.ActionLink("Ajouter une commande", "Create") 
-@Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate") 
-@Html.ActionLink("Prochaines commandes", "NextOrders")
-@Html.ActionLink("Vue par client", "ViewByClient")
-@Html.ActionLink("Vue par employee", "ViewByEmployee")
-@Html.ActionLink("Calendrier", "CalendarView")
-<br/>
-<br/>
-
 <table>
 
     <tr>
@@ -30,10 +21,10 @@
     {
         
         <tr>
-            <td>@Html.ActionLink(@order.OrderID.ToString(), "Details", "Order", new{ id = order.OrderID}, null)</td>
+            <td>@order.OrderID</td>
             <td>@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new{ id = order.CustomerID}, null)</td>
             <td>@Html.ActionLink(@order.Employee.FirstName+ " " + @order.Employee.LastName, "Details", "Employee", new{ id = order.EmployeeID}, null)</td>
-            <td>@order.Shipper.CompanyName</td>
+            <td>@Html.ActionLink(@order.Shipper.CompanyName,"Details","Shipper", new{id = order.ShipVia}, null)</td>
             <td>@order.OrderDate.Value.ToShortDateString()</td>
             <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new{ id = order.OrderID}, null)</td>
         </tr>
@@ -41,6 +32,7 @@
     }
 </table>
 
+<br/>
 @if (ViewBag.HasPreviousPage)
 {
     @Html.ActionImage("Index", new { page = (ViewBag.PageIndex-1) }, "~/Content/Images/previous.png", "Précédent")
