@@ -4,12 +4,15 @@ to use a different color start by replacing all instances of
 #5c87b2 with your new color.
 ----------------------------------------------------------*/
 body {
-    background-color: #5c87b2;
     font-size: .85em;
     font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
     margin: 0;
     padding: 0;
-    color: #696969;
+    background-color: rgb(0, 0, 0);
+    background-image: url("Images/texture.png");
+    background-repeat: repeat;
+    background-position: center top;
+    border-top: 0px solid rgb(0, 0, 0);
 }
 
 a:link {
@@ -86,7 +89,8 @@ header, #header {
     position: relative;
     margin-bottom: 0px;
     color: #000;
-    padding: 0;
+    padding: 1px 0 30px;
+    clear: both;
 }
 
 header h1, #header h1 {
@@ -124,52 +128,87 @@ footer,
 
 /* TAB MENU   
 ----------------------------------------------------------*/
+
+#menucontainer {
+    font: 14px/14px sans-serif;
+    border-top: 0 solid #dbdbdb;
+    border-bottom: 0 solid #dbdbdb;
+    padding: 10px 0;
+    margin-bottom: 0;
+    width: 1000px;
+}
+
 ul#menu {
-    border-bottom: 1px #5C87B2 solid;
-    padding: 0 0 2px;
-    position: relative;
-    margin: 0;
-    text-align: right;
+    list-style: none;
+	padding: 0 20px;	
+	margin: 0;
+	float: left;
+	border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+	background: #222;
+	font-size: 1.2em;
+    z-index: 99;
 }
 
 ul#menu li {
-    display: inline;
-    list-style: none;
-}
-
-ul#menu li#greeting {
-    padding: 10px 20px;
-    font-weight: bold;
-    text-decoration: none;
-    line-height: 2.8em;
-    color: #fff;
+    float: left;
+	margin: 0;	
+	padding: 0 15px 0 0;
+	position: relative; 
+    width: auto;
+    z-index: 99;
 }
 
 ul#menu li a {
-    padding: 10px 20px;
-    font-weight: bold;
+    position: relative;
+    color: #fff;
+    display: block;
+    z-index: 100;
+    padding: 5px 10px;
+    line-height: 25px;
     text-decoration: none;
-    line-height: 2.8em;
-    background-color: #e8eef4;
-    color: #034af3;
-    -webkit-border-radius: 4px 4px 0 0;
-    -moz-border-radius: 4px 4px 0 0;
-    border-radius: 4px 4px 0 0;
 }
 
 ul#menu li a:hover {
-    background-color: #fff;
-    text-decoration: none;
+   background: grey no-repeat center top;
 }
 
-ul#menu li a:active {
-    background-color: #a6e2a6;
-    text-decoration: none;
+ul#menu li.subhover {
+    background-position: center bottom;
+    cursor: pointer;
 }
 
-ul#menu li.selected a {
-    background-color: #fff;
-    color: #000;
+ul#menu li ul#sousMenu{
+    list-style: none;
+	position: absolute;
+	left: 0; top: 35px;
+	background: #333;
+	margin: 0; padding: 0;
+	display: none;
+	float: left;
+	width: auto;
+	border: 1px solid #111;
+    z-index: 99;
+}
+
+ul#menu li ul#sousMenu li{
+    margin: 0; padding: 0;
+	border-top: 1px solid #252525; 
+	border-bottom: 1px solid #444; 
+	clear: both;
+	width: auto;
+}
+
+html ul#menu li ul#sousMenu li a{
+    float: left;
+    width: 145px;
+    background: #333 black no-repeat 10px center;
+    padding-left: 20px;
+}
+
+html ul#menu li ul#sousMenu li a:hover{
+  background: #222 grey no-repeat 10px center;
 }
 
 /* FORM LAYOUT ELEMENTS   
@@ -215,8 +254,8 @@ input[type="submit"] {
 ----------------------------------------------------------*/
 
 table {
-    border: solid 1px #e8eef4;
     border-collapse: collapse;
+    border-spacing: 0;
 }
 
 table td {
@@ -227,7 +266,7 @@ table td {
 table th {
     padding: 6px 5px;
     text-align: left;
-    background-color: #e8eef4;
+    background-color: lightgrey;
     border: solid 1px #e8eef4;
 }
 

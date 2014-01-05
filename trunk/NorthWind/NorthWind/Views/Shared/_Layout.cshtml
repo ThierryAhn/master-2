@@ -4,25 +4,35 @@
     <title>@ViewBag.Title</title>
     <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
     <script src="@Url.Content("~/Scripts/jquery-1.7.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/menu.js")" type="text/javascript"></script>
 </head>
 <body>
     <div class="page">
         <div id="header">
             <div id="title">
-                <h1>Mon application MVC</h1>
+                <h1>NorthWind</h1>
             </div>
             <div id="logindisplay">
-                @Html.Partial("_LogOnPartial")
+                @*@Html.Partial("_LogOnPartial")*@
+                M2 GIL
             </div>
             <div id="menucontainer">
                 <ul id="menu">
-                    <li>@Html.ActionLink("Commandes", "Index", "Order")</li>
+                    <li>@Html.ActionLink("Commandes", "Index", "Order")
+                        <ul id="sousMenu">
+                            <li>@Html.ActionLink("Ajouter une commande", "Create") </li>
+                            <li>@Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate") </li>
+                            <li>@Html.ActionLink("Prochaines commandes", "NextOrders")</li>
+                            <li>@Html.ActionLink("Vue par client", "ViewByClient")</li>
+                            <li>@Html.ActionLink("Vue par employee", "ViewByEmployee")</li>
+                            <li>@Html.ActionLink("Calendrier", "Index", "Calendar")</li>
+                        </ul>
+                    </li>
                     <li>@Html.ActionLink("Produits", "Index", "Product")</li>
                     <li>@Html.ActionLink("Fournisseurs", "Index", "Supplier")</li>
                     <li>@Html.ActionLink("Clients", "Index", "Customer")</li>
                     <li>@Html.ActionLink("Employés", "Index", "Employe")</li>
                     <li>@Html.ActionLink("Administration", "Index", "Administration")</li>
-                    <li>@Html.ActionLink("Calendrier", "Index", "Calendar")</li>
                    @*<li>@Html.ActionLink("Accueil", "Index", "Home")</li>
                     <li>@Html.ActionLink("À propos de", "About", "Home")</li>*@
                 </ul>
