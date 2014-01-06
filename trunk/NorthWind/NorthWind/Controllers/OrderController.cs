@@ -53,18 +53,18 @@ namespace NorthWind.Controllers
             int today = (int)now.DayOfWeek;
             int diffNowMonday = (7 - (today - 1)) % 7;
             DateTime nextMonday = now.AddDays(diffNowMonday);
-            
+
             EditableOrder eo = new EditableOrder();
             List<EditableOrderDetail> eodList = new List<EditableOrderDetail>();
-            
+
             TupleOrder tuple = new TupleOrder()
             {
                 EditableOrder = eo,
                 EditableOrderDetList = eodList,
             };
-            
+
             ViewData["nextMonday"] = nextMonday.ToShortDateString();
-            
+
             return View(tuple);
         }
 
@@ -76,61 +76,49 @@ namespace NorthWind.Controllers
                 if (ModelState.IsValid)
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
-                    Order ord = orderRepository.GetOrder(tuple.EditableOrder.OrderID);
-                    ord.CustomerID = tuple.EditableOrder.CustomerID;
-                    ord.EmployeeID = tuple.EditableOrder.EmployeeID;
-                    ord.OrderDate = tuple.EditableOrder.OrderDate;
-                    ord.RequiredDate = tuple.EditableOrder.RequiredDate;
-                    ord.ShippedDate = tuple.EditableOrder.ShippedDate;
-                    ord.ShipVia = tuple.EditableOrder.ShipVia;
-                    ord.Freight = tuple.EditableOrder.Freight;
-                    ord.ShipName = tuple.EditableOrder.ShipName;
-                    ord.ShipAddress = tuple.EditableOrder.ShipAddress;
-                    ord.ShipCity = tuple.EditableOrder.ShipCity;
-                    ord.ShipRegion = tuple.EditableOrder.ShipRegion;
-                    ord.ShipPostalCode = tuple.EditableOrder.ShipPostalCode;
-                    ord.ShipCountry = tuple.EditableOrder.ShipCountry;
+                    Order ord = new Order()
+                    {
+                        OrderID = tuple.EditableOrder.OrderID,
+                        CustomerID = tuple.EditableOrder.CustomerID,
+                        EmployeeID = tuple.EditableOrder.EmployeeID,
+                        OrderDate = tuple.EditableOrder.OrderDate,
+                        RequiredDate = tuple.EditableOrder.RequiredDate,
+                        ShippedDate = tuple.EditableOrder.ShippedDate,
+                        ShipVia = tuple.EditableOrder.ShipVia,
+                        Freight = tuple.EditableOrder.Freight,
+                        ShipName = tuple.EditableOrder.ShipName,
+                        ShipAddress = tuple.EditableOrder.ShipAddress,
+                        ShipCity = tuple.EditableOrder.ShipCity,
+                        ShipRegion = tuple.EditableOrder.ShipRegion,
+                        ShipPostalCode = tuple.EditableOrder.ShipPostalCode,
+                        ShipCountry = tuple.EditableOrder.ShipCountry,
+                    };
 
+                    orderRepository.Add(ord);
                     orderRepository.Save();
                     OrderDetailRepository orderDetailRepository = new OrderDetailRepository(dao);
-                    List<Order_Detail> odlist = new List<Order_Detail>();
+                    List<Order_Detail> odLst = new List<Order_Detail>();
 
                     foreach (EditableOrderDetail edtOd in tuple.EditableOrderDetList)
                     {
-                        Order_Detail odTmp = orderDetailRepository.GetOrderDetail(tuple.EditableOrder.OrderID, edtOd.ProductID);
-                        if (odTmp != null)
+                        Order_Detail odTmp = new Order_Detail()
                         {
-                            odTmp.ProductID = edtOd.ProductID;
-                            odTmp.UnitPrice = edtOd.UnitPrice;
-                            odTmp.Quantity = edtOd.Quantity;
-                            odTmp.Discount = edtOd.Discount;
-                            odlist.Add(odTmp);
-                            orderDetailRepository.Save();
-                        }
-                        else
-                        {
-                            Order_Detail odTmpBis = new Order_Detail()
-                            {
-                                OrderID = ord.OrderID,
-                                ProductID = edtOd.ProductID,
-                                UnitPrice = edtOd.UnitPrice,
-                                Quantity = edtOd.Quantity,
-                                Discount = edtOd.Discount
-                            };
-                            odlist.Add(odTmpBis);
-                            orderDetailRepository.Add(odTmpBis);
-                            orderDetailRepository.Save();
-                        }
+                            OrderID = ord.OrderID,
+                            ProductID = edtOd.ProductID,
+                            UnitPrice = edtOd.UnitPrice,
+                            Quantity = edtOd.Quantity,
+                            Discount = edtOd.Discount
+                        };
+                        odLst.Add(odTmp);
                     }
 
-                    foreach (Order_Detail o in orderRepository.GetOrder(tuple.EditableOrder.OrderID).Order_Details)
+                    foreach (Order_Detail od in odLst)
                     {
-                        if (!odlist.Contains(o))
-                        {
-                            orderDetailRepository.Delete(o);
-                            orderDetailRepository.Save();
-                        }
+                        orderDetailRepository.Add(od);
+
+                        orderDetailRepository.Save();
                     }
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -150,7 +138,8 @@ namespace NorthWind.Controllers
 
                 EditableOrder eo = new EditableOrder(order);
                 List<EditableOrderDetail> eodList = new List<EditableOrderDetail>();
-                foreach(Order_Detail orD in order.Order_Details){
+                foreach (Order_Detail orD in order.Order_Details)
+                {
                     eodList.Add(new EditableOrderDetail(orD));
                 }
 
@@ -261,9 +250,9 @@ namespace NorthWind.Controllers
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
                 const int pageSize = 10;
-                 var upcomingOrders = orderRepository.FindAllOrders().Where(order => order.OrderDate >= DateTime.Now)
-                                                                    .Where(order => order.OrderDate <= EntityFunctions.AddDays(DateTime.Now, 7))
-                                                                    .OrderBy(ord => ord.OrderDate);
+                var upcomingOrders = orderRepository.FindAllOrders().Where(order => order.OrderDate >= DateTime.Now)
+                                                                   .Where(order => order.OrderDate <= EntityFunctions.AddDays(DateTime.Now, 7))
+                                                                   .OrderBy(ord => ord.OrderDate);
                 var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
                 ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
                 ViewBag.HasNextPage = paginatedOrders.HasNextPage;
@@ -373,7 +362,7 @@ namespace NorthWind.Controllers
             Response.Output.Write(sw.ToString());
             Response.Flush();
             Response.End();
-           
+
         }
 
     }

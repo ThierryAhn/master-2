@@ -4,12 +4,20 @@
     ViewBag.Title = "AllOrdersSortedByDate";
 }
 
+@Html.ActionLink("Ajouter une commande", "Create", "Order")
+@Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate", "Order")
+@Html.ActionLink("Prochaines commandes", "NextOrders", "Order")
+@Html.ActionLink("Vue par client", "ViewByClient", "Order")
+@Html.ActionLink("Vue par employee", "ViewByEmployee", "Order")
+@Html.ActionLink("Calendrier", "Index", "Calendar")
+<br />
+
 <h2>Liste des Commandes triée par date</h2>
 
 @using (Html.BeginForm("ExportToExcel", "Order"))
 {
     <input type="submit" value="Export" />
-    <table style="border: none; width: 1100px">
+    <table style="border: none; width: 100%">
 
         <tr>
             <th></th>
