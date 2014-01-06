@@ -45,5 +45,15 @@ namespace NorthWind.Models
                 }
             }
         }
+
+        public EditableOrderDetail() { }
+
+        public EditableOrderDetail(Order_Detail orD) {
+            this.OrderID = orD.OrderID;
+            this.ProductID = orD.ProductID;
+            this.UnitPrice = orD.UnitPrice;
+            this.Quantity = orD.Quantity;
+            this.Discount = orD.Discount;
+        }
     }
 }

@@ -60,7 +60,7 @@ namespace NorthWind.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(EditableOrder edtOrder)
+        public ActionResult Create(TupleOrder tuple)
         {
             using (var dao = new Entities())
             {
@@ -68,26 +68,40 @@ namespace NorthWind.Controllers
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
                     Order order = new Order();
-                    order.CustomerID = edtOrder.CustomerID;
-                    order.EmployeeID = edtOrder.EmployeeID;
-                    order.OrderDate = edtOrder.OrderDate;
-                    order.RequiredDate = edtOrder.RequiredDate;
-                    order.ShippedDate = edtOrder.ShippedDate;
-                    order.ShipVia = edtOrder.ShipVia;
-                    order.Freight = edtOrder.Freight;
-                    order.ShipName = edtOrder.ShipName;
-                    order.ShipAddress = edtOrder.ShipAddress;
-                    order.ShipCity = edtOrder.ShipCity;
-                    order.ShipRegion = edtOrder.ShipRegion;
-                    order.ShipPostalCode = edtOrder.ShipPostalCode;
-                    order.ShipCountry = edtOrder.ShipCountry;
+                    order.CustomerID = tuple.EditableOrder.CustomerID;
+                    order.EmployeeID = tuple.EditableOrder.EmployeeID;
+                    order.OrderDate = tuple.EditableOrder.OrderDate;
+                    order.RequiredDate = tuple.EditableOrder.RequiredDate;
+                    order.ShippedDate = tuple.EditableOrder.ShippedDate;
+                    order.ShipVia = tuple.EditableOrder.ShipVia;
+                    order.Freight = tuple.EditableOrder.Freight;
+                    order.ShipName = tuple.EditableOrder.ShipName;
+                    order.ShipAddress = tuple.EditableOrder.ShipAddress;
+                    order.ShipCity = tuple.EditableOrder.ShipCity;
+                    order.ShipRegion = tuple.EditableOrder.ShipRegion;
+                    order.ShipPostalCode = tuple.EditableOrder.ShipPostalCode;
+                    order.ShipCountry = tuple.EditableOrder.ShipCountry;
                     orderRepository.Add(order);
                     orderRepository.Save();
+
+                    OrderDetailRepository orderDetailRepository = new OrderDetailRepository(dao);
+                    Order_Detail ordDet;
+                    foreach (EditableOrderDetail ed in tuple.EditableOrderDetList) {
+                        ordDet = new Order_Detail();
+                        ordDet.OrderID =order.OrderID;
+                        ordDet.ProductID = ed.ProductID;
+                        ordDet.UnitPrice = ed.UnitPrice;
+                        ordDet.Quantity = ed.Quantity;
+                        ordDet.Discount = ed.Discount;
+                        orderDetailRepository.Add(ordDet);
+                    }
+                    
+                    orderDetailRepository.Save();
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(edtOrder);
+                    return View(tuple);
                 }
             }
         }
@@ -98,8 +112,19 @@ namespace NorthWind.Controllers
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
                 Order order = orderRepository.GetOrder(id);
-                EditableOrder editableorder = new EditableOrder(order);
-                return View(editableorder);
+
+                EditableOrder eo = new EditableOrder(order);
+                List<EditableOrderDetail> eodList = new List<EditableOrderDetail>();
+                foreach(Order_Detail orD in order.Order_Details){
+                    eodList.Add(new EditableOrderDetail(orD));
+                }
+
+                TupleOrder tuple = new TupleOrder()
+                {
+                    EditableOrder = eo,
+                    EditableOrderDetList = eodList,
+                };
+                return View(tuple);
             }
         }
 
