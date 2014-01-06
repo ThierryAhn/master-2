@@ -21,5 +21,10 @@ namespace NorthWind.Models
         {
             db.Order_Details.Remove(od);
         }
+
+        public Order_Detail GetOrderDetail(int order, int product){
+            return db.Order_Details.SingleOrDefault(ord => ord.OrderID == order && ord.ProductID == product);
+        }
+
     }
 }
