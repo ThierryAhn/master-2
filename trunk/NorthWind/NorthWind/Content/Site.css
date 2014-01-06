@@ -263,6 +263,14 @@ table td {
     border: solid 1px #e8eef4;
 }
 
+.bold {
+    font-weight : bold;
+}
+
+.border_none td{
+    border : 0;
+}
+
 table th {
     padding: 6px 5px;
     text-align: left;

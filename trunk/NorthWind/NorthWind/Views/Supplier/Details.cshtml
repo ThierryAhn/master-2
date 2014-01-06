@@ -4,39 +4,43 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details du fournisseur</h2>
+<h2>Details du fournisseur : @Model.CompanyName</h2>
 
-<table>
+
+<table class="details_table" style="width:100%;">
     <tr>
-        <td>Id :</td>
+        <td class="bold" >Identifiant :</td>
         <td>@Model.SupplierID</td>
     </tr>
+    
     <tr>
-        <td>Nom de la compagnie :</td>
-        <td>@Model.CompanyName</td>
-    </tr>
-    <tr>
-        <td>Nom du contact :</td>
+        <td class="bold">Nom du contact :</td>
         <td>@Model.ContactName (@Model.ContactTitle)</td>
     </tr>
 
     <tr>
-        <td>Adresse de la compagnie :</td>
+        <td class="bold">Adresse de la compagnie :</td>
         <td>@Model.PostalCode , @Model.City ( @Model.Region ), @Model.Country</td>
     </tr>
 
     <tr>
-        <td>Téléphone :</td>
+        <td class="bold">Téléphone :</td>
         <td>@Model.Phone</td>
     </tr>
 
     <tr>
-        <td>Fax :</td>
+        <td class="bold">Fax :</td>
         <td>@Model.Fax</td>
     </tr>
 
-    <tr>
-        <td>Site :</td>
-        <td>@Model.HomePage</td>
-    </tr>
+    
+        @if (!Model.HomePage.IsEmpty())
+        {
+            <tr>
+                <td class="bold">Site web:</td>
+                <td>@Model.HomePage</td>
+            </tr>
+        }
+        
+   
 </table>
