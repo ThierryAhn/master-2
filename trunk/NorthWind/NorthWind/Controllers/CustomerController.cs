@@ -20,7 +20,7 @@ namespace NorthWind.Controllers
 
                 CustomerRepository customerRepository = new CustomerRepository(dao);
 
-                const int pageSize = 5;
+                const int pageSize = 4;
                 var upcomingCustomers = customerRepository.FindAllCustomers();
 
                 var paginatedCustomers = new PaginatedList<Customer>(upcomingCustomers, page ?? 0, pageSize);
