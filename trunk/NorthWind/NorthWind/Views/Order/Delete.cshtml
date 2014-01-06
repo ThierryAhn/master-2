@@ -1,0 +1,16 @@
+﻿@using NorthWind.Models
+
+@model Order
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Supprimer la commande</h2>
+
+@Html.ActionLink("Retourner à la liste des Commandes", "Index")
+
+@using (Html.BeginForm()) {
+    <p>Veuillez confirmer !</p>
+    
+    <input type="submit" value="Confirmer" />
+}

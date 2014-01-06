@@ -1,123 +1,148 @@
 ﻿@using NorthWind.Models
+@model TupleOrder
 
-@model EditableOrder
 @{
     ViewBag.Title = "Edit";
 }
+
+
+
+<script src="@Url.Content("~/Scripts/MicrosoftAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/MicrosoftMvcAjax.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Content/jquery-ui-1.10.3.custom.css")" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.9.1.js"></script>
 <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-<h2>Modifier cette commande</h2>
+<script>
+    function deleteline(buttonObj) {
+        var node = buttonObj.parentNode.parentNode;
+        node.parentNode.removeChild(node);
+    }
 
-@using (Html.BeginForm("/Order/Edit/"))
-{ 
+    $("a.deleteRow").live("click", function () {
+        $(this).parents("tr.editorRow:first").remove();
+        return false;
+    });
+</script>
+
+
+<h2>Modification de la commande</h2>
+
+@using (Html.BeginForm())
+{
     @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
 
-    <table style="border: none">
-        <tr>
-            <td>@Html.LabelFor(m => Model.CustomerID) : </td>
-            <td>
-                @Html.DropDownListFor(m => Model.CustomerID, Model.Customers)
-                @Html.ValidationMessageFor(m => Model.CustomerID)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.EmployeeID) : </td>
-            <td>
-                @Html.DropDownListFor(m => Model.EmployeeID, Model.Employees)
-                @Html.ValidationMessageFor(m => Model.EmployeeID)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.OrderDate) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.OrderDate, new { id = "datepicker1" })
-                <script>
-                    $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
-                </script>
-                @Html.ValidationMessageFor(m => Model.OrderDate)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.RequiredDate) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.RequiredDate, new { id = "datepicker2" })
-                <script>
-                    $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy' });
+    <fieldset>
+        <legend>Commande</legend>
 
-                </script>
-                @Html.ValidationMessageFor(m => Model.RequiredDate)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShippedDate) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ShippedDate, new { id = "datepicker3" })
-                <script>
-                    $("#datepicker3").datepicker({ dateFormat: 'dd/mm/yy' });
-                </script>
-                @Html.ValidationMessageFor(m => Model.ShippedDate)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShipVia) : </td>
-            <td>
-                @Html.DropDownListFor(m => Model.ShipVia, Model.Shippers)
-                @Html.ValidationMessageFor(m => Model.ShipVia)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.Freight) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Freight)
-                @Html.ValidationMessageFor(m => Model.Freight)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShipName) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ShipName)
-                @Html.ValidationMessageFor(m => Model.ShipName)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShipAddress) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ShipAddress)
-                @Html.ValidationMessageFor(m => Model.ShipAddress)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShipCity) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ShipCity)
-                @Html.ValidationMessageFor(m => Model.ShipCity)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShipRegion) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ShipRegion)
-                @Html.ValidationMessageFor(m => Model.ShipRegion)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShipPostalCode) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ShipPostalCode)
-                @Html.ValidationMessageFor(m => Model.ShipPostalCode)
-            </td>
-        </tr>
-        <tr>
-            <td>@Html.LabelFor(m => Model.ShipCountry) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ShipCountry)
-                @Html.ValidationMessageFor(m => Model.ShipCountry)
-            </td>
-        </tr>
-    </table>
-    <input id="submit" type="submit" value="Ajouter la commande" />
-    
+        <table class="border_none" style="width: 1100px">
+            <tr>
+                <td>@Html.LabelFor(m => Model.EditableOrder.CustomerID) : </td>
+                <td>
+                    @Html.DropDownListFor(m => Model.EditableOrder.CustomerID, Model.EditableOrder.Customers,new { @Selected = Model.EditableOrder.CustomerID})
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.CustomerID)
+                </td>
+                <td>@Html.LabelFor(m => Model.EditableOrder.EmployeeID) : </td>
+                <td>
+                    @Html.DropDownListFor(m => Model.EditableOrder.EmployeeID, Model.EditableOrder.Employees,new { @Selected = Model.EditableOrder.EmployeeID})
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.EmployeeID)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => Model.EditableOrder.OrderDate) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.OrderDate, new { id = "datepicker1"})
+                    <script>
+                        $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
+                    </script>
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.OrderDate)
+                </td>
+                <td>@Html.LabelFor(m => Model.EditableOrder.RequiredDate) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.RequiredDate, new { id = "datepicker2"})
+                    <script>
+                        $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy' });
+
+                    </script>
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.RequiredDate)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShippedDate) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.ShippedDate, new { id = "datepicker3"})
+                    <script>
+                        $("#datepicker3").datepicker({ dateFormat: 'dd/mm/yy' });
+                    </script>
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShippedDate)
+                </td>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShipVia) : </td>
+                <td>
+                    @Html.DropDownListFor(m => Model.EditableOrder.ShipVia, Model.EditableOrder.Shippers,new { @Selected = Model.EditableOrder.ShipVia})
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShipVia)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => Model.EditableOrder.Freight) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.Freight)
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.Freight)
+                </td>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShipName) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.ShipName)
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShipName)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShipAddress) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.ShipAddress)
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShipAddress)
+                </td>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShipCity) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.ShipCity)
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShipCity)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShipRegion) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.ShipRegion)
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShipRegion)
+                </td>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShipPostalCode) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.ShipPostalCode)
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShipPostalCode)
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(m => Model.EditableOrder.ShipCountry) : </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.EditableOrder.ShipCountry)
+                    @Html.ValidationMessageFor(m => Model.EditableOrder.ShipCountry)
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <fieldset>
+        <legend>Produit(s) de la commande</legend>
+        @{
+    Html.RenderPartial("OrderDetail", Model.EditableOrderDetList);
+        }
+    </fieldset>
+
+    <p>
+        <input id="submit" type="submit" value="Modifier la commande" />
+    </p>
 }
+
