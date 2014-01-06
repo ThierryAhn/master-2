@@ -18,16 +18,7 @@
             </div>
             <div id="menucontainer">
                 <ul id="menu">
-                    <li>@Html.ActionLink("Commandes", "Index", "Order")
-                        <ul id="sousMenu">
-                            <li>@Html.ActionLink("Ajouter une commande", "Create", "Order") </li>
-                            <li>@Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate", "Order") </li>
-                            <li>@Html.ActionLink("Prochaines commandes", "NextOrders", "Order")</li>
-                            <li>@Html.ActionLink("Vue par client", "ViewByClient", "Order")</li>
-                            <li>@Html.ActionLink("Vue par employee", "ViewByEmployee", "Order")</li>
-                            <li>@Html.ActionLink("Calendrier", "Index", "Calendar")</li>
-                        </ul>
-                    </li>
+                    <li>@Html.ActionLink("Commandes", "Index", "Order")</li>
                     <li>@Html.ActionLink("Produits", "Index", "Product")</li>
                     <li>@Html.ActionLink("Fournisseurs", "Index", "Supplier")</li>
                     <li>@Html.ActionLink("Clients", "Index", "Customer")</li>

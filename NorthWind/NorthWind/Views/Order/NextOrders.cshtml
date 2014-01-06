@@ -4,6 +4,14 @@
     ViewBag.Title = "NextOrders";
 }
 
+@Html.ActionLink("Ajouter une commande", "Create", "Order")
+@Html.ActionLink("Toutes les commandes", "AllOrdersSortedByDate", "Order")
+@Html.ActionLink("Prochaines commandes", "NextOrders", "Order")
+@Html.ActionLink("Vue par client", "ViewByClient", "Order")
+@Html.ActionLink("Vue par employee", "ViewByEmployee", "Order")
+@Html.ActionLink("Calendrier", "Index", "Calendar")
+<br />
+
 <h2>Prochaines commandes</h2>
 
 @{
