@@ -31,6 +31,7 @@ namespace NorthWind.Controllers
 
         }
 
+        [Authorize]
         public ActionResult Details(int id)
         {
             using (var dao = new Entities())
@@ -45,6 +46,7 @@ namespace NorthWind.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Create()
         {
             DateTime now = DateTime.Now;
@@ -66,7 +68,7 @@ namespace NorthWind.Controllers
             return View(tuple);
         }
 
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Create(TupleOrder tuple)
         {
             using (var dao = new Entities())
@@ -138,6 +140,7 @@ namespace NorthWind.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Edit(int id)
         {
             using (var dao = new Entities())
@@ -160,7 +163,7 @@ namespace NorthWind.Controllers
             }
         }
 
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Edit(TupleOrder tuple)
         {
             using (var dao = new Entities())
@@ -292,6 +295,7 @@ namespace NorthWind.Controllers
         }
 
         // GET Delete Product
+        [Authorize]
         public ActionResult Delete(int id)
         {
             using (var dao = new Entities())
@@ -309,7 +313,7 @@ namespace NorthWind.Controllers
         }
 
         // POST Delete Product
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Delete(int id, String action)
         {
             using (var dao = new Entities())
@@ -335,7 +339,7 @@ namespace NorthWind.Controllers
             return PartialView("OrderDetailLine", eod);
         }
 
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public void ExportToExcel(int[] checkBox)
         {
             List<Order> orders = new List<Order>();

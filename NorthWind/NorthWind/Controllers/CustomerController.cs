@@ -65,6 +65,7 @@ namespace NorthWind.Controllers
         }
 
         // Details
+        [Authorize]
         public ActionResult Details(String id)
         {
             using (var dao = new Entities())
@@ -77,13 +78,14 @@ namespace NorthWind.Controllers
 
 
         // GET Create Customer
+        [Authorize]
         public ActionResult Create()
         {
             return View(new EditableCustomer());
         }
 
         // POST Create Customer
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Create(EditableCustomer editableCustomer)
         {
             using (var dao = new Entities())
@@ -136,6 +138,7 @@ namespace NorthWind.Controllers
         }
 
         // GET Edit Customer
+        [Authorize]
         public ActionResult Edit(string id)
         {
             using (var dao = new Entities())
@@ -150,7 +153,7 @@ namespace NorthWind.Controllers
         }
 
         // POST Edit Customer
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Edit(EditableCustomer editableCustomer)
         {
             using (var dao = new Entities())
@@ -186,6 +189,7 @@ namespace NorthWind.Controllers
 
 
         // GET Delete Customer
+        [Authorize]
         public ActionResult Delete(String id)
         {
             using (var dao = new Entities())
@@ -203,7 +207,7 @@ namespace NorthWind.Controllers
         }
 
         // POST Delete Customer
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Delete(String id, String action)
         {
             using (var dao = new Entities())

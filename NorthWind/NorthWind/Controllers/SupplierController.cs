@@ -32,6 +32,7 @@ namespace NorthWind.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Details(int id)
         {
             using (var dao = new Entities())
@@ -43,13 +44,14 @@ namespace NorthWind.Controllers
         }
 
         // GET Create Supplier
+        [Authorize]
         public ActionResult Create()
         {
             return View(new EditableSupplier());
         }
 
         // GET Create Supplier
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Create(EditableSupplier editableSupplier)
         {
             using (var dao = new Entities())
@@ -85,6 +87,7 @@ namespace NorthWind.Controllers
 
 
         // GET Edit Supplier
+        [Authorize]
         public ActionResult Edit(int id)
         {
             using (var dao = new Entities())
@@ -99,7 +102,7 @@ namespace NorthWind.Controllers
         }
 
         // POST Edit Supplier
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Edit(EditableSupplier editableSupplier)
         {
             using (var dao = new Entities())
@@ -137,6 +140,7 @@ namespace NorthWind.Controllers
 
 
         // GET Delete Product
+        [Authorize]
         public ActionResult Delete(int id)
         {
             using (var dao = new Entities())
@@ -154,7 +158,7 @@ namespace NorthWind.Controllers
         }
 
         // POST Delete Product
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Delete(int id, String action)
         {
             using (var dao = new Entities())
