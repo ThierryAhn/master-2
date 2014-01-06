@@ -2,4 +2,12 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Delete</h2>
+<h2>Supprimer l'employé ?</h2>
+
+@Html.ActionLink("Retourner aux employés", "Index")
+
+@using (Html.BeginForm()) {
+    <p>Veuillez confirmer !</p>
+    
+    <input type="submit" value="Confirmer" />
+}

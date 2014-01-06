@@ -59,15 +59,66 @@ namespace NorthWind.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    /* using (MemoryStream ms = new MemoryStream())
+
+
+                    /* var fileName = Path.GetFileName(file.FileName);
+                    byte[] buf = new byte[file.ContentLength];*/
+                    
+                    /* var file = Request.Files["photoPath"];
+                   
+                    byte[] buf = null;
+                   
+                    using (MemoryStream ms = new MemoryStream())
                     {
                         file.InputStream.CopyTo(ms);
-                        byte[] array = ms.GetBuffer();
+                        buf = ms.GetBuffer();
                     }*/
 
-                    /* var file = Request.Files["photoPath"];
-                    var fileName = Path.GetFileName(file.FileName);
-                    byte[] buf = new byte[file.ContentLength];*/
+
+                    var file = Request.Files["photoPath"];
+
+                    byte[] buf = null;
+
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        file.InputStream.CopyTo(ms);
+                        buf = ms.GetBuffer();
+                        
+                    }
+
+
+                    /* byte[] buf = null;
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        buf = binaryReader.ReadBytes(file.ContentLength);
+                    }
+
+
+                    string myHex = String.Format("0x{0:X}", buf);
+                    //buf = System.Text.Encoding.ASCII.GetBytes(myHex);
+
+
+                    buf = System.Text.UTF8Encoding.ASCII.GetBytes(myHex);*/
+
+
+                    /* using (MemoryStream ms = new MemoryStream())
+                    {
+                        FileStream files = new FileStream("C:\\Users\\Folabi\\Documents\\Bluetooth Folder\\IMG_20140105_170756.jpg", FileMode.Open, FileAccess.Read);
+                        buf = new byte[files.Length];
+                        files.Read(buf, 0, (int)files.Length);
+                        ms.Write(buf, 0, (int)files.Length);
+                    }*/
+
+
+                    /* byte[] buf = new byte[] { };
+                    using (var binaryReader = new BinaryReader(file.InputStream))
+                    {
+                        buf = binaryReader.ReadBytes(file.ContentLength);
+                    }*/
+                    
+                    /* FileStream buf = new FileStream("C:\\Users\\Folabi\\Documents\\Bluetooth Folder\\IMG_20140105_170756.jpg", FileMode.Open, FileAccess.Read); //create a file stream object associate to user selected file 
+                    byte[] img = new byte[buf.Length]; //create a byte array with size of user select file stream length
+                    buf.Read(img, 0, Convert.ToInt32(buf.Length));//read user selected file stream in to byte array*/
 
 
                     EmployeeRepository employeeRepository = new EmployeeRepository(dao);
@@ -86,13 +137,14 @@ namespace NorthWind.Controllers
                     employee.Country = editableEmployee.Country;
                     employee.HomePhone = editableEmployee.HomePhone;
                     employee.Extension = editableEmployee.Extension;
-                    employee.Photo = null;
+                    employee.Photo = buf;
                     employee.Notes = editableEmployee.Notes;
                     employee.ReportsTo = editableEmployee.ReportsTo;
-                    employee.PhotoPath = null;
+                    
+                    employee.PhotoPath = "test";
 
 
-                    System.Diagnostics.Debug.WriteLine("employee.LastName " + employee.LastName);
+                    /* System.Diagnostics.Debug.WriteLine("employee.LastName " + employee.LastName);
                     System.Diagnostics.Debug.WriteLine("employee.FirstName " + employee.FirstName);
                     System.Diagnostics.Debug.WriteLine("employee.Title " + employee.Title);
                     System.Diagnostics.Debug.WriteLine("employee.TitleOfCourtesy " + employee.TitleOfCourtesy);
@@ -111,7 +163,7 @@ namespace NorthWind.Controllers
 
                     System.Diagnostics.Debug.WriteLine("employee.Photo " + employee.Photo);
                     System.Diagnostics.Debug.WriteLine("employee.ReportsTo " + employee.ReportsTo);
-                    System.Diagnostics.Debug.WriteLine("employee.PhotoPath " + employee.PhotoPath);
+                    System.Diagnostics.Debug.WriteLine("employee.PhotoPath " + employee.PhotoPath);*/
                     
                     employeeRepository.Add(employee);
                     employeeRepository.Save();
@@ -129,6 +181,43 @@ namespace NorthWind.Controllers
         }
 
 
+        // GET Delete Product
+        public ActionResult Delete(int id)
+        {
+            using (var dao = new Entities())
+            {
+                EmployeeRepository employeeRepository = new EmployeeRepository(dao);
+                Employee employee = employeeRepository.GetEmployee(id);
+
+                if (employee == null)
+                {
+                    return HttpNotFound();
+                }
+
+                return View(employee);
+            }
+        }
+
+        // POST Delete Product
+        [HttpPost]
+        public ActionResult Delete(int id, String action)
+        {
+            using (var dao = new Entities())
+            {
+                EmployeeRepository employeeRepository = new EmployeeRepository(dao);
+                Employee employee = employeeRepository.GetEmployee(id);
+
+                if (employee == null)
+                {
+                    return HttpNotFound();
+                }
+
+                employeeRepository.Delete(employee);
+                employeeRepository.Save();
+
+                return RedirectToAction("Index");
+            }
+        }
 
         public ActionResult GetImage(int id)
         {
@@ -139,10 +228,16 @@ namespace NorthWind.Controllers
                     EmployeeRepository employeeRepository = new EmployeeRepository(dao);
                     Employee employee = employeeRepository.GetEmployee(id);
                     var image = employee.Photo;
+
                     // 78 is the size of the OLE header for Northwind images
                     ms.Write(image, 78, image.Length - 78);
-
                     return File(ms.ToArray(), "image/jpeg");
+
+
+                    //ms.Write(image, 0, image.Length - 0);
+
+                    //System.Diagnostics.Debug.WriteLine("image : " + id + " --> " + ms.Length);
+                    //return File(ms.ToArray(), "image/jpeg", string.Format("{0}.jpeg", id));
                 }
             }
         }
