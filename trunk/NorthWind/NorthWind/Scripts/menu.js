@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    $("ul#menu li").hover(function () {
+    $("ul#menu li:first-child").hover(function () {
 
         $(this).parent().find("ul#sousMenu").slideDown('fast').show();
 
