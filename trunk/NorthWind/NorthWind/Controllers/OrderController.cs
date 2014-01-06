@@ -48,14 +48,18 @@ namespace NorthWind.Controllers
             int today = (int)now.DayOfWeek;
             int diffNowMonday = (7 - (today - 1)) % 7;
             DateTime nextMonday = now.AddDays(diffNowMonday);
+            
             EditableOrder eo = new EditableOrder();
             List<EditableOrderDetail> eodList = new List<EditableOrderDetail>();
+            
             TupleOrder tuple = new TupleOrder()
             {
                 EditableOrder = eo,
                 EditableOrderDetList = eodList,
             };
+            
             ViewData["nextMonday"] = nextMonday.ToShortDateString();
+            
             return View(tuple);
         }
 
@@ -81,12 +85,19 @@ namespace NorthWind.Controllers
                     order.ShipRegion = tuple.EditableOrder.ShipRegion;
                     order.ShipPostalCode = tuple.EditableOrder.ShipPostalCode;
                     order.ShipCountry = tuple.EditableOrder.ShipCountry;
+                    
                     orderRepository.Add(order);
                     orderRepository.Save();
 
                     OrderDetailRepository orderDetailRepository = new OrderDetailRepository(dao);
                     Order_Detail ordDet;
+
+                    System.Diagnostics.Debug.WriteLine("avant ");
+                    
                     foreach (EditableOrderDetail ed in tuple.EditableOrderDetList) {
+                        
+                        System.Diagnostics.Debug.WriteLine(" id : " +ed.ProductID);
+                        
                         ordDet = new Order_Detail();
                         ordDet.OrderID =order.OrderID;
                         ordDet.ProductID = ed.ProductID;
@@ -97,6 +108,7 @@ namespace NorthWind.Controllers
                     }
                     
                     orderDetailRepository.Save();
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -137,6 +149,7 @@ namespace NorthWind.Controllers
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
                     Order order = orderRepository.GetOrder(edtOrder.OrderID);
+                    
                     order.CustomerID = edtOrder.CustomerID;
                     order.EmployeeID = edtOrder.EmployeeID;
                     order.OrderDate = edtOrder.OrderDate;
@@ -150,6 +163,7 @@ namespace NorthWind.Controllers
                     order.ShipRegion = edtOrder.ShipRegion;
                     order.ShipPostalCode = edtOrder.ShipPostalCode;
                     order.ShipCountry = edtOrder.ShipCountry;
+                    
                     UpdateModel(order);
                     orderRepository.Save();
                     return RedirectToAction("Index");

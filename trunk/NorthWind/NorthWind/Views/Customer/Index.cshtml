@@ -13,13 +13,12 @@
 <br/>
 
 
-<table>
+<table style="width:100%;">
     <tr>
+        <th>Nom de la compagnie</th>
         <th>Nom du contact</th>
         <th>Fournisseur</th>
-        <th>Adresse</th>
         <th>Téléphone</th>
-        <th>Fax</th>
     </tr>
 
 
@@ -32,6 +31,7 @@
             {
                 <tr>
                     <td>@customer.CompanyName</td>
+                    <td>@customer.ContactName</td>
                     <td>
                         @{Dictionary<string, int> dico = new Dictionary<string, int>();}
                         @foreach (var pairSupplier in pairOfCustomer.Value)
@@ -49,10 +49,10 @@
                         @Html.ListBox("SuppliersOfClients", new SelectList(dico, "Value", "Key"), new { size = 5 })
                     </td>
 
-                    <td>@customer.PostalCode , @customer.City (@customer.Region), @customer.Country</td>
                     <td>@customer.Phone</td>
-                    <td>@customer.Fax</td>
-                      
+                    
+                    @* actions *@
+                    <td>@Html.ActionImage("Details", new {id = customer.CustomerID}, "~/Content/Images/detail.png", "Detail")</td>
                     <td>@Html.ActionImage("Edit", new {id = customer.CustomerID}, "~/Content/Images/edit.png", "Modifier")</td>
                     <td>@Html.ActionImage("Delete", new {id = customer.CustomerID}, "~/Content/Images/delete.png", "Supprimer")</td>
                 </tr>
