@@ -344,7 +344,6 @@ namespace NorthWind.Controllers
                 OrderRepository orderRepository = new OrderRepository(dao);
                 Order order;
 
-                int i = 1;
                 foreach (int id in checkBox)
                 {
                     order = orderRepository.GetOrder(id);
