@@ -53,7 +53,7 @@
             <td>
                 @Html.TextBoxFor(m => Model.BirthDate, new { id = "datepicker1" })
                 <script>
-                    $("#datepicker1").datepicker();
+                    $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
                 </script>
                 @Html.ValidationMessageFor(m => Model.BirthDate)
             </td>
@@ -64,7 +64,7 @@
             <td>
                 @Html.TextBoxFor(m => Model.HireDate, new { id = "datepicker2" })
                 <script>
-                    $("#datepicker2").datepicker();
+                    $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy' });
                 </script>
                 @Html.ValidationMessageFor(m => Model.HireDate)
             </td>
@@ -142,13 +142,13 @@
             </td>
         </tr>
 
-        @* <tr>
+        <tr>
             <td>@Html.LabelFor(m => Model.PhotoPath) : </td>
             <td>
-                <input type="file" name="photoPath" id="photoPath"/> *@
+                <input type="file" name="photoPath" id="photoPath"/>
                 @* @Html.ValidationMessageFor(m => Model.PhotoPath) *@
-            @*</td>
-        </tr> *@
+            </td>
+        </tr>
 
     </table>
     
