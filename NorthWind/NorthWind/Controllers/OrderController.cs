@@ -74,44 +74,47 @@ namespace NorthWind.Controllers
                 if (ModelState.IsValid)
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
-                    Order order = new Order();
-                    order.CustomerID = tuple.EditableOrder.CustomerID;
-                    order.EmployeeID = tuple.EditableOrder.EmployeeID;
-                    order.OrderDate = tuple.EditableOrder.OrderDate;
-                    order.RequiredDate = tuple.EditableOrder.RequiredDate;
-                    order.ShippedDate = tuple.EditableOrder.ShippedDate;
-                    order.ShipVia = tuple.EditableOrder.ShipVia;
-                    order.Freight = tuple.EditableOrder.Freight;
-                    order.ShipName = tuple.EditableOrder.ShipName;
-                    order.ShipAddress = tuple.EditableOrder.ShipAddress;
-                    order.ShipCity = tuple.EditableOrder.ShipCity;
-                    order.ShipRegion = tuple.EditableOrder.ShipRegion;
-                    order.ShipPostalCode = tuple.EditableOrder.ShipPostalCode;
-                    order.ShipCountry = tuple.EditableOrder.ShipCountry;
-                    
-                    //orderRepository.Add(order);
-                    //orderRepository.Save();
+                    Order ord = new Order()
+                    {
+                        OrderID = tuple.EditableOrder.OrderID,
+                        CustomerID = tuple.EditableOrder.CustomerID,
+                        EmployeeID = tuple.EditableOrder.EmployeeID,
+                        OrderDate = tuple.EditableOrder.OrderDate,
+                        RequiredDate = tuple.EditableOrder.RequiredDate,
+                        ShippedDate = tuple.EditableOrder.ShippedDate,
+                        ShipVia = tuple.EditableOrder.ShipVia,
+                        Freight = tuple.EditableOrder.Freight,
+                        ShipName = tuple.EditableOrder.ShipName,
+                        ShipAddress = tuple.EditableOrder.ShipAddress,
+                        ShipCity = tuple.EditableOrder.ShipCity,
+                        ShipRegion = tuple.EditableOrder.ShipRegion,
+                        ShipPostalCode = tuple.EditableOrder.ShipPostalCode,
+                        ShipCountry = tuple.EditableOrder.ShipCountry,
+                    };
+                    orderRepository.Add(ord);
+                    orderRepository.Save();
 
                     OrderDetailRepository orderDetailRepository = new OrderDetailRepository(dao);
-                    Order_Detail ordDet;
+                    List<Order_Detail> listOrderDetails = new List<Order_Detail>();
 
-                    System.Diagnostics.Debug.WriteLine("avant ");
-                    
-                    foreach (EditableOrderDetail ed in tuple.EditableOrderDetList) {
-                        
-                        System.Diagnostics.Debug.WriteLine(" id : " +ed.ProductID);
-                        
-                        ordDet = new Order_Detail();
-                        ordDet.OrderID =order.OrderID;
-                        ordDet.ProductID = ed.ProductID;
-                        ordDet.UnitPrice = ed.UnitPrice;
-                        ordDet.Quantity = ed.Quantity;
-                        ordDet.Discount = ed.Discount;
-                        
-                        //orderDetailRepository.Add(ordDet);
+                    foreach (EditableOrderDetail editOrdD in tuple.EditableOrderDetList)
+                    {
+                        Order_Detail ordD = new Order_Detail()
+                        {
+                            OrderID = ord.OrderID,
+                            ProductID = editOrdD.ProductID,
+                            UnitPrice = editOrdD.UnitPrice,
+                            Quantity = editOrdD.Quantity,
+                            Discount = editOrdD.Discount
+                        };
+                        listOrderDetails.Add(ordD);
                     }
-                    
-                    //orderDetailRepository.Save();
+
+                    foreach (Order_Detail od in listOrderDetails)
+                    {
+                        orderDetailRepository.Add(od);
+                        orderDetailRepository.Save();
+                    }
 
                     return RedirectToAction("Index");
                 }
@@ -145,36 +148,72 @@ namespace NorthWind.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(EditableOrder edtOrder)
+        public ActionResult Edit(TupleOrder tuple)
         {
             using (var dao = new Entities())
             {
                 if (ModelState.IsValid)
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
-                    Order order = orderRepository.GetOrder(edtOrder.OrderID);
-                    
-                    order.CustomerID = edtOrder.CustomerID;
-                    order.EmployeeID = edtOrder.EmployeeID;
-                    order.OrderDate = edtOrder.OrderDate;
-                    order.RequiredDate = edtOrder.RequiredDate;
-                    order.ShippedDate = edtOrder.ShippedDate;
-                    order.ShipVia = edtOrder.ShipVia;
-                    order.Freight = edtOrder.Freight;
-                    order.ShipName = edtOrder.ShipName;
-                    order.ShipAddress = edtOrder.ShipAddress;
-                    order.ShipCity = edtOrder.ShipCity;
-                    order.ShipRegion = edtOrder.ShipRegion;
-                    order.ShipPostalCode = edtOrder.ShipPostalCode;
-                    order.ShipCountry = edtOrder.ShipCountry;
-                    
-                    UpdateModel(order);
+                    Order ord = orderRepository.GetOrder(tuple.EditableOrder.OrderID);
+                    ord.CustomerID = tuple.EditableOrder.CustomerID;
+                    ord.EmployeeID = tuple.EditableOrder.EmployeeID;
+                    ord.OrderDate = tuple.EditableOrder.OrderDate;
+                    ord.RequiredDate = tuple.EditableOrder.RequiredDate;
+                    ord.ShippedDate = tuple.EditableOrder.ShippedDate;
+                    ord.ShipVia = tuple.EditableOrder.ShipVia;
+                    ord.Freight = tuple.EditableOrder.Freight;
+                    ord.ShipName = tuple.EditableOrder.ShipName;
+                    ord.ShipAddress = tuple.EditableOrder.ShipAddress;
+                    ord.ShipCity = tuple.EditableOrder.ShipCity;
+                    ord.ShipRegion = tuple.EditableOrder.ShipRegion;
+                    ord.ShipPostalCode = tuple.EditableOrder.ShipPostalCode;
+                    ord.ShipCountry = tuple.EditableOrder.ShipCountry;
                     orderRepository.Save();
+
+                    OrderDetailRepository orderDetailRepository = new OrderDetailRepository(dao);
+                    List<Order_Detail> odList = new List<Order_Detail>();
+
+                    foreach (EditableOrderDetail edtOd in tuple.EditableOrderDetList)
+                    {
+                        Order_Detail odTmp = orderDetailRepository.GetOrderDetail(tuple.EditableOrder.OrderID, edtOd.ProductID);
+                        if (odTmp != null)
+                        {
+                            odTmp.ProductID = edtOd.ProductID;
+                            odTmp.UnitPrice = edtOd.UnitPrice;
+                            odTmp.Quantity = edtOd.Quantity;
+                            odTmp.Discount = edtOd.Discount;
+                            odList.Add(odTmp);
+                            orderDetailRepository.Save();
+                        }
+                        else
+                        {
+                            Order_Detail odTmpBis = new Order_Detail()
+                            {
+                                OrderID = ord.OrderID,
+                                ProductID = edtOd.ProductID,
+                                UnitPrice = edtOd.UnitPrice,
+                                Quantity = edtOd.Quantity,
+                                Discount = edtOd.Discount
+                            };
+                            odList.Add(odTmpBis);
+                            orderDetailRepository.Add(odTmpBis);
+                            orderDetailRepository.Save();
+                        }
+                    }
+                    foreach (Order_Detail o in orderRepository.GetOrder(tuple.EditableOrder.OrderID).Order_Details)
+                    {
+                        if (!odList.Contains(o))
+                        {
+                            orderDetailRepository.Delete(o);
+                            orderDetailRepository.Save();
+                        }
+                    }
                     return RedirectToAction("Index");
                 }
                 else
                 {
-                    return View(edtOrder);
+                    return View(tuple);
                 }
             }
         }
