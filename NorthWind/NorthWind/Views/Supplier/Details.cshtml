@@ -7,7 +7,7 @@
 <h2>Details du fournisseur : @Model.CompanyName</h2>
 
 
-<table class="details_table" style="width:100%;">
+<table class="border_none" style="width:100%;">
     <tr>
         <td class="bold" >Identifiant :</td>
         <td>@Model.SupplierID</td>
@@ -20,7 +20,14 @@
 
     <tr>
         <td class="bold">Adresse de la compagnie :</td>
-        <td>@Model.PostalCode , @Model.City ( @Model.Region ), @Model.Country</td>
+
+        @if (Model.Region.IsEmpty())
+        {
+            <td>@Model.PostalCode , @Model.City, @Model.Country</td>
+        }else{
+            <td>@Model.PostalCode , @Model.City ( @Model.Region ), @Model.Country</td>
+        }
+        
     </tr>
 
     <tr>
@@ -28,19 +35,22 @@
         <td>@Model.Phone</td>
     </tr>
 
-    <tr>
-        <td class="bold">Fax :</td>
-        <td>@Model.Fax</td>
-    </tr>
 
+    @if (!Model.Fax.IsEmpty())
+    {
+        <tr>
+            <td class="bold">Fax :</td>
+            <td>@Model.Fax</td>
+        </tr>
+    }
     
-        @if (!Model.HomePage.IsEmpty())
-        {
-            <tr>
-                <td class="bold">Site web:</td>
-                <td>@Model.HomePage</td>
-            </tr>
-        }
+    @if (!Model.HomePage.IsEmpty())
+    {
+        <tr>
+            <td class="bold">Site web:</td>
+            <td>@Model.HomePage</td>
+        </tr>
+    }
         
    
 </table>
