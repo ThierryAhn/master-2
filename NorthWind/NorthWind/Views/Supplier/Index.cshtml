@@ -13,14 +13,11 @@
 <br/>
 
 
-<table>
+<table style="width:100%;">
     <tr>
         <th>Nom de la compagnie</th>
         <th>Nom du contact</th>
-        <th>Adresse</th>
         <th>Téléphone</th>
-        <th>Fax</th>
-        <th>Site web</th>
         <th>Nombre de produits</th>
     </tr>
 
@@ -31,14 +28,11 @@
             <td>@supplier.CompanyName</td>
             <td>@supplier.ContactName (@supplier.ContactTitle)</td>
 
-            @* <td>@Html.ActionLink(@supplier.ContactName, "Details", "Contact", new {id = product.CategoryID} , null) </td>*@
-
-            <td>@supplier.PostalCode , @supplier.City (@supplier.Region), @supplier.Country</td>
             <td>@supplier.Phone</td>
-            <td>@supplier.Fax</td>
-            <td>@supplier.HomePage</td>
             <td>@supplier.Products.Count()</td>
 
+            @* actions *@
+            <td>@Html.ActionImage("Details", new {id = supplier.SupplierID}, "~/Content/Images/detail.png", "Detail")</td>
             <td>@Html.ActionImage("Edit", new {id = supplier.SupplierID}, "~/Content/Images/edit.png", "Modifier")</td>
             <td>@Html.ActionImage("Delete", new {id = supplier.SupplierID}, "~/Content/Images/delete.png", "Supprimer")</td>
 
