@@ -27,14 +27,14 @@
         <tr>
             <td>@employee.LastName</td>
             <td>@employee.FirstName</td>
-            <td>@employee.Title</td>
             
             <td>@employee.BirthDate.Value.ToShortDateString()</td>
+            <td>@employee.Title</td>
             
-             <td>@employee.Orders.Count()</td>
+            <td>@employee.Orders.Count()</td>
             
             <td>@Html.ActionImage("Details", new {id = employee.EmployeeID}, "~/Content/Images/detail.png", "Detail")</td>
-            @* <td>@Html.ActionImage("Edit", new {id = employee.EmployeeID}, "~/Content/Images/edit.png", "Modifier")</td> *@
+            <td>@Html.ActionImage("Edit", new {id = employee.EmployeeID}, "~/Content/Images/edit.png", "Modifier")</td>
             <td>@Html.ActionImage("Delete", new {id = employee.EmployeeID}, "~/Content/Images/delete.png", "Supprimer")</td>
         </tr>
     }

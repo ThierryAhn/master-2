@@ -13,6 +13,9 @@ namespace NorthWind.Models
         public int EmployeeID { get; set; }
         [Display(Name = "Nom")]
         public string LastName { get; set; }
+
+        [MinLength(2, ErrorMessage = "Prenom au minimum 2 caractères")]
+        [MaxLength(10, ErrorMessage = "Prenom au maximum 10 caractères")]
         [Display(Name = "Prenom")]
         public string FirstName { get; set; }
         [Display(Name = "Poste")]
@@ -35,6 +38,7 @@ namespace NorthWind.Models
         public string Country { get; set; }
         [Display(Name = "Téléphone domicile")]
         public string HomePhone { get; set; }
+        [MaxLength(4, ErrorMessage = "Extension au maximum 4 caractères")]
         public string Extension { get; set; }
         public byte[] Photo { get; set; }
         [Display(Name = "Notes")]

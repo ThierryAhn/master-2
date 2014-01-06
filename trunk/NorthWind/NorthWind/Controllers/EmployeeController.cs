@@ -138,8 +138,6 @@ namespace NorthWind.Controllers
                     employee.ReportsTo = editableEmployee.ReportsTo;
                     employee.PhotoPath = null;
 
-                    employeeRepository.Add(employee);
-
                     UpdateModel(employee);
 
                     employeeRepository.Save();
