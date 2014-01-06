@@ -1,0 +1,37 @@
+﻿@using NorthWind.Models
+@model List<EditableOrderDetail>
+<script>
+    $("#addItem").click(function () {
+        $.ajax({
+            url: this.href,
+            cache: false,
+            success: function (html) { $("#orderDetails").append(html); }
+        });
+        return false;
+    });
+</script>
+
+
+
+<table id="orderDetails" style="width: 1100px">
+    <tr>
+        <th>Produit</th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Remise</th>
+    </tr>
+
+    @foreach (EditableOrderDetail eod in Model)
+    {
+        Html.RenderPartial("OrderDetailLine", eod);
+    }
+
+</table>
+<br />
+<br />
+@Ajax.ActionLink("Ajouter produit", "AddOrderDetailLine",
+            new AjaxOptions
+            {
+                UpdateTargetId = "orderDetails",
+                InsertionMode = InsertionMode.InsertAfter
+            })

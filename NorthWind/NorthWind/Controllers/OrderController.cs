@@ -44,7 +44,19 @@ namespace NorthWind.Controllers
 
         public ActionResult Create()
         {
-            return View(new EditableOrder());
+            DateTime now = DateTime.Now;
+            int today = (int)now.DayOfWeek;
+            int diffNowMonday = (7 - (today - 1)) % 7;
+            DateTime nextMonday = now.AddDays(diffNowMonday);
+            EditableOrder eo = new EditableOrder();
+            List<EditableOrderDetail> eodList = new List<EditableOrderDetail>();
+            TupleOrder tuple = new TupleOrder()
+            {
+                EditableOrder = eo,
+                EditableOrderDetList = eodList,
+            };
+            ViewData["nextMonday"] = nextMonday.ToShortDateString();
+            return View(tuple);
         }
 
         [HttpPost]
@@ -215,5 +227,12 @@ namespace NorthWind.Controllers
                 return RedirectToAction("Index");
             }
         }
+
+        public PartialViewResult AddOrderDetailLine()
+        {
+            EditableOrderDetail eod = new EditableOrderDetail();
+            return PartialView("OrderDetailLine", eod);
+        }
+
     }
 }

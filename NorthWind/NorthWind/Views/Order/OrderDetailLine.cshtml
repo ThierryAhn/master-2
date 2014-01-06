@@ -1,0 +1,30 @@
+﻿@using NorthWind.Models
+@using NorthWind.Helpers
+@model EditableOrderDetail
+@{
+    ViewBag.Title = "OrderDetailLine";
+}
+
+<tr class="editorRow">
+    @using (Html.BeginCollectionItem("EditableOrderDetail"))
+    {
+        @Html.HiddenFor(model => Model.OrderID)
+        <td>
+            @Html.DropDownListFor(model => Model.ProductID, Model.Products)
+            @Html.ValidationMessageFor(model => Model.ProductID)
+        </td>
+        <td>
+            @Html.TextBoxFor(model => Model.UnitPrice)
+            @Html.ValidationMessageFor(model => Model.UnitPrice)
+        </td>
+        <td>
+            @Html.TextBoxFor(model => Model.Quantity)
+            @Html.ValidationMessageFor(model => Model.Quantity)
+        </td>
+        <td>
+            @Html.TextBoxFor(model => Model.Discount)
+            @Html.ValidationMessageFor(model => Model.Discount)
+        </td>
+        <td><input type="image" src="../../Content/Images/delete.png" alt="Supprimer" onclick="deleteline(this)" /></td>
+    }
+</tr>
