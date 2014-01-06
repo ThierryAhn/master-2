@@ -3,9 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Objects;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace NorthWind.Controllers
 {
@@ -86,8 +89,8 @@ namespace NorthWind.Controllers
                     order.ShipPostalCode = tuple.EditableOrder.ShipPostalCode;
                     order.ShipCountry = tuple.EditableOrder.ShipCountry;
                     
-                    orderRepository.Add(order);
-                    orderRepository.Save();
+                    //orderRepository.Add(order);
+                    //orderRepository.Save();
 
                     OrderDetailRepository orderDetailRepository = new OrderDetailRepository(dao);
                     Order_Detail ordDet;
@@ -104,10 +107,11 @@ namespace NorthWind.Controllers
                         ordDet.UnitPrice = ed.UnitPrice;
                         ordDet.Quantity = ed.Quantity;
                         ordDet.Discount = ed.Discount;
-                        orderDetailRepository.Add(ordDet);
+                        
+                        //orderDetailRepository.Add(ordDet);
                     }
                     
-                    orderDetailRepository.Save();
+                    //orderDetailRepository.Save();
 
                     return RedirectToAction("Index");
                 }
@@ -271,6 +275,123 @@ namespace NorthWind.Controllers
         {
             EditableOrderDetail eod = new EditableOrderDetail();
             return PartialView("OrderDetailLine", eod);
+        }
+
+
+        public ActionResult ExportToExcel()
+        {
+            System.Diagnostics.Debug.WriteLine("export ");
+
+
+            var orders = new System.Data.DataTable("orders");
+            orders.Columns.Add("OrderID", typeof(int));
+            orders.Columns.Add("CustomerID", typeof(string));
+            orders.Columns.Add("EmployeeID", typeof(int));
+
+            orders.Columns.Add("OrderDate", typeof(DateTime));
+            orders.Columns.Add("RequiredDate", typeof(DateTime));
+            orders.Columns.Add("ShippedDate", typeof(DateTime));
+
+            orders.Columns.Add("ShipVia", typeof(int));
+            orders.Columns.Add("Freight", typeof(decimal));
+            
+            orders.Columns.Add("ShipName", typeof(string));
+            orders.Columns.Add("ShipAddress", typeof(string));
+            orders.Columns.Add("ShipCity", typeof(string));
+            orders.Columns.Add("ShipRegion", typeof(string));
+            orders.Columns.Add("ShipPostalCode", typeof(string));
+            orders.Columns.Add("ShipCountry", typeof(string));
+
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+                int i = 1;
+                foreach (Order order in orderRepository.FindAllOrders().Where(order => order.OrderID > 11074))
+                {
+
+                    try
+                    {
+                        orders.Rows.Add(i, order.OrderID);
+                        orders.Columns.Add(order.CustomerID);
+                        orders.Columns.Add("" + order.EmployeeID);
+                        orders.Columns.Add("" + order.OrderDate);
+                        orders.Columns.Add("" + order.RequiredDate);
+                        orders.Columns.Add("" + order.ShippedDate);
+                        orders.Columns.Add("" + order.ShipVia);
+                        orders.Columns.Add("" + order.Freight);
+                        orders.Columns.Add(order.ShipName);
+                        orders.Columns.Add(order.ShipAddress);
+                        orders.Columns.Add(order.ShipCity);
+                        orders.Columns.Add(order.ShipRegion);
+                        orders.Columns.Add(order.ShipPostalCode);
+                        orders.Columns.Add(order.ShipCountry);
+                        i++;
+                    }
+                    catch (System.Data.DuplicateNameException)
+                    {
+                        
+                    }
+
+
+                    
+                }
+
+            }
+
+            var grid = new GridView();
+            grid.DataSource = orders;
+            grid.DataBind();
+
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();
+
+
+            /* var products = new System.Data.DataTable("teste");
+            products.Columns.Add("col1", typeof(int));
+            products.Columns.Add("col2", typeof(string));
+
+            products.Rows.Add(1, "product 1");
+            products.Rows.Add(2, "product 2");
+            products.Rows.Add(3, "product 3");
+            products.Rows.Add(4, "product 4");
+            products.Rows.Add(5, "product 5");
+            products.Rows.Add(6, "product 6");
+            products.Rows.Add(7, "product 7");
+
+
+            var grid = new GridView();
+            grid.DataSource = products;
+            grid.DataBind();
+
+            Response.ClearContent();
+            Response.Buffer = true;
+            Response.AddHeader("content-disposition", "attachment; filename=MyExcelFile.xls");
+            Response.ContentType = "application/ms-excel";
+
+            Response.Charset = "";
+            StringWriter sw = new StringWriter();
+            HtmlTextWriter htw = new HtmlTextWriter(sw);
+
+            grid.RenderControl(htw);
+
+            Response.Output.Write(sw.ToString());
+            Response.Flush();
+            Response.End();*/
+
+            return RedirectToAction("Index");
         }
 
     }
