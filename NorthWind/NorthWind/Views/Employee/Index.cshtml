@@ -12,14 +12,13 @@
 <br/>
 <br/>
 
-<table>
+<table style="width:100%;">
 
     <tr>
         <th>Nom</th>
         <th>Prenom</th>
         <th>Date de naissance</th>
         <th>Poste</th>
-        <th>Photo</th>
         <th>Nombre de commandes</th>
     </tr>
 
@@ -28,16 +27,14 @@
         <tr>
             <td>@employee.LastName</td>
             <td>@employee.FirstName</td>
-            <td>@employee.BirthDate</td>
             <td>@employee.Title</td>
-            <td>
-                <img src='@Url.Action( "GetImage", "Employee", new { id = employee.EmployeeID } )' />
-            </td>
             
-            <td>@employee.Orders.Count()</td>
+            <td>@employee.BirthDate.Value.ToShortDateString()</td>
+            
+             <td>@employee.Orders.Count()</td>
             
             <td>@Html.ActionImage("Details", new {id = employee.EmployeeID}, "~/Content/Images/detail.png", "Detail")</td>
-            <td>@Html.ActionImage("Edit", new {id = employee.EmployeeID}, "~/Content/Images/edit.png", "Modifier")</td>
+            @* <td>@Html.ActionImage("Edit", new {id = employee.EmployeeID}, "~/Content/Images/edit.png", "Modifier")</td> *@
             <td>@Html.ActionImage("Delete", new {id = employee.EmployeeID}, "~/Content/Images/delete.png", "Supprimer")</td>
         </tr>
     }
