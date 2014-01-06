@@ -276,6 +276,10 @@ table th {
     clear: both;
 }
 
+.center {
+    text-align: center;
+}
+
 .error {
     color: Red;
 }

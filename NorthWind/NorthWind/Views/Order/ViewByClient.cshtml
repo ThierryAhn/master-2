@@ -10,7 +10,7 @@
 
     <tr>
         <th>Client</th>
-        <th>Numero Commande</th>
+        <th>Numéro</th>
         <th>Employé</th>
         <th>Expéditeur</th>
         <th>Date de Commande</th>
@@ -34,22 +34,26 @@
                     {
                         <tr>
                             <td rowspan="@listOrderTmp.Count">@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new { id = order.CustomerID }, null)</td>
-                            <td>@Html.ActionLink(@ord.OrderID.ToString(), "Details", "Order", new { id = ord.OrderID }, null)</td>
+                            <td class="center">@ord.OrderID</td>
                             <td>@Html.ActionLink(@ord.Employee.FirstName + " " + @ord.Employee.LastName, "Details", "Employee", new { id = ord.EmployeeID }, null)</td>
-                            <td>@ord.Shipper.CompanyName</td>
-                            <td>@ord.OrderDate.Value.ToShortDateString()</td>
-                            <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new { id = ord.OrderID }, null)</td>
+                            <td>@Html.ActionLink(@order.Shipper.CompanyName, "Details", "Shipper", new { id = order.ShipVia }, null)</td>
+                            <td class="center">@ord.OrderDate.Value.ToShortDateString()</td>
+                            <td>@Html.ActionLink("Detail cette commande", "Details", "Order", new { id = ord.OrderID }, null)</td>
+                            <td>@Html.ActionImage("Edit", new {id = order.OrderID}, "~/Content/Images/edit.png", "Modifier")</td>
+                            <td>@Html.ActionImage("Delete", new {id = order.OrderID}, "~/Content/Images/delete.png", "Supprimer")</td>
                         </tr>
                         first = false;
                     }
                     else
                     {
                     <tr>
-                        <td>@Html.ActionLink(@ord.OrderID.ToString(), "Details", "Order", new { id = ord.OrderID }, null)</td>
+                        <td class="center">@ord.OrderID</td>
                         <td>@Html.ActionLink(@ord.Employee.FirstName + " " + @ord.Employee.LastName, "Details", "Employee", new { id = ord.EmployeeID }, null)</td>
-                        <td>@ord.Shipper.CompanyName</td>
-                        <td>@ord.OrderDate.Value.ToShortDateString()</td>
-                        <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new { id = ord.OrderID }, null)</td>
+                        <td>@Html.ActionLink(@order.Shipper.CompanyName, "Details", "Shipper", new { id = order.ShipVia }, null)</td>
+                        <td class="center">@ord.OrderDate.Value.ToShortDateString()</td>
+                        <td>@Html.ActionLink("Details", "Details", "Order", new { id = ord.OrderID }, null)</td>
+                        <td>@Html.ActionImage("Edit", new {id = order.OrderID}, "~/Content/Images/edit.png", "Modifier")</td>
+                        <td>@Html.ActionImage("Delete", new {id = order.OrderID}, "~/Content/Images/delete.png", "Supprimer")</td>
                     </tr>
                     }
                 }

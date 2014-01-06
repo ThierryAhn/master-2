@@ -17,14 +17,12 @@ namespace NorthWind.Controllers
             using (var dao = new Entities())
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
-
                 const int pageSize = 10;
                 var upcomingOrders = orderRepository.FindAllOrders().OrderBy(ord => ord.OrderID);
                 var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
                 ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
                 ViewBag.HasNextPage = paginatedOrders.HasNextPage;
                 ViewBag.PageIndex = (page ?? 0);
-
                 return View(paginatedOrders);
             }
 
@@ -36,12 +34,10 @@ namespace NorthWind.Controllers
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
                 Order order = orderRepository.GetOrder(id);
-
                 ViewData["customerName"] = order.Employee.FirstName + " " + order.Employee.LastName;
                 ViewData["clientName"] = order.Customer.CompanyName;
                 ViewData["phone"] = order.Shipper.Phone;
                 ViewData["shipVia"] = order.Shipper.CompanyName;
-
                 return View(order);
             }
         }
@@ -60,12 +56,9 @@ namespace NorthWind.Controllers
                 {
                     OrderRepository orderRepository = new OrderRepository(dao);
                     Order order = new Order();
-
                     order.CustomerID = edtOrder.CustomerID;
                     order.EmployeeID = edtOrder.EmployeeID;
                     order.OrderDate = edtOrder.OrderDate;
-
-
                     order.RequiredDate = edtOrder.RequiredDate;
                     order.ShippedDate = edtOrder.ShippedDate;
                     order.ShipVia = edtOrder.ShipVia;
@@ -76,24 +69,8 @@ namespace NorthWind.Controllers
                     order.ShipRegion = edtOrder.ShipRegion;
                     order.ShipPostalCode = edtOrder.ShipPostalCode;
                     order.ShipCountry = edtOrder.ShipCountry;
-
-                    System.Diagnostics.Debug.Write("CustomerID: " + order.CustomerID + "\n"
-                                + "EmployeeID: " + order.EmployeeID + "\n"
-                                + "OrderDate: " + order.OrderDate + "\n"
-                                + "RequiredDate: " + order.RequiredDate + "\n"
-                                + "ShippedDate: " + order.ShippedDate + "\n"
-                                + "ShipVia: " + order.ShipVia + "\n"
-                                + "Freight: " + order.Freight + "\n"
-                                + "ShipName: " + order.ShipName + "\n"
-                                + "ShipAddress: " + order.ShipAddress + "\n"
-                                + "ShipCity: " + order.ShipCity + "\n"
-                                + "ShipRegion: " + order.ShipRegion + "\n"
-                                + "ShipPostalCode: " + order.ShipPostalCode + "\n"
-                                + "ShipCountry: " + order.ShipCountry + "\n");
-
                     orderRepository.Add(order);
                     orderRepository.Save();
-                    
                     return RedirectToAction("Index");
                 }
                 else
@@ -114,19 +91,50 @@ namespace NorthWind.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Edit(EditableOrder edtOrder)
+        {
+            using (var dao = new Entities())
+            {
+                if (ModelState.IsValid)
+                {
+                    OrderRepository orderRepository = new OrderRepository(dao);
+                    Order order = orderRepository.GetOrder(edtOrder.OrderID);
+                    order.CustomerID = edtOrder.CustomerID;
+                    order.EmployeeID = edtOrder.EmployeeID;
+                    order.OrderDate = edtOrder.OrderDate;
+                    order.RequiredDate = edtOrder.RequiredDate;
+                    order.ShippedDate = edtOrder.ShippedDate;
+                    order.ShipVia = edtOrder.ShipVia;
+                    order.Freight = edtOrder.Freight;
+                    order.ShipName = edtOrder.ShipName;
+                    order.ShipAddress = edtOrder.ShipAddress;
+                    order.ShipCity = edtOrder.ShipCity;
+                    order.ShipRegion = edtOrder.ShipRegion;
+                    order.ShipPostalCode = edtOrder.ShipPostalCode;
+                    order.ShipCountry = edtOrder.ShipCountry;
+                    UpdateModel(order);
+                    orderRepository.Save();
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return View(edtOrder);
+                }
+            }
+        }
+
         public ActionResult AllOrdersSortedByDate(int? page)
         {
             using (var dao = new Entities())
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
-
                 const int pageSize = 10;
                 var upcomingOrders = orderRepository.FindAllOrders().OrderByDescending(ord => ord.OrderDate);
                 var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
                 ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
                 ViewBag.HasNextPage = paginatedOrders.HasNextPage;
                 ViewBag.PageIndex = (page ?? 0);
-
                 return View(paginatedOrders);
             }
         }
@@ -136,14 +144,10 @@ namespace NorthWind.Controllers
             using (var dao = new Entities())
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
-
                 const int pageSize = 10;
-
                  var upcomingOrders = orderRepository.FindAllOrders().Where(order => order.OrderDate >= DateTime.Now)
                                                                     .Where(order => order.OrderDate <= EntityFunctions.AddDays(DateTime.Now, 7))
                                                                     .OrderBy(ord => ord.OrderDate);
-
-
                 var paginatedOrders = new PaginatedList<Order>(upcomingOrders, page ?? 0, pageSize);
                 ViewBag.HasPreviousPage = paginatedOrders.HasPreviousPage;
                 ViewBag.HasNextPage = paginatedOrders.HasNextPage;
@@ -158,9 +162,7 @@ namespace NorthWind.Controllers
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
                 List<Order> orders = orderRepository.FindAllOrders().ToList();
-
                 var ords = (from order in orders orderby order.CustomerID ascending select order).ToList();
-
                 return View(ords);
             }
         }
@@ -171,55 +173,47 @@ namespace NorthWind.Controllers
             {
                 OrderRepository orderRepository = new OrderRepository(dao);
                 List<Order> orders = orderRepository.FindAllOrders().ToList();
-
                 var ords = (from order in orders orderby order.EmployeeID ascending select order).ToList();
-
                 return View(ords);
             }
         }
-        
-        //public ActionResult CalendarView()
-        //{
-        //    return View();
-        //}
 
-        //public JsonResult GetEvents(double start, double end)
-        //{
-        //    using (var dao = new Entities())
-        //    {
-        //        var events = new List<CalendarEvent>();
-        //        var dtstart = ConvertFromUnixTimestamp(start);
-        //        var dtend = ConvertFromUnixTimestamp(end);
+        // GET Delete Product
+        public ActionResult Delete(int id)
+        {
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+                Order order = orderRepository.GetOrder(id);
 
-        //        OrderRepository orderRepository = new OrderRepository(dao);
-        //        List<Order> ol = orderRepository.FindAllOrders().ToList();
-        //        var onCalls = from p in ol
-        //                      select new { p.OrderID, p.ShippedDate, p.Customer.CompanyName };
+                if (order == null)
+                {
+                    return HttpNotFound();
+                }
 
-        //        DateTime currStart;
-        //        DateTime currEnd;
-        //        foreach (var p in onCalls)
-        //        {
-        //            currStart = Convert.ToDateTime(p.ShippedDate);
-        //            currEnd = Convert.ToDateTime(p.ShippedDate);
-        //            events.Add(new CalendarEvent()
-        //            {
-        //                id = p.OrderID.ToString(),
-        //                title = p.CompanyName,
-        //                start = p.ShippedDate.ToString(),
-        //                end = p.ShippedDate.ToString(),
-        //                url = "/Order/Details/" + p.OrderID
-        //            });
-        //        }
-        //        var rows = events.ToArray();
-        //        return Json(rows, JsonRequestBehavior.AllowGet);
-        //    }
-        //}
+                return View(order);
+            }
+        }
 
-        //private static DateTime ConvertFromUnixTimestamp(double timetamp)
-        //{
-        //    var origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-        //    return origin.AddSeconds(timetamp);
-        //}
+        // POST Delete Product
+        [HttpPost]
+        public ActionResult Delete(int id, String action)
+        {
+            using (var dao = new Entities())
+            {
+                OrderRepository orderRepository = new OrderRepository(dao);
+                Order order = orderRepository.GetOrder(id);
+
+                if (order == null)
+                {
+                    return HttpNotFound();
+                }
+
+                orderRepository.Delete(order);
+                orderRepository.Save();
+
+                return RedirectToAction("Index");
+            }
+        }
     }
 }
