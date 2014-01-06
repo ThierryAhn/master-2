@@ -59,21 +59,65 @@ namespace NorthWind.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    var file = Request.Files["photoPath"];
-                    //byte[] buf = new byte[file.ContentLength];
-
-                    var fileName = Path.GetFileName(file.FileName);
-
-
                     /* using (MemoryStream ms = new MemoryStream())
                     {
                         file.InputStream.CopyTo(ms);
                         byte[] array = ms.GetBuffer();
                     }*/
 
+                    /* var file = Request.Files["photoPath"];
+                    var fileName = Path.GetFileName(file.FileName);
+                    byte[] buf = new byte[file.ContentLength];*/
 
 
-                    System.Diagnostics.Debug.WriteLine("photo " + fileName);
+                    EmployeeRepository employeeRepository = new EmployeeRepository(dao);
+                    Employee employee = new Employee();
+
+                    employee.LastName = editableEmployee.LastName;
+                    employee.FirstName = editableEmployee.FirstName;
+                    employee.Title = editableEmployee.Title;
+                    employee.TitleOfCourtesy = editableEmployee.TitleOfCourtesy;
+                    employee.BirthDate = editableEmployee.BirthDate;
+                    employee.HireDate = editableEmployee.HireDate;
+                    employee.Address = editableEmployee.Address;
+                    employee.City = editableEmployee.City;
+                    employee.Region = editableEmployee.Region;
+                    employee.PostalCode = editableEmployee.PostalCode;
+                    employee.Country = editableEmployee.Country;
+                    employee.HomePhone = editableEmployee.HomePhone;
+                    employee.Extension = editableEmployee.Extension;
+                    employee.Photo = null;
+                    employee.Notes = editableEmployee.Notes;
+                    employee.ReportsTo = editableEmployee.ReportsTo;
+                    employee.PhotoPath = null;
+
+
+                    System.Diagnostics.Debug.WriteLine("employee.LastName " + employee.LastName);
+                    System.Diagnostics.Debug.WriteLine("employee.FirstName " + employee.FirstName);
+                    System.Diagnostics.Debug.WriteLine("employee.Title " + employee.Title);
+                    System.Diagnostics.Debug.WriteLine("employee.TitleOfCourtesy " + employee.TitleOfCourtesy);
+                    System.Diagnostics.Debug.WriteLine("employee.BirthDate " + employee.BirthDate);
+                    System.Diagnostics.Debug.WriteLine("employee.HireDate " + employee.HireDate);
+                    System.Diagnostics.Debug.WriteLine("employee.Address " + employee.Address);
+
+                    System.Diagnostics.Debug.WriteLine("employee.City " + employee.City);
+                    System.Diagnostics.Debug.WriteLine("employee.Region " + employee.Region);
+                    System.Diagnostics.Debug.WriteLine("employee.PostalCode " + employee.PostalCode);
+
+                    System.Diagnostics.Debug.WriteLine("employee.Country " + employee.Country);
+                    System.Diagnostics.Debug.WriteLine("employee.HomePhone " + employee.HomePhone);
+                    System.Diagnostics.Debug.WriteLine("employee.Extension " + employee.Extension);
+                    System.Diagnostics.Debug.WriteLine("employee.Notes " + employee.Notes);
+
+                    System.Diagnostics.Debug.WriteLine("employee.Photo " + employee.Photo);
+                    System.Diagnostics.Debug.WriteLine("employee.ReportsTo " + employee.ReportsTo);
+                    System.Diagnostics.Debug.WriteLine("employee.PhotoPath " + employee.PhotoPath);
+                    
+                    employeeRepository.Add(employee);
+                    employeeRepository.Save();
+
+
+                    //System.Diagnostics.Debug.WriteLine("photo " + String.Format("{0,10:X}", buf));
 
                     return RedirectToAction("Index");
                 }

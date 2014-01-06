@@ -11,7 +11,7 @@
 
 <h2>Creer un nouveau employé</h2>
 
-@using (Html.BeginForm("/Employee/Create/"))
+@using (Html.BeginForm("Create", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
     
@@ -142,12 +142,13 @@
             </td>
         </tr>
 
-        <tr>
+        @* <tr>
             <td>@Html.LabelFor(m => Model.PhotoPath) : </td>
             <td>
-                <input type="file" name="photoPath" id="photoPath"/>
-            </td>
-        </tr>
+                <input type="file" name="photoPath" id="photoPath"/> *@
+                @* @Html.ValidationMessageFor(m => Model.PhotoPath) *@
+            @*</td>
+        </tr> *@
 
     </table>
     

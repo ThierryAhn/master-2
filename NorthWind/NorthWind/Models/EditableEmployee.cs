@@ -67,7 +67,6 @@ namespace NorthWind.Models
             this.Notes = employee.Notes;
             this.ReportsTo = employee.ReportsTo;
             this.PhotoPath = employee.PhotoPath;
-
         }
 
     }
