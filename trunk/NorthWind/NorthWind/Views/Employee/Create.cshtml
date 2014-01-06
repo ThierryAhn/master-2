@@ -15,142 +15,139 @@
 {
     @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
     
-    <table style="border: none">
-        <tr>
-            <td>@Html.LabelFor(m => Model.LastName) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.LastName)
-                @Html.ValidationMessageFor(m => Model.LastName)
-            </td>
-        </tr>
+    <fieldset>
+        <legend>Identité</legend>
+        <table class="border_none">
+            <tr>
+                <td>@Html.LabelFor(m => Model.TitleOfCourtesy) : </td>
+                <td>@Html.LabelFor(m => Model.LastName) : </td>
+                <td>@Html.LabelFor(m => Model.FirstName) : </td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(m => Model.TitleOfCourtesy)</td>
+                <td>@Html.TextBoxFor(m => Model.LastName)</td>
+                <td>@Html.TextBoxFor(m => Model.FirstName)</td>
+            <tr>
+            <tr>
+                <td>@Html.ValidationMessageFor(m => Model.TitleOfCourtesy)</td>
+                <td>@Html.ValidationMessageFor(m => Model.LastName)</td>
+                <td>@Html.ValidationMessageFor(m => Model.FirstName)</td>
+                
+            </tr>
+        </table>
 
-        <tr>
-            <td>@Html.LabelFor(m => Model.FirstName) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.FirstName)
-                @Html.ValidationMessageFor(m => Model.FirstName)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Title) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Title)
-                @Html.ValidationMessageFor(m => Model.Title)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.TitleOfCourtesy) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.TitleOfCourtesy)
-                @Html.ValidationMessageFor(m => Model.TitleOfCourtesy)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.BirthDate) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.BirthDate, new { id = "datepicker1" })
-                <script>
-                    $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
-                </script>
-                @Html.ValidationMessageFor(m => Model.BirthDate)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.HireDate) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.HireDate, new { id = "datepicker2" })
-                <script>
-                    $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy' });
-                </script>
-                @Html.ValidationMessageFor(m => Model.HireDate)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Address) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Address)
-                @Html.ValidationMessageFor(m => Model.Address)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.City) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.City)
-                @Html.ValidationMessageFor(m => Model.City)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Region) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Region)
-                @Html.ValidationMessageFor(m => Model.Region)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.PostalCode) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.PostalCode)
-                @Html.ValidationMessageFor(m => Model.PostalCode)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Country) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Country)
-                @Html.ValidationMessageFor(m => Model.Country)
-            </td>
-        </tr>
-        
-        <tr>
-            <td>@Html.LabelFor(m => Model.HomePhone) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.HomePhone)
-                @Html.ValidationMessageFor(m => Model.HomePhone)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Extension) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Extension)
-                @Html.ValidationMessageFor(m => Model.Extension)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Notes) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Notes)
-                @Html.ValidationMessageFor(m => Model.Notes)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.ReportsTo) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ReportsTo)
-                @Html.ValidationMessageFor(m => Model.ReportsTo)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.PhotoPath) : </td>
-            <td>
-                <input type="file" name="photoPath" id="photoPath"/>
-                @* @Html.ValidationMessageFor(m => Model.PhotoPath) *@
-            </td>
-        </tr>
-
-    </table>
+    </fieldset>
     
+    
+    <fieldset>
+        <legend>Dates de naissance et d'embauche</legend>
+        <table class="border_none">
+            <tr>
+                <td>@Html.LabelFor(m => Model.Title) : </td>
+                <td>@Html.LabelFor(m => Model.BirthDate) : </td>
+                <td>@Html.LabelFor(m => Model.HireDate) : </td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(m => Model.Title)</td>
+                <td>
+                    @Html.TextBoxFor(m => Model.BirthDate, new { id = "datepicker1" })
+                    <script>
+                        $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
+                    </script>
+                </td>
+                <td>
+                    @Html.TextBoxFor(m => Model.HireDate, new { id = "datepicker2" })
+                    <script>
+                        $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy' });
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationMessageFor(m => Model.Title)</td>
+                <td>@Html.ValidationMessageFor(m => Model.BirthDate)</td>
+                <td>@Html.ValidationMessageFor(m => Model.HireDate)</td>
+            </tr>
+        </table>
+
+    </fieldset>
+    
+    <fieldset>
+            <legend>Adresse</legend>
+        
+            <table class="border_none">
+                <tr>
+                    <td>@Html.LabelFor(m => Model.Address)</td>
+                    <td>@Html.LabelFor(m => Model.City)</td>
+                    <td>@Html.LabelFor(m => Model.PostalCode)</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.TextBoxFor(m => Model.Address)</td>
+                    <td>@Html.TextBoxFor(m => Model.City)</td>
+                    <td>@Html.TextBoxFor(m => Model.PostalCode)</td>
+                </tr>
+            
+                <tr>
+                    <td>@Html.ValidationMessageFor(m => Model.Address)</td>
+                    <td>@Html.ValidationMessageFor(m => Model.City)</td>
+                    <td>@Html.ValidationMessageFor(m => Model.PostalCode)</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.LabelFor(m => Model.Region)</td>
+                    <td>@Html.LabelFor(m => Model.Country)</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.TextBoxFor(m => Model.Region)</td>
+                    <td>@Html.TextBoxFor(m => Model.Country)</td>
+                </tr>
+            
+                <tr>
+                    <td>@Html.ValidationMessageFor(m => Model.Region)</td>
+                    <td>@Html.ValidationMessageFor(m => Model.Country)</td>
+                </tr>
+            </table>
+
+        
+        </fieldset>
+        
+        <fieldset>
+            <legend>Autres infos</legend>
+            <table class="border_none">
+
+                <tr>
+                    <td>@Html.LabelFor(m => Model.HomePhone) : </td>
+                    <td>@Html.LabelFor(m => Model.Extension) : </td>
+                    <td>@Html.LabelFor(m => Model.ReportsTo) : </td>
+                </tr>
+
+                <tr>
+                    <td>@Html.TextBoxFor(m => Model.HomePhone)</td>
+                    <td>@Html.TextBoxFor(m => Model.Extension)</td>
+                    <td>@Html.TextBoxFor(m => Model.ReportsTo)</td>
+                </tr>
+
+                <tr>
+                    <td>@Html.ValidationMessageFor(m => Model.HomePhone)</td>
+                    <td>@Html.ValidationMessageFor(m => Model.Extension)</td>
+                    <td>@Html.ValidationMessageFor(m => Model.ReportsTo)</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">@Html.LabelFor(m => Model.Notes) : </td>
+                </tr>
+                <tr>
+                    <td colspan="3">@Html.TextAreaFor(m => Model.Notes)</td>
+                </tr>
+
+                <tr>
+                    <td colspan="3">@Html.ValidationMessageFor(m => Model.Notes)</td>
+                </tr>
+
+
+            </table>
+        </fieldset>
+        
     <input type="submit" value="Creer" />
 }

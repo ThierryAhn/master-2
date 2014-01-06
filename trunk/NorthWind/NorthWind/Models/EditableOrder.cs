@@ -36,6 +36,8 @@ namespace NorthWind.Models
         [Display(Name = "Ship Country")]
         public string ShipCountry { get; set; }
 
+        public bool isSelected { get; set; }
+
         public EditableOrder(Order order)
         {
             this.OrderID = order.OrderID;
@@ -53,6 +55,7 @@ namespace NorthWind.Models
             this.ShipRegion = order.ShipRegion;
             this.ShipPostalCode = order.ShipPostalCode;
             this.ShipCountry = order.ShipCountry;
+            this.isSelected = false;
         }
 
         public EditableOrder(){ }
