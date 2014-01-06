@@ -8,7 +8,6 @@ namespace NorthWind.Models
 {
     public class EditableCustomer
     {
-        [Display(Name = "Identifiant")]
         public string CustomerID { get; set; }
         [Display(Name = "Nom de la compagnie")]
         public string CompanyName { get; set; }

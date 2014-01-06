@@ -35,10 +35,7 @@ namespace NorthWind.Controllers
                 
                 foreach (Customer customer in customerRepository.FindAllCustomers())
                 {
-                    System.Diagnostics.Debug.WriteLine("map " + customer.CustomerID);
-
-
-
+                    
                     Dictionary<Dictionary<string, int>, int> suppliersWithNumberOfProducts = new Dictionary<Dictionary<string, int>, int>();
                     foreach(Supplier supplier in customerRepository.GetSupplierOfCustomer(customer.CustomerID))
                     {
@@ -47,8 +44,6 @@ namespace NorthWind.Controllers
                         Dictionary<string, int> supplierNameWithId = new Dictionary<string, int>();
                         supplierNameWithId.Add(supplier.CompanyName, supplier.SupplierID);
 
-
-                        /* System.Diagnostics.Debug.WriteLine("--> " + supplier.CompanyName + " = " + supplier.Products.Count()); */
                         if (suppliersWithNumberOfProducts.ContainsKey(supplierNameWithId))
                         {
                             suppliersWithNumberOfProducts[supplierNameWithId] = suppliersWithNumberOfProducts[supplierNameWithId] + 1;
@@ -63,34 +58,11 @@ namespace NorthWind.Controllers
                     supplierOfCustomer.Add(customer.CustomerID, suppliersWithNumberOfProducts);
                 }
                 
-               
-               /* foreach (var pair in supplierOfCustomer)
-                    {
-                        foreach(Supplier supplier in pair.Value)
-                            {
-                                System.Diagnostics.Debug.WriteLine("--> " + supplier.Products.Count());
-                            }   
-                        
-                    }*/
-            
-
-
-                
                 ViewBag.supplierOfCustomer = supplierOfCustomer;
 
                 return View(paginatedCustomers);
             }
         }
-
-        /* public Supplier GetSupplierOfCustomer(string id)
-        {
-            using (var dao = new Entities())
-            {
-                CustomerRepository customerRepository = new CustomerRepository(dao);
-
-                return customerRepository.GetSupplierOfCustomer(id).Single();
-            }
-        }*/
 
         // Details
         public ActionResult Details(String id)
@@ -121,7 +93,25 @@ namespace NorthWind.Controllers
                     CustomerRepository customerRepository = new CustomerRepository(dao);
                     Customer customer = new Customer();
 
-                    customer.CustomerID = editableCustomer.CustomerID;
+
+                    // génération aléatoire de l'identifiant
+                    string id = customerRepository.FindAllCustomers().ToList().First().CustomerID;
+                    do
+                    {
+                        Random random = new Random();
+                        string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                        char[] buffer = new char[5];
+                        for (int i = 0; i < 5; i++)
+                        {
+                            buffer[i] = chars[random.Next(chars.Length)];
+                        }
+                        id = new string(buffer);
+                        System.Diagnostics.Debug.WriteLine("id int: " + id);
+                    } while (customerRepository.GetCustomer(id) != null);
+
+
+
+                    customer.CustomerID = id;
                     customer.CompanyName = editableCustomer.CompanyName;
                     customer.ContactName = editableCustomer.ContactName;
                     customer.ContactTitle = editableCustomer.ContactTitle;

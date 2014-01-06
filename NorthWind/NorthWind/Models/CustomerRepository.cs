@@ -18,7 +18,7 @@ namespace NorthWind.Models
 
         public IQueryable<Customer> FindAllCustomers()
         {
-            return db.Customers.Include("Orders").OrderBy(customer => customer.ContactName);
+            return db.Customers.Include("Orders").OrderBy(customer => customer.CompanyName);
         }
 
         public List<Supplier> GetSupplierOfCustomer(string id)

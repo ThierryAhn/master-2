@@ -11,97 +11,91 @@
 {
     @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
 
-    <table style="border: none">
+    <fieldset style="width: auto;">
+        <legend>Compagnie</legend>
+
+        <table class="border_none">
+            <tr>
+                <td>@Html.LabelFor(m => Model.CompanyName)</td>
+                <td>@Html.LabelFor(m => Model.ContactName)</td>
+                <td>@Html.LabelFor(m => Model.ContactTitle)</td>
+             </tr>
+
+            <tr>
+                <td>@Html.TextBoxFor(m => Model.CompanyName)</td>
+                <td>@Html.TextBoxFor(m => Model.ContactName)</td>
+                <td>@Html.TextBoxFor(m => Model.ContactTitle)</td>
+            </tr>
+
+            <tr>
+                <td>@Html.ValidationMessageFor(m => Model.CompanyName)</td>
+                <td>@Html.ValidationMessageFor(m => Model.ContactName)</td>
+                <td>@Html.ValidationMessageFor(m => Model.ContactTitle)</td>
+            </tr>
+        </table>
         
-        <tr>
-            <td>@Html.LabelFor(m => Model.CustomerID) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.CustomerID)
-                @Html.ValidationMessageFor(m => Model.CustomerID)
-            </td>
-        </tr>
-        
-        <tr>
-            <td>@Html.LabelFor(m => Model.CompanyName) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.CompanyName)
-                @Html.ValidationMessageFor(m => Model.CompanyName)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.ContactName) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ContactName)
-                @Html.ValidationMessageFor(m => Model.ContactName)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.ContactTitle) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.ContactTitle)
-                @Html.ValidationMessageFor(m => Model.ContactTitle)
-            </td>
-        </tr>
-
-        
-        <tr>
-            <td>@Html.LabelFor(m => Model.Address) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Address)
-                @Html.ValidationMessageFor(m => Model.Address)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.City) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.City)
-                @Html.ValidationMessageFor(m => Model.City)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Region) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Region)
-                @Html.ValidationMessageFor(m => Model.Region)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.PostalCode) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.PostalCode)
-                @Html.ValidationMessageFor(m => Model.PostalCode)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Country) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Country)
-                @Html.ValidationMessageFor(m => Model.Country)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Phone) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Phone)
-                @Html.ValidationMessageFor(m => Model.Phone)
-            </td>
-        </tr>
-
-        <tr>
-            <td>@Html.LabelFor(m => Model.Fax) : </td>
-            <td>
-                @Html.TextBoxFor(m => Model.Fax)
-                @Html.ValidationMessageFor(m => Model.Fax)
-            </td>
-        </tr>
-    </table>
+    </fieldset>
     
+    
+    <fieldset>
+        <legend>Adresse</legend>
+        
+        <table class="border_none">
+            <tr>
+                <td>@Html.LabelFor(m => Model.Address)</td>
+                <td>@Html.LabelFor(m => Model.City)</td>
+                <td>@Html.LabelFor(m => Model.Region)</td>
+            </tr>
+
+            <tr>
+                <td>@Html.TextBoxFor(m => Model.Address)</td>
+                <td>@Html.TextBoxFor(m => Model.City)</td>
+                <td>@Html.TextBoxFor(m => Model.PostalCode)</td>
+            </tr>
+            
+            <tr>
+                <td>@Html.ValidationMessageFor(m => Model.Address)</td>
+                <td>@Html.ValidationMessageFor(m => Model.City)</td>
+                <td>@Html.ValidationMessageFor(m => Model.PostalCode)</td>
+            </tr>
+
+            <tr>
+                <td>@Html.LabelFor(m => Model.Region)</td>
+                <td>@Html.LabelFor(m => Model.Country)</td>
+            </tr>
+
+            <tr>
+                <td>@Html.TextBoxFor(m => Model.Region)</td>
+                <td>@Html.TextBoxFor(m => Model.Country)</td>
+            </tr>
+            
+            <tr>
+                <td>@Html.ValidationMessageFor(m => Model.Region)</td>
+                <td>@Html.ValidationMessageFor(m => Model.Country)</td>
+            </tr>
+        </table>
+
+        
+    </fieldset>
+    
+    <fieldset>
+        <legend>Coordonnées</legend>
+
+        <table class="border_none">
+            <tr>
+                <td>@Html.LabelFor(m => Model.Phone)</td>
+                <td>@Html.LabelFor(m => Model.Fax)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(m => Model.Phone)</td>
+                <td>@Html.TextBoxFor(m => Model.Fax)</td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationMessageFor(m => Model.Phone)</td>
+                <td>@Html.ValidationMessageFor(m => Model.Fax)</td>
+            </tr>
+        </table>
+    </fieldset>
+
     <input type="submit" value="Creer" />
 }
