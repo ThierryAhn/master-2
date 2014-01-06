@@ -1,0 +1,45 @@
+﻿@using NorthWind.Models
+
+@model List<Employee>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Liste des employés</h2>
+
+@Html.ActionLink("Ajouter un employé", "Create")
+
+<br/>
+<br/>
+
+<table>
+
+    <tr>
+        <th>Nom</th>
+        <th>Prenom</th>
+        <th>Date de naissance</th>
+        <th>Poste</th>
+        <th>Photo</th>
+        <th>Nombre de commandes</th>
+    </tr>
+
+    @foreach (Employee employee in Model)
+    {
+        <tr>
+            <td>@employee.LastName</td>
+            <td>@employee.FirstName</td>
+            <td>@employee.BirthDate</td>
+            <td>@employee.Title</td>
+            <td>
+                <img src='@Url.Action( "GetImage", "Employee", new { id = employee.EmployeeID } )' />
+            </td>
+            
+            <td>@employee.Orders.Count()</td>
+            
+            <td>@Html.ActionImage("Details", new {id = employee.EmployeeID}, "~/Content/Images/detail.png", "Detail")</td>
+            <td>@Html.ActionImage("Edit", new {id = employee.EmployeeID}, "~/Content/Images/edit.png", "Modifier")</td>
+            <td>@Html.ActionImage("Delete", new {id = employee.EmployeeID}, "~/Content/Images/delete.png", "Supprimer")</td>
+        </tr>
+    }
+
+</table>

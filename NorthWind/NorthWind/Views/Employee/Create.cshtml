@@ -1,0 +1,155 @@
+﻿@using NorthWind.Models
+
+@model EditableEmployee
+@{
+    ViewBag.Title = "Create";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+<h2>Creer un nouveau employé</h2>
+
+@using (Html.BeginForm("/Employee/Create/"))
+{
+    @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
+    
+    <table style="border: none">
+        <tr>
+            <td>@Html.LabelFor(m => Model.LastName) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.LastName)
+                @Html.ValidationMessageFor(m => Model.LastName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.FirstName) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.FirstName)
+                @Html.ValidationMessageFor(m => Model.FirstName)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.Title) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Title)
+                @Html.ValidationMessageFor(m => Model.Title)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.TitleOfCourtesy) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.TitleOfCourtesy)
+                @Html.ValidationMessageFor(m => Model.TitleOfCourtesy)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.BirthDate) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.BirthDate, new { id = "datepicker1" })
+                <script>
+                    $("#datepicker1").datepicker();
+                </script>
+                @Html.ValidationMessageFor(m => Model.BirthDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.HireDate) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.HireDate, new { id = "datepicker2" })
+                <script>
+                    $("#datepicker2").datepicker();
+                </script>
+                @Html.ValidationMessageFor(m => Model.HireDate)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.Address) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Address)
+                @Html.ValidationMessageFor(m => Model.Address)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.City) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.City)
+                @Html.ValidationMessageFor(m => Model.City)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.Region) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Region)
+                @Html.ValidationMessageFor(m => Model.Region)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.PostalCode) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.PostalCode)
+                @Html.ValidationMessageFor(m => Model.PostalCode)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.Country) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Country)
+                @Html.ValidationMessageFor(m => Model.Country)
+            </td>
+        </tr>
+        
+        <tr>
+            <td>@Html.LabelFor(m => Model.HomePhone) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.HomePhone)
+                @Html.ValidationMessageFor(m => Model.HomePhone)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.Extension) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Extension)
+                @Html.ValidationMessageFor(m => Model.Extension)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.Notes) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Notes)
+                @Html.ValidationMessageFor(m => Model.Notes)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.ReportsTo) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ReportsTo)
+                @Html.ValidationMessageFor(m => Model.ReportsTo)
+            </td>
+        </tr>
+
+        <tr>
+            <td>@Html.LabelFor(m => Model.PhotoPath) : </td>
+            <td>
+                <input type="file" name="photoPath" id="photoPath"/>
+            </td>
+        </tr>
+
+    </table>
+    
+    <input type="submit" value="Creer" />
+}
