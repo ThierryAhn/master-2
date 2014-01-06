@@ -35,7 +35,7 @@
             <td>
                 @Html.TextBoxFor(m => Model.OrderDate, new { id = "datepicker1" })
                 <script>
-                    $("#datepicker1").datepicker();
+                    $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
                 </script>
                 @Html.ValidationMessageFor(m => Model.OrderDate)
             </td>
@@ -45,7 +45,7 @@
             <td>
                 @Html.TextBoxFor(m => Model.RequiredDate, new { id = "datepicker2" })
                 <script>
-                    $("#datepicker2").datepicker();
+                    $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy' });
                    
                 </script>
                 @Html.ValidationMessageFor(m => Model.RequiredDate)
@@ -56,7 +56,7 @@
             <td>
                 @Html.TextBoxFor(m => Model.ShippedDate, new { id = "datepicker3" })
                 <script>
-                    $("#datepicker3").datepicker();
+                    $("#datepicker3").datepicker({ dateFormat: 'dd/mm/yy' });
                 </script>
                 @Html.ValidationMessageFor(m => Model.ShippedDate)
             </td>

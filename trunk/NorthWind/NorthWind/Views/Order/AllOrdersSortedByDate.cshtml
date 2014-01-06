@@ -9,32 +9,32 @@
 <table>
 
     <tr>
-        <th>Numero Commande</th>
+        <th>Numéro</th>
         <th>Client</th>
         <th>Employé</th>
         <th>Expéditeur</th>
         <th>Date de Commande</th>
     </tr>
-    
+
 
     @foreach (Order order in Model)
     {
-        
         <tr>
-            <td>@Html.ActionLink(@order.OrderID.ToString(), "Details", "Order", new{ id = order.OrderID}, null)</td>
-            <td>@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new{ id = order.CustomerID}, null)</td>
-            <td>@Html.ActionLink(@order.Employee.FirstName+ " " + @order.Employee.LastName, "Details", "Employee", new{ id = order.EmployeeID}, null)</td>
-            <td>@order.Shipper.CompanyName</td>
-            <td>@order.OrderDate.Value.ToShortDateString()</td>
-            <td>@Html.ActionLink("Detail de la commande", "Details", "Order", new{ id = order.OrderID}, null)</td>
-        </tr>
-        
+            <td class="center">@order.OrderID</td>
+            <td>@Html.ActionLink(@order.Customer.CompanyName.ToString(), "Details", "Customer", new { id = order.CustomerID }, null)</td>
+            <td>@Html.ActionLink(@order.Employee.FirstName + " " + @order.Employee.LastName, "Details", "Employee", new { id = order.EmployeeID }, null)</td>
+            <td>@Html.ActionLink(@order.Shipper.CompanyName, "Details", "Shipper", new { id = order.ShipVia }, null)</td>
+            <td class="center">@order.OrderDate.Value.ToShortDateString()</td>
+            <td>@Html.ActionLink("Details", "Details", "Order", new { id = order.OrderID }, null)</td>
+            <td>@Html.ActionImage("Edit", new {id = order.OrderID}, "~/Content/Images/edit.png", "Modifier")</td>
+            <td>@Html.ActionImage("Delete", new {id = order.OrderID}, "~/Content/Images/delete.png", "Supprimer")</td>
+        </tr>  
     }
 </table>
-<br/>
+<br />
 @if (ViewBag.HasPreviousPage)
 {
-    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex-1) }, "~/Content/Images/previous.png", "Précédent")
+    @Html.ActionImage("Index", new { page = (ViewBag.PageIndex - 1) }, "~/Content/Images/previous.png", "Précédent")
 }
 
 @if (ViewBag.HasNextPage)

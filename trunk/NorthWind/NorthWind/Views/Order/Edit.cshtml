@@ -1,24 +1,123 @@
 ﻿@using NorthWind.Models
+
 @model EditableOrder
 @{
     ViewBag.Title = "Edit";
 }
 
-<h2>Nouvelle commande</h2>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.9.1.js"></script>
+<script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
-@using (Html.BeginForm())
-{
-    @Html.ValidationSummary("Veuillez corriger les champs et valider.")
+<h2>Modifier cette commande</h2>
 
-    
-    <table>
+@using (Html.BeginForm("/Order/Edit/"))
+{ 
+    @Html.ValidationSummary("Corrigez svp les erreurs et recommencez.")
 
+    <table style="border: none">
         <tr>
-            <td> <label> Customer </label></td>
-            <td> @Html.DropDownListFor(model => model.CustomerID, Model.Customers)</td>
-            <td> @Html.ValidationMessageFor(model => model.CustomerID) </td>
-
+            <td>@Html.LabelFor(m => Model.CustomerID) : </td>
+            <td>
+                @Html.DropDownListFor(m => Model.CustomerID, Model.Customers)
+                @Html.ValidationMessageFor(m => Model.CustomerID)
+            </td>
         </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.EmployeeID) : </td>
+            <td>
+                @Html.DropDownListFor(m => Model.EmployeeID, Model.Employees)
+                @Html.ValidationMessageFor(m => Model.EmployeeID)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.OrderDate) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.OrderDate, new { id = "datepicker1" })
+                <script>
+                    $("#datepicker1").datepicker({ dateFormat: 'dd/mm/yy' });
+                </script>
+                @Html.ValidationMessageFor(m => Model.OrderDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.RequiredDate) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.RequiredDate, new { id = "datepicker2" })
+                <script>
+                    $("#datepicker2").datepicker({ dateFormat: 'dd/mm/yy' });
 
+                </script>
+                @Html.ValidationMessageFor(m => Model.RequiredDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShippedDate) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShippedDate, new { id = "datepicker3" })
+                <script>
+                    $("#datepicker3").datepicker({ dateFormat: 'dd/mm/yy' });
+                </script>
+                @Html.ValidationMessageFor(m => Model.ShippedDate)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipVia) : </td>
+            <td>
+                @Html.DropDownListFor(m => Model.ShipVia, Model.Shippers)
+                @Html.ValidationMessageFor(m => Model.ShipVia)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.Freight) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.Freight)
+                @Html.ValidationMessageFor(m => Model.Freight)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipName) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipName)
+                @Html.ValidationMessageFor(m => Model.ShipName)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipAddress) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipAddress)
+                @Html.ValidationMessageFor(m => Model.ShipAddress)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipCity) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipCity)
+                @Html.ValidationMessageFor(m => Model.ShipCity)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipRegion) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipRegion)
+                @Html.ValidationMessageFor(m => Model.ShipRegion)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipPostalCode) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipPostalCode)
+                @Html.ValidationMessageFor(m => Model.ShipPostalCode)
+            </td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(m => Model.ShipCountry) : </td>
+            <td>
+                @Html.TextBoxFor(m => Model.ShipCountry)
+                @Html.ValidationMessageFor(m => Model.ShipCountry)
+            </td>
+        </tr>
     </table>
+    <input id="submit" type="submit" value="Ajouter la commande" />
+    
 }
