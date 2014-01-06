@@ -19,7 +19,7 @@ namespace NorthWind.Controllers
 
         //
         // Details
-
+        [Authorize]
         public ActionResult Details(int id)
         {
             using (var dao = new Entities())

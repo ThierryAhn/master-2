@@ -34,6 +34,7 @@ namespace NorthWind.Controllers
             }
         }
 
+        [Authorize]
         public ActionResult Details(int id)
         {
             using (var dao = new Entities())
@@ -46,13 +47,14 @@ namespace NorthWind.Controllers
 
 
         // GET Create Employee
+        [Authorize]
         public ActionResult Create()
         {
             return View(new EditableEmployee());
         }
 
-        // GET Create Supplier
-        [HttpPost]
+        // GET Create Employee
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Create(EditableEmployee editableEmployee)
         {
             using (var dao = new Entities())
@@ -96,6 +98,7 @@ namespace NorthWind.Controllers
 
 
         // GET Edit Employee
+        [Authorize]
         public ActionResult Edit(int id)
         {
             using (var dao = new Entities())
@@ -110,7 +113,7 @@ namespace NorthWind.Controllers
         }
 
         // POST Edit Employee
-        [HttpPost]
+        [AcceptVerbs(HttpVerbs.Post), Authorize]
         public ActionResult Edit(EditableEmployee editableEmployee)
         {
             using (var dao = new Entities())

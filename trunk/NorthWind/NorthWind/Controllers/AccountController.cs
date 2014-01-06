@@ -38,7 +38,7 @@ namespace NorthWind.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Order");
                     }
                 }
                 else
@@ -58,7 +58,7 @@ namespace NorthWind.Controllers
         {
             FormsAuthentication.SignOut();
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Order");
         }
 
         //
