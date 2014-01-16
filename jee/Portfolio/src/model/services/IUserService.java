@@ -11,10 +11,19 @@ public interface IUserService extends IService{
 	
 	/**
 	 * Get a User identified by his login
-	 * @param login of the client
+	 * @param login of the user
 	 * @return
 	 */
 	public User getUser(String login);
+	
+	/**
+	 * Get a User identified by his login and passwords
+	 * @param login of the user
+	 * @param password of the user
+	 * @return
+	 */
+	public User getUser(String login, String password);
+	
 	/**
 	 * Get a User identified by his id
 	 * @param userId
