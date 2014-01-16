@@ -10,9 +10,8 @@ public class TestUser {
 	public static void main(String[] args) {
 		IService dao = new Service();
 		
-		Address address = new Address(38, "Republique", "Rouen", "France");
 		
-		User client = new User("Ahounou", "Thierry", address, "root", "root");
+		User client = new User("Ahounou", "Thierry", "root", "root");
 		dao.insert(client);
 		
 		client.setConfidenceLevel(ConfidenceLevel.PRIVILEDGED);
