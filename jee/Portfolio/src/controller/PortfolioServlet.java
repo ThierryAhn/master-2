@@ -30,7 +30,7 @@ public class PortfolioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// getting dispatcher
 		RequestDispatcher dispatcher = getServletContext().
-				getRequestDispatcher("/WEB-INF/ServiceLogin.jsp");
+				getRequestDispatcher("/WEB-INF/account/LogOn.jsp");
 
 		// sending to login jsp page
 		dispatcher.include(request, response);
