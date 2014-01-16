@@ -8,7 +8,6 @@
 		
 		<class>model.jpa.Account</class>
 	    <class>model.jpa.Action</class>
-	    <class>model.jpa.Address</class>
 	    <class>model.jpa.User</class>
 	    <class>model.jpa.Company</class>
 	    <class>model.jpa.Exchange</class>
