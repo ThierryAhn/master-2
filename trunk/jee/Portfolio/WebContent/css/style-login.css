@@ -1,0 +1,68 @@
+form#login-form {
+	width: 18.75em; /* 300/16 */
+	margin: 0 auto;
+}
+
+
+form#login-form p a{
+	text-decoration : none;
+	border-bottom: 1px dotted;
+}
+
+
+form#login-form label {
+	display: block;
+	text-transform: uppercase;
+	color: #2a2e36;
+	margin: 0 0 0.3125em 0;
+}
+
+form#login-form input[type="text"],
+input[type="password"]
+	{
+	border: 1px solid #d9dbdd;
+	padding: 1em 0.625em; /* 16/16 10/16 */
+	outline: none;
+}
+
+form#login-form input[type="text"]:hover,
+input[type="password"]:hover,
+form#login-form input[type="text"]:focus,
+input[type="password"]:focus
+	{
+	border: 1px solid #bbbdbe;
+}
+
+form#login-form input[type="submit"] {
+	border: none;
+	cursor: pointer;
+	padding: 0.833em; /* 10/12 */
+	background-position: right center;
+	padding-right: 3em; /* 36/12 */
+	background-repeat: no-repeat;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.image-right {
+	background-position: right center;
+	padding-right: 3em; /* 36/12 */
+}
+
+.ic-right-arrow { 
+	background-image: url("../images/icons/ic_right.png"); 
+}
+
+.button {
+	padding: 0.833em; /* 0.833em */
+	padding-right : 3em;
+	display: inline-block;
+	text-decoration: none;
+	background-repeat: no-repeat;
+}
+
+.round {
+	border-radius: 0.3125em;
+	-moz-border-radius: 0.3125em;
+	-webkit-border-radius: 0.3125em;
+}
