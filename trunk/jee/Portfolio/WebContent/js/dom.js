@@ -1,4 +1,7 @@
 function toggle_visibility(id) {
+	
+	alert("function");
+	
 	var e = document.getElementById(id);
 	
 	// deposit
@@ -25,6 +28,9 @@ function toggle_visibility(id) {
 	
 	// opening account
 	if(id == 'openHidden'){
+		
+		alert("here");
+		
 		document.getElementById('depositHidden').style.display = 'none';
 		document.getElementById('withdrawHidden').style.display = 'none';
 		
