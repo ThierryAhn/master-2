@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.jpa.Address;
 import model.jpa.User;
 import model.services.UserService;
 import model.services.IUserService;
@@ -46,13 +45,6 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-		
-		// getting dispatcher
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-     			"/WEB-INF/ServiceNewUser.jsp");
-		
-		// sending to new client jsp page
-		dispatcher.include(request, response);
 	}
 
 
@@ -62,41 +54,43 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 
-		User client = null;
-		
+		User user = null;
+
 		// connecting user
 		if(request.getParameter("submit").equals("Se connecter")){
 			// getting connection data
 			String login = request.getParameter("login");
 			String password = request.getParameter("password");
-			
+
 			try{
-				client = userService.getUser(login);
-				
-				// if wrong password
-				if(client.getPassword().equals(password)){
-					// getting dispatcher
-					RequestDispatcher dispatcher = getServletContext().
-							getRequestDispatcher("/WEB-INF/ServicePortfolio.jsp");
-					
-					// injection bean
-					request.setAttribute("client", client);
-					
-					// sending to portfolio jsp page
-					dispatcher.include(request, response);
-				
-				}else{
-					System.out.println("Login et/ou mot de passe erroné(s)");
-				}
-				
+				user = userService.getUser(login, password);
+
+				RequestDispatcher dispatcher = getServletContext().
+						getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
+
+				// injection bean
+				request.setAttribute("client", user);
+
+				// sending to portfolio jsp page
+				dispatcher.include(request, response);
+
 			}catch(NoResultException e){
-				System.out.println("Login et/ou mot de passe erroné(s)");
+				
+				RequestDispatcher dispatcher = getServletContext().
+						getRequestDispatcher("/WEB-INF/user/LogOn.jsp");
+				
+				String erreur = "Login et/ou mot de passe erroné(s) !";
+				
+				request.setAttribute("erreur", erreur);
+				
+				// sending to logon jsp page
+				dispatcher.include(request, response);
 			}
 		}
-		
+
 		// new user
 		if(request.getParameter("submit").equals("S'inscrire")){
-			
+
 			// getting inscription data
 			String lastName = request.getParameter("lastName");
 			String firstName = request.getParameter("firstName");
@@ -104,44 +98,55 @@ public class UserServlet extends HttpServlet {
 			String password = request.getParameter("password");
 			String confirmPassword = request.getParameter("confirmPassword");
 			
+			
+			RequestDispatcher dispatcher = getServletContext().
+					getRequestDispatcher("/WEB-INF/user/Register.jsp");
+			
 			// password differents
 			if(!password.equals(confirmPassword)){
-				System.out.println("Mot de passe différents");
+				
+				String erreur = "Mot de passe différents !";
+				request.setAttribute("erreur", erreur);
+				
+				request.setAttribute("lastName", lastName);
+				request.setAttribute("firstName", firstName);
+				request.setAttribute("login", login);
+				
+				// sending to logon jsp page
+				dispatcher.include(request, response);
+				
 			}else{
 				try{
-					client = userService.getUser(login);
+					user = userService.getUser(login);
 					
-					System.out.println("Login indisponible");
-				
+					String erreur = "Login indisponible !";
+					request.setAttribute("erreur", erreur);
+					
+					request.setAttribute("lastName", lastName);
+					request.setAttribute("firstName", firstName);
+					request.setAttribute("login", login);
+					
+					// sending to logon jsp page
+					dispatcher.include(request, response);
+
 				}catch(NoResultException e){ // if the login is free
-					
-					// address data
-					int number = Integer.parseInt(request.getParameter("number"));
-					String street = request.getParameter("street");
-					String city = request.getParameter("city");
-					String country = request.getParameter("country");
-					
+
 					// creating new client object
-					Address address = new Address(number, street, city, 
-								country);
-					
-					client = new User(lastName, firstName, address, 
-							login, password);
-					
+					user = new User(lastName, firstName, login, password);
+
 					// persist client
-					userService.insert(client);
-					
-					
+					userService.insert(user);
+
 					// getting dispatcher
-					RequestDispatcher dispatcher = getServletContext().getRequestDispatcher(
-			     			"/WEB-INF/ServiceLogin.jsp");
-					
+					dispatcher = getServletContext().getRequestDispatcher(
+							"/WEB-INF/user/LogOn.jsp");
+
 					// sending to connection jsp page
 					dispatcher.include(request, response);
 				}
 			}
 		}
-		
+
 	}
 
 }

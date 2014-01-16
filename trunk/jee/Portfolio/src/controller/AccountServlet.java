@@ -23,12 +23,12 @@ public class AccountServlet extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * User service
 	 */
 	private IUserService userService;
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -42,23 +42,24 @@ public class AccountServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("user : " +request.getParameter("userId"));
-		
+
 		User client = userService.getUser(
 				Integer.parseInt(request.getParameter("userId")));
-		
+
 		// close user account
 		client.closeAccount();
 		userService.update(client);
-		
+
 		// injection bean
 		request.setAttribute("client", client);
-		
+
 		// getting dispatcher
 		RequestDispatcher dispatcher = getServletContext().
 			getRequestDispatcher("/WEB-INF/ServicePortfolio.jsp");
-				
+
 		// sending to portfolio jsp page
-		dispatcher.include(request, response);
+		dispatcher.include(request, response); 
+
 	}
 
 	/**
@@ -66,10 +67,10 @@ public class AccountServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		double amount = Double.parseDouble(request.getParameter("amount"));
-		
+
 		User client = userService.getUser(
 				Integer.parseInt(request.getParameter("userId")));
-		
+
 		// opening account
 		if(request.getParameter("accountSubmit").equals("Creer")){
 			Account account = new Account(amount);
@@ -86,17 +87,17 @@ public class AccountServlet extends HttpServlet {
 		if(request.getParameter("accountSubmit").equals("Retirer")){
 			client.withdraw(amount);
 		}
-		
+
 		// updating user
 		userService.update(client);
-		
+
 		// injection bean
 		request.setAttribute("client", client);
-		
+
 		// getting dispatcher
 		RequestDispatcher dispatcher = getServletContext().
-			getRequestDispatcher("/WEB-INF/ServicePortfolio.jsp");
-		
+				getRequestDispatcher("/WEB-INF/Portfolio.jsp");
+
 		// sending to portfolio jsp page
 		dispatcher.include(request, response);
 	}
