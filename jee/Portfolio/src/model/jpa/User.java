@@ -47,10 +47,6 @@ public class User implements Serializable{
 	@Basic(fetch = FetchType.LAZY, optional = false)
 	private String firstName;
 	/**
-	 * Client address
-	 */
-	private Address address;
-	/**
 	 * The login of the client
 	 */
 	private String login;
@@ -80,11 +76,10 @@ public class User implements Serializable{
 	 * @param login
 	 * @param password
 	 */
-	public User(String lastName, String firstName, Address address, 
-			String login, String password) {
+	public User(String lastName, String firstName, String login, 
+			String password) {
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.address = address;
 		this.login = login;
 		this.password = password;
 		confidenceLevel = ConfidenceLevel.NORMAL;
@@ -116,13 +111,6 @@ public class User implements Serializable{
 	 */
 	public void setAccount(Account account) {
 		this.account = account;
-	}
-
-	/**
-	 * @param address the address to set
-	 */
-	public void setAddress(Address address) {
-		this.address = address;
 	}
 
 	/**
@@ -165,20 +153,6 @@ public class User implements Serializable{
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
-	}
-	
-	/**
-	 * @return the address
-	 */
-	public Address getAddress() {
-		return address;
-	}
-
-	/**
-	 * @param address the address to set
-	 */
-	public void setFirstName(Address address) {
-		this.address = address;
 	}
 
 	/**
@@ -261,10 +235,10 @@ public class User implements Serializable{
 	 */
 	@Override
 	public String toString() {
-		return "Client [clientId=" + userId + ", confidenceLevel="
+		return "User [userId=" + userId + ", confidenceLevel="
 				+ confidenceLevel + ", lastName=" + lastName + ", firstName="
-				+ firstName + ", address=" + address + ", login=" + login
-				+ ", password=" + password + ", account=" + account + "]";
+				+ firstName + ", login=" + login + ", password=" + password
+				+ ", account=" + account + "]";
 	}
 	
 }
