@@ -25,4 +25,13 @@ public class UserService extends Service implements IUserService{
 						getSingleResult();
 	}
 
+	@Override
+	public User getUser(String login, String password) {
+		return getEntityManager().
+				createQuery("SELECT u FROM User u WHERE u.login = :login AND"
+						+ " u.password = :password", 
+						User.class).setParameter("login", login).
+							setParameter("password", password).getSingleResult();
+	}
+
 }
