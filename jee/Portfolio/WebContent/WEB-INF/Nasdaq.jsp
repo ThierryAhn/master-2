@@ -51,7 +51,7 @@
 						
 						<div class="info">
 							
-							<ul class="exchange">
+							<ul class="page-name">
 								<li class="letter-name">N</li>
 								<li class="letter-name">A</li>
 								<li class="letter-name">S</li>
@@ -73,7 +73,6 @@
 										<th>IPO Year</th>
 										<th>Secteur</th>
 										<th>Industrie</th>
-										<th>Site</th>
 									</tr>
 								</thead>
 								
@@ -114,7 +113,7 @@
 						<li class="current_page_item"><a href="#">NASDAQ</a></li>
 						<li><a href="#">NYSE</a></li>
 						<li><a href="#">AMEX</a></li>
-						<li><a href="#">Mon compte</a></li>
+						<li><a href="PortfolioServlet">Mon portfolio</a></li>
 					</ul>
 				</nav>
 	

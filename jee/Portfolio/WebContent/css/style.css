@@ -32,7 +32,7 @@ body,input,textarea {
 
 body {
 	background-color: #e8e8e8;
-	background-image: url('images/bg2.png');
+	background-image: url('../images/bg2.png');
 }
 
 a {
@@ -219,7 +219,7 @@ section:last-child,article:last-child {
 
 .button {
 	background-color: #c94663;
-	background-image: url('images/bg1.png');
+	background-image: url('../images/bg1.png');
 	border-radius: 0.4em;
 	text-align: center;
 	box-shadow: inset 0px 0px 0px 1px rgba(255, 255, 255, 0.15);
@@ -253,7 +253,7 @@ a.button:active,input.button:active {
 
 .button-alt {
 	background-color: #364050;
-	background-image: url('images/bg1.png');
+	background-image: url('../images/bg1.png');
 }
 
 a.button-alt:hover,input.button-alt:hover {
@@ -318,7 +318,7 @@ ol.style1 li {
 	text-decoration: none;
 	color: inherit;
 	background-color: #e8e8e8;
-	background-image: url('images/bg2.png');
+	background-image: url('../images/bg2.png');
 	color: #565656;
 	margin: 0 0.4em 0 0;
 	border-radius: 0.4em;
@@ -336,7 +336,7 @@ ol.style1 li {
 
 .pager .pages a.active {
 	background-color: #364050;
-	background-image: url('images/bg1.png');
+	background-image: url('../images/bg1.png');
 	color: #fff;
 	box-shadow: none;
 	text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
@@ -1412,7 +1412,7 @@ transform
 	content: "\f0eb"
 }
 
-.fa-exchange:before {
+.fa-page-name:before {
 	content: "\f0ec"
 }
 
@@ -2021,7 +2021,7 @@ transform
 	content: "\f18c"
 }
 
-.fa-stack-exchange:before {
+.fa-stack-page-name:before {
 	content: "\f18d"
 }
 
@@ -2065,11 +2065,11 @@ transform
 	
 }
 
-.is-post .info .exchange {
+.is-post .info .page-name {
 	margin: 0;
 }
 
-.is-post .info .exchange a {
+.is-post .info .page-name a {
 	font-size: 0.8em;
 	text-decoration: none;
 	color: #1b252a;
@@ -2265,13 +2265,28 @@ transform
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background-image: url('images/bg2.png');
+	background-image: url('../images/bg2.png');
 	opacity: 0.5;
 }
 
 #content-inner {
 	position: relative;
 	z-index: 1;
+}
+
+#content #exchange-image{
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	width: 150px;
+	height: 200px;
+	/* margin-left: 25%; */
+}
+
+#content #exchange-images{
+	float : left;
+	width : 200px;
+	border : 1px solid black;
 }
 
 /*********************************************************************************/

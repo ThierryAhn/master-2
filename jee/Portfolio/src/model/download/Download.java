@@ -6,8 +6,17 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * Class Download which helps to download file on Internet
+ * @author ABALINE & AHOUNOU
+ * 15 janv. 2014
+ */
 public class Download
 {
+	/**
+	 * Get file from internet
+	 * @param host host of the file
+	 */
 	public static void getFile(String host)
 	{
 		InputStream input = null;

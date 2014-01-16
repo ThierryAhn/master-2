@@ -45,14 +45,14 @@ body {
 	top: -2em;
 }
 
-.is-post .info .exchange {
+.is-post .info .page-name {
 	display: inline;
 	border-left: solid 1px #ddd;
 	margin-left: 1.15em;
 	padding-left: 0.25em;
 }
 
-.is-post .info .exchange li {
+.is-post .info .page-name li {
 	display: inline-block;
 	margin-left: 0.25em;
 }
