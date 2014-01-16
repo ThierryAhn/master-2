@@ -1,23 +1,23 @@
-form#login-form {
+form#form {
 	width: 18.75em; /* 300/16 */
-	margin: 0 auto;
+	margin : 0 auto;
 }
 
 
-form#login-form p a{
+form#form p a{
 	text-decoration : none;
 	border-bottom: 1px dotted;
 }
 
 
-form#login-form label {
+form#form label {
 	display: block;
 	text-transform: uppercase;
 	color: #2a2e36;
 	margin: 0 0 0.3125em 0;
 }
 
-form#login-form input[type="text"],
+form#form input[type="text"],
 input[type="password"]
 	{
 	border: 1px solid #d9dbdd;
@@ -25,15 +25,15 @@ input[type="password"]
 	outline: none;
 }
 
-form#login-form input[type="text"]:hover,
+form#form input[type="text"]:hover,
 input[type="password"]:hover,
-form#login-form input[type="text"]:focus,
+form#form input[type="text"]:focus,
 input[type="password"]:focus
 	{
 	border: 1px solid #bbbdbe;
 }
 
-form#login-form input[type="submit"] {
+form#form input[type="submit"] {
 	border: none;
 	cursor: pointer;
 	padding: 0.833em; /* 10/12 */

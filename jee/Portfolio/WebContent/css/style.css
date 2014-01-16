@@ -61,6 +61,7 @@ h2 a,h4 a,h5 a,h6 a {
 	display: block;
 	margin-top: 1em;
 	color: #999;
+	text-align : center;
 }
 
 header {
@@ -2274,20 +2275,81 @@ transform
 	z-index: 1;
 }
 
-#content #exchange-image{
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
-	border-radius: 50%;
-	width: 150px;
-	height: 200px;
-	/* margin-left: 25%; */
+
+div.content-module {
+	margin-bottom: 1em; /* 16/16 */
+	border: 1px solid #eeefef;
 }
 
-#content #exchange-images{
+div.content-module-heading {
+	background-color: #364050;
+	background-image: url('../images/bg1.png');
+	
+	cursor: pointer;
+}
+
+div.content-module-heading h3 {
+	text-transform: uppercase;
+	color: white;
+	font-weight: bold;
+	margin: 1.25em; /* 15/12 */
+}
+	
+div.content-module-heading span { 
+	color: #969dac;
+	text-transform: uppercase;
+	margin: 1.5em; /* 15/10 */
+}
+
+.fl { float: left; }
+.fr { float: right; }
+
+.half-size-column {
+	width: 35%;
+}
+
+/* For modern browsers */
+.cf:before,
+.cf:after {
+    content: "";
+    display: table;
+}
+
+.cf:after { clear:both; }
+
+/* For IE 6/7 (trigger hasLayout) */
+.cf { zoom: 1; }
+
+div.content-module-main { padding: 1em; /* 16/16 */ }
+
+/* #exchange-images{
+	float : left;
+	display : inline;
+	margin-left : 30px;
+	
+}
+
+.roundedImage{
+    overflow:hidden;
+    -webkit-border-radius:50px;
+    -moz-border-radius:50px;
+    border-radius:50px;
+    
+    width:120px;
+    height:100px;
+    
+    margin : auto;
+    display: inline-block;
+}*/
+
+
+/*#exchange-images{
 	float : left;
 	width : 200px;
 	border : 1px solid black;
-}
+}*/
+
+
 
 /*********************************************************************************/
 /* Copyright                                                                     */
@@ -2298,10 +2360,6 @@ transform
 
 #copyright p {
 	opacity: 0.75;
-}
-
-#copyright a {
-	color: inherit !important;
 }
 
 #copyright:before {
