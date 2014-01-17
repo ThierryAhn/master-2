@@ -136,7 +136,9 @@ form {
 	
 }
 
-form input,form select,form textarea {
+
+/* ici pour input 100% */
+form#input-large,form select,form textarea {
 	border-radius: 0.4em;
 	-webkit-appearance: none;
 	border: solid 1px #ddd;
@@ -144,6 +146,7 @@ form input,form select,form textarea {
 	width: 100%;
 }
 
+/* couleur rouge des bordures des champs */
 form input:focus,form textarea:focus {
 	box-shadow: 0px 0px 2px 2px #c94663;
 }

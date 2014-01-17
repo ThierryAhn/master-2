@@ -96,11 +96,16 @@
 											<input type="hidden" name="userId" 
 												value="${client.userId}" />
 											
-											Montant initial <input type="number" name="amount" 
+											Montant initial <input type="number" name="amount" step="10" 
 												placeholder="0.00" />
 													
+											<!-- <input type="submit" name="accountSubmit" value="Creer"/>-->
+											
+											
+											<br/>
 											<input type="submit" name="accountSubmit" value="Creer"/>
-										
+												
+											
 											<button type="button" onclick="hide('openHidden');">
 												Cancel
 											</button>
@@ -139,7 +144,7 @@
 				<!-- Search -->
 				<section class="is-search">
 					<form method="post" action="#">
-						<input type="text" class="text" name="search" placeholder="Search" />
+						<input type="text" class="input-large text" name="search" placeholder="Search" />
 					</form>
 				</section>
 	

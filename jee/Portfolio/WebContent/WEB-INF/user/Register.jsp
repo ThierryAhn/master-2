@@ -109,7 +109,7 @@
 									<p style="color:red;">${erreur}</p>
 									
 									<input type="submit" name="submit" 
-										class="button round image-right ic-right-arrow" 
+										class="input-large button round image-right ic-right-arrow" 
 										value="S'inscrire" />
 								
 								</form>
