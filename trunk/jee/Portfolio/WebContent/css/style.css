@@ -137,8 +137,22 @@ form {
 }
 
 
+
+input[type=submit].link {
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+    overflow: visible;
+}
+
+
+
+
 /* ici pour input 100% */
-form#input-large,form select,form textarea {
+form .input-large, form select, form textarea {
 	border-radius: 0.4em;
 	-webkit-appearance: none;
 	border: solid 1px #ddd;
@@ -346,11 +360,7 @@ ol.style1 li {
 	text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
 }
 
-/*********************************************************************************/
-/* Icons                                                                         */
-/* Powered by Font Awesome by Dave Gandy | http://fontawesome.io                 */
-/* Licensed under the SIL OFL 1.1 (font), MIT (CSS)                              */
-/*********************************************************************************/
+/* Icons */
 .fa {
 	text-decoration: none;
 }

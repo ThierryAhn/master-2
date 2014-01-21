@@ -32,7 +32,7 @@ public class Company {
 	/**
 	 * Company last sale
 	 */
-	private double lastSale;
+	private String lastSale;
 	/**
 	 * The market cap
 	 */
@@ -44,7 +44,7 @@ public class Company {
 	/**
 	 * The initial public offering year
 	 */
-	private int ipoYear;
+	private String ipoYear;
 	/**
 	 * Sector of activity
 	 */
@@ -83,40 +83,14 @@ public class Company {
 	 * @param summaryQuote
 	 * @param exchange
 	 */
-	public Company(String symbol, String name, double lastSale, 
-			double marketCap, String adrTso, int ipoYear, String sector, 
+	public Company(String symbol, String name, String lastSale, 
+			double marketCap, String adrTso, String ipoYear, String sector, 
 			String industry, String summaryQuote, Exchange exchange) {
 		this.symbol = symbol;
 		this.name = name;
 		this.lastSale = lastSale;
 		this.marketCap = marketCap;
 		this.adrTso = adrTso;
-		this.ipoYear = ipoYear;
-		this.sector = sector;
-		this.industry = industry;
-		this.summaryQuote = summaryQuote;
-		this.exchange = exchange;
-	}
-	
-	/**
-	 * Constructor with parameters
-	 * @param symbol
-	 * @param name
-	 * @param lastSale
-	 * @param marketCap
-	 * @param ipoYear
-	 * @param sector
-	 * @param industry
-	 * @param summaryQuote
-	 * @param exchange
-	 */
-	public Company(String symbol, String name, double lastSale, 
-			double marketCap, int ipoYear, String sector, 
-			String industry, String summaryQuote, Exchange exchange) {
-		this.symbol = symbol;
-		this.name = name;
-		this.lastSale = lastSale;
-		this.marketCap = marketCap;
 		this.ipoYear = ipoYear;
 		this.sector = sector;
 		this.industry = industry;
@@ -155,14 +129,14 @@ public class Company {
 	/**
 	 * @return the lastSale
 	 */
-	public double getLastSale() {
+	public String getLastSale() {
 		return lastSale;
 	}
 
 	/**
 	 * @param lastSale the lastSale to set
 	 */
-	public void setLastSale(double lastSale) {
+	public void setLastSale(String lastSale) {
 		this.lastSale = lastSale;
 	}
 
@@ -239,8 +213,22 @@ public class Company {
 	/**
 	 * @return the ipoYear
 	 */
-	public int getIpoYear() {
+	public String getIpoYear() {
 		return ipoYear;
+	}
+
+	/**
+	 * @return the exchange
+	 */
+	public Exchange getExchange() {
+		return exchange;
+	}
+
+	/**
+	 * @param exchange the exchange to set
+	 */
+	public void setExchange(Exchange exchange) {
+		this.exchange = exchange;
 	}
 
 	/* (non-Javadoc)

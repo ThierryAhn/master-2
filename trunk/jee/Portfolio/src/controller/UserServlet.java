@@ -45,6 +45,11 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
+		
+		RequestDispatcher dispatcher = getServletContext().
+				getRequestDispatcher("/WEB-INF/user/Register.jsp");
+		
+		dispatcher.include(request, response);
 	}
 
 

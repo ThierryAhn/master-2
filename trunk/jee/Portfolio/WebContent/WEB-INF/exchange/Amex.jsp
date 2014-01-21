@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>	
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>		
 
 <!DOCTYPE HTML>
 <html>
@@ -58,12 +57,10 @@
 						<div class="info">
 							
 							<ul class="page-name">
-								<li class="letter-name">N</li>
 								<li class="letter-name">A</li>
-								<li class="letter-name">S</li>
-								<li class="letter-name">D</li>
-								<li class="letter-name">A</li>
-								<li class="letter-name">Q</li>
+								<li class="letter-name">M</li>
+								<li class="letter-name">E</li>
+								<li class="letter-name">X</li>
 							</ul>
 						</div>
 						
@@ -124,10 +121,11 @@
 				<!-- Nav -->
 				<nav id="nav">
 					<ul>
-						<li class="current_page_item"><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
+						<li><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
 						<li><a href="exchange.do?exchange=Nyse">NYSE</a></li>
-						<li><a href="exchange.do?exchange=Amex">AMEX</a></li>
+						<li class="current_page_item"><a href="exchange.do?exchange=Amex">AMEX</a></li>
 					</ul>
+					
 					
 					<ul>
 						<li><a href="PortfolioServlet">Mon portfolio</a></li>
@@ -137,7 +135,7 @@
 				<!-- Search -->
 				<section class="is-search">
 					<form method="post" action="#">
-						<input type="text" class=" input-large text" name="search" placeholder="Search" />
+						<input type="text" class="input-large text" name="search" placeholder="Search" />
 					</form>
 				</section>
 	

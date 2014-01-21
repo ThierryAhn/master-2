@@ -1,6 +1,9 @@
 package model.services;
 
+import java.util.List;
+
 import model.jpa.Company;
+import model.jpa.Exchange;
 
 /**
  * Class ICompanyService helps to find company
@@ -15,4 +18,27 @@ public interface ICompanyService extends IService{
 	 * @return
 	 */
 	public Company getCompany(String name);
+	
+	/**
+	 * Return all company
+	 * @return
+	 */
+	public List<Company> getAllCompany();
+	
+	/**
+	 * Return a limited number of company identified by an exchange
+	 * @param exchange
+	 * @param offset
+	 * @param noOfRecords
+	 * @return
+	 */
+	public List<Company> getAllCompanyByExchange(Exchange exchange, int offset,
+			int noOfRecords);
+	
+	/**
+	 * Return number of company identified by an exchange
+	 * @param exchange
+	 * @return
+	 */
+	public int count(Exchange exchange);
 }

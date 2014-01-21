@@ -63,58 +63,59 @@
 							</ul>
 						</div>
 						
+						<!--<div id="exchange-images">
+							<div><img class="roundedImage" src="images/nasdaq.jpg" alt="Nasdaq"/></div>
+							<div><img class="roundedImage" src="images/nyse.jpg" alt="Nyse"/></div>
+							<div><img class="roundedImage" src="images/amex.jpg" alt="Amex"/> </div>
+						</div> -->
+							
 						<div>
-							
-							<!--<div id="exchange-images">
-								<div><img class="roundedImage" src="images/nasdaq.jpg" alt="Nasdaq"/></div>
-								<div><img class="roundedImage" src="images/nyse.jpg" alt="Nyse"/></div>
-								<div><img class="roundedImage" src="images/amex.jpg" alt="Amex"/> </div>
-							</div> -->
-							
-							<div>
-								<form action="UserServlet" method="POST" id="form">
+							<form action="UserServlet" method="POST" id="form">
 									
-									<!-- nom -->
-									<p>
-										<label>Nom</label>
-										<input type="text" id="lastName" name="lastName" 
-											class="round full-width-input" value="${lastName}"
-											placeholder="Prenom" required />
+								<!-- nom -->
+								<p>
+									<label>Nom</label>
+									<input type="text" id="lastName" name="lastName" 
+										class="input-large round full-width-input" value="${lastName}"
+										placeholder="Prenom" required />
+									
+									<br/>
+									
+									<input type="text" id="firstName" name="firstName" 
+										class="input-large round full-width-input" value="${firstName}"
+										placeholder="Nom de famille" required />
+								</p>
+									
+								<p>
+									<!-- login -->
+									<label for="login">Login</label>
+									<input type="text" id="login" name="login" 
+										class="input-large round full-width-input" value="${login}" required />
+									<br/><br/>
 										
-										<input type="text" id="firstName" name="firstName" 
-											class="round full-width-input" value="${firstName}"
-											placeholder="Nom de famille" required />
-									</p>
-									
-									<p>
-										<!-- login -->
-										<label for="login">Login</label>
-										<input type="text" id="login" name="login" class="round full-width-input" 
-											value="${login}" required />
-										<br/>
+									<!-- password -->
+									<label for="password">Mot de passe</label>
+									<input type="password" id="password" name="password" 
+										class="input-large round full-width-input" required />
+									<br/>
 										
-										<!-- password -->
-										<label for="password">Mot de passe</label>
-										<input type="password" id="password" name="password" class="round full-width-input" 
-											required />
-										<br/>
-										
-										<!-- confirm password -->
-										<label for="confirmPassword">Confirmer votre mot de passe !</label>
-										<input type="password" id="confirmPassword" name="confirmPassword" 
-											class="round full-width-input" required />
-										<br/>
-									</p>
+									<!-- confirm password -->
+									<label for="confirmPassword">Confirmer votre mot de passe !</label>
+									<input type="password" id="confirmPassword" name="confirmPassword" 
+										class="input-large round full-width-input" required />
+									<br/>
+								</p>
 									
-									<p style="color:red;">${erreur}</p>
+								<p style="color:red;">${erreur}</p>
 									
-									<input type="submit" name="submit" 
-										class="input-large button round image-right ic-right-arrow" 
-										value="S'inscrire" />
+								<input type="submit" name="submit" 
+									class="input-large button round image-right ic-right-arrow" 
+									value="S'inscrire" />
 								
-								</form>
-							</div>
+							</form>
+						
 						</div>
+						
 					</article>
 	
 				</div>
@@ -130,10 +131,41 @@
 	
 				<!-- Nav -->
 				<nav id="nav">
+					<form id="form-nasdaq" method="get" action="ExchangeServlet">
+						<input type="hidden" name="exchange" value="nasdaq" />
+					</form>
 					<ul>
-						<li><a href="#">NASDAQ</a></li>
-						<li><a href="#">NYSE</a></li>
-						<li><a href="#">AMEX</a></li>
+						<li>
+							<a href="ExchangeServlet" onclick="document.getElementById('form-nasdaq').submit(); return false;">
+								NASDAQ
+							</a>
+						</li>
+					</ul>
+					
+					<form id="form-nyse" method="get" action="ExchangeServlet">
+						<input type="hidden" name="exchange" value="nyse" />
+					</form>
+					<ul>
+						<li>
+							<a href="ExchangeServlet" onclick="document.getElementById('form-nyse').submit(); return false;">
+								NYSE
+							</a>
+						</li>
+					</ul>
+					
+					<form id="form-amex" method="get" action="ExchangeServlet">
+						<input type="hidden" name="exchange" value="amex" />
+					</form>
+					<ul>
+						<li>
+							<a href="ExchangeServlet" onclick="document.getElementById('form-amex').submit(); return false;">
+								AMEX
+							</a>
+						</li>
+					</ul>
+					
+					
+					<ul>
 						<li class="current_page_item"><a href="PortfolioServlet">Mon portfolio</a></li>
 					</ul>
 				</nav>
@@ -141,7 +173,7 @@
 				<!-- Search -->
 				<section class="is-search">
 					<form method="post" action="#">
-						<input type="text" class="text" name="search" placeholder="Search" />
+						<input type="text" class="input-large text" name="search" placeholder="Search" />
 					</form>
 				</section>
 	
