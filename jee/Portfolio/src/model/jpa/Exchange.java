@@ -42,6 +42,13 @@ public class Exchange {
 	public Exchange(String name) {
 		this.name = name;
 	}
+	
+	/**
+	 * @return the exchangeId
+	 */
+	public int getExchangeId() {
+		return exchangeId;
+	}
 
 	/**
 	 * @return the name

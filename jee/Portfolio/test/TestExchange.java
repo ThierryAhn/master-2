@@ -11,9 +11,13 @@ public class TestExchange {
 		Exchange exchange = new Exchange("NASDAQ");
 		dao.insert(exchange);
 		
-		// impossible exchange name unique
-		exchange = new Exchange("NASDAQ");
+		exchange = new Exchange("NYSE");
 		dao.insert(exchange);
+		
+		exchange = new Exchange("AMEX");
+		dao.insert(exchange);
+		
+		System.err.println("End");
 		
 	}
 }

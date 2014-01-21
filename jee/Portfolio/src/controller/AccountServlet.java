@@ -41,7 +41,7 @@ public class AccountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("user : " +request.getParameter("userId"));
+		//System.out.println("user : " +request.getParameter("userId"));
 
 		User client = userService.getUser(
 				Integer.parseInt(request.getParameter("userId")));

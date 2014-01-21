@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>	
@@ -59,11 +58,9 @@
 							
 							<ul class="page-name">
 								<li class="letter-name">N</li>
-								<li class="letter-name">A</li>
+								<li class="letter-name">Y</li>
 								<li class="letter-name">S</li>
-								<li class="letter-name">D</li>
-								<li class="letter-name">A</li>
-								<li class="letter-name">Q</li>
+								<li class="letter-name">E</li>
 							</ul>
 						</div>
 						
@@ -72,7 +69,7 @@
 						<table class="style1">
 								<thead>
 									<tr>
-										<th>Symbole</th>
+										<th>Symbole${noOfPages}</th>
 										<th>Nom</th>
 										<th>Dernière vente</th>
 										<th>Market cap</th>
@@ -99,7 +96,51 @@
 						
 						
 					</article>
-	
+					
+					<div class="pager">
+					
+						
+					    
+					    <div class="pages">
+					    	<%--For displaying Previous link except for the 1st page --%>
+						    <c:if test="${currentPage != 1}">
+						        <a href="exchange.do?page=${currentPage - 1}&exchange=${currentExchange}" 
+						        	class="button previous">
+						        	Previous Page
+						        </a>
+						    </c:if>
+					    	
+					    	
+					    	 <c:forEach begin="1" end="${noOfPages}" var="i">
+						    	<c:choose>
+	                    			
+	                    			<c:when test="${currentPage eq i}">
+	                    				<a href="exchange.do?page=${i}&exchange=${currentExchange}" class="active">${i}</a>
+	                    			</c:when>
+	                   				
+	                   				<c:otherwise>
+	                   					<a href="#">${i}</a>
+	                   				</c:otherwise>
+	                   				
+						    	</c:choose>
+           					 </c:forEach>
+					    	
+					    	
+					    	 <%--For displaying Next link --%>
+						    <c:if test="${currentPage lt noOfPages}">
+						        <a href="exchange.do?page=${currentPage + 1}&exchange=${currentExchange}" 
+						        	class="button next">
+						        	Next Page
+						        </a>
+						    </c:if>
+					    	
+					    </div>
+					    
+					    
+					   
+					    
+					</div>
+					
 					<!-- Pager -->
 					<!-- <div class="pager">
 						<a href="#" class="button previous">Previous Page</a>
@@ -123,9 +164,10 @@
 	
 				<!-- Nav -->
 				<nav id="nav">
+					
 					<ul>
-						<li class="current_page_item"><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
-						<li><a href="exchange.do?exchange=Nyse">NYSE</a></li>
+						<li><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
+						<li class="current_page_item"><a href="exchange.do?exchange=Nyse">NYSE</a></li>
 						<li><a href="exchange.do?exchange=Amex">AMEX</a></li>
 					</ul>
 					
@@ -137,7 +179,7 @@
 				<!-- Search -->
 				<section class="is-search">
 					<form method="post" action="#">
-						<input type="text" class=" input-large text" name="search" placeholder="Search" />
+						<input type="text" class="input-large text" name="search" placeholder="Search" />
 					</form>
 				</section>
 	

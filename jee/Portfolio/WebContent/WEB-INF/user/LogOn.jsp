@@ -79,14 +79,14 @@
 			
 									<p>
 										<label for="login">Login</label>
-										<input type="text" id="login" name="login" class="round full-width-input" 
-											autofocus required/>
+										<input type="text" id="login" name="login" 
+										class="input-large round full-width-input" autofocus required/>
 									</p>
 						
 									<p>
 										<label for="login">password</label>
 										<input type="password" id="password" name="password" 
-											class="round full-width-input" required/>
+											class="input-large round full-width-input" required/>
 									</p>
 								
 									<p style="color:red;">${erreur}</p>
@@ -115,10 +115,41 @@
 	
 				<!-- Nav -->
 				<nav id="nav">
+					<form id="form-nasdaq" method="get" action="ExchangeServlet">
+						<input type="hidden" name="exchange" value="nasdaq" />
+					</form>
 					<ul>
-						<li><a href="#">NASDAQ</a></li>
-						<li><a href="#">NYSE</a></li>
-						<li><a href="#">AMEX</a></li>
+						<li>
+							<a href="ExchangeServlet" onclick="document.getElementById('form-nasdaq').submit(); return false;">
+								NASDAQ
+							</a>
+						</li>
+					</ul>
+					
+					<form id="form-nyse" method="get" action="ExchangeServlet">
+						<input type="hidden" name="exchange" value="nyse" />
+					</form>
+					<ul>
+						<li>
+							<a href="ExchangeServlet" onclick="document.getElementById('form-nyse').submit(); return false;">
+								NYSE
+							</a>
+						</li>
+					</ul>
+					
+					<form id="form-amex" method="get" action="ExchangeServlet">
+						<input type="hidden" name="exchange" value="amex" />
+					</form>
+					<ul>
+						<li>
+							<a href="ExchangeServlet" onclick="document.getElementById('form-amex').submit(); return false;">
+								AMEX
+							</a>
+						</li>
+					</ul>
+					
+					
+					<ul>
 						<li class="current_page_item"><a href="PortfolioServlet">Mon portfolio</a></li>
 					</ul>
 				</nav>
@@ -126,7 +157,7 @@
 				<!-- Search -->
 				<section class="is-search">
 					<form method="post" action="#">
-						<input type="text" class="text" name="search" placeholder="Search" />
+						<input type="text" class="input-large text" name="search" placeholder="Search" />
 					</form>
 				</section>
 	
