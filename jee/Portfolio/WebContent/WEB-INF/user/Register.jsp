@@ -129,39 +129,11 @@
 	
 				<!-- Nav -->
 				<nav id="nav">
-					<form id="form-nasdaq" method="get" action="ExchangeServlet">
-						<input type="hidden" name="exchange" value="nasdaq" />
-					</form>
 					<ul>
-						<li>
-							<a href="ExchangeServlet" onclick="document.getElementById('form-nasdaq').submit(); return false;">
-								NASDAQ
-							</a>
-						</li>
+						<li><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
+						<li><a href="exchange.do?exchange=Nyse">NYSE</a></li>
+						<li><a href="exchange.do?exchange=Amex">AMEX</a></li>
 					</ul>
-					
-					<form id="form-nyse" method="get" action="ExchangeServlet">
-						<input type="hidden" name="exchange" value="nyse" />
-					</form>
-					<ul>
-						<li>
-							<a href="ExchangeServlet" onclick="document.getElementById('form-nyse').submit(); return false;">
-								NYSE
-							</a>
-						</li>
-					</ul>
-					
-					<form id="form-amex" method="get" action="ExchangeServlet">
-						<input type="hidden" name="exchange" value="amex" />
-					</form>
-					<ul>
-						<li>
-							<a href="ExchangeServlet" onclick="document.getElementById('form-amex').submit(); return false;">
-								AMEX
-							</a>
-						</li>
-					</ul>
-					
 					
 					<ul>
 						<li class="current_page_item"><a href="PortfolioServlet">Mon portfolio</a></li>
