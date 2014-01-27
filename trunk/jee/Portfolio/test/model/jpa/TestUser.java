@@ -1,3 +1,4 @@
+package model.jpa;
 import model.jpa.Address;
 import model.jpa.User;
 import model.jpa.ConfidenceLevel;
