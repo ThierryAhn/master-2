@@ -1,5 +1,7 @@
 package model.services;
 
+import javax.ejb.Remote;
+
 import model.jpa.User;
 
 /**
@@ -7,6 +9,7 @@ import model.jpa.User;
  * @author ABALINE & AHOUNOU
  * 28 déc. 2013
  */
+@Remote
 public interface IUserService extends IService{
 	
 	/**
