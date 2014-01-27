@@ -1,3 +1,5 @@
+package model.jpa;
+
 import java.sql.Date;
 
 import model.jpa.Action;

@@ -1,7 +1,6 @@
-import model.jpa.Exchange;
+package model.jpa;
 import model.services.ExchangeService;
 import model.services.IService;
-import model.services.Service;
 
 
 public class TestExchange {
