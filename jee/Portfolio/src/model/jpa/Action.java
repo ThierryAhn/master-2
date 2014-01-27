@@ -229,7 +229,17 @@ public class Action {
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-	
-	
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Action [actionId=" + actionId + ", date=" + date + ", open="
+				+ open + ", high=" + high + ", low=" + low + ", close=" + close
+				+ ", volume=" + volume + ", adj=" + adj + ", lastPrice="
+				+ lastPrice + ", gain=" + gain + ", lost=" + lost
+				+ ", company=" + company + "]";
+	}
 	
 }
