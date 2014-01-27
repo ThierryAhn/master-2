@@ -1,6 +1,3 @@
-/**
- * 
- */
 package model.jpa;
 
 import java.sql.Date;
