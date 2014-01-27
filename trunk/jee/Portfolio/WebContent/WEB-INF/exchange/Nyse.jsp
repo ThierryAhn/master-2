@@ -29,12 +29,7 @@
 		<link
 			href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700|Open+Sans+Condensed:300,700"
 			rel="stylesheet" />
-		
-		
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
-		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
-	
+			
 	</head>
 
 	<body class="left-sidebar">
@@ -99,17 +94,15 @@
 					
 					<div class="pager">
 					
-						
+						<%--For displaying Previous link except for the 1st page --%>
+					    <c:if test="${currentPage != 1}">
+					        <a href="exchange.do?page=${currentPage - 1}&exchange=${currentExchange}" 
+					        	class="button previous">
+					        	Previous Page
+					        </a>
+					    </c:if>
 					    
 					    <div class="pages">
-					    	<%--For displaying Previous link except for the 1st page --%>
-						    <c:if test="${currentPage != 1}">
-						        <a href="exchange.do?page=${currentPage - 1}&exchange=${currentExchange}" 
-						        	class="button previous">
-						        	Previous Page
-						        </a>
-						    </c:if>
-					    	
 					    	
 					    	 <c:forEach begin="1" end="${noOfPages}" var="i">
 						    	<c:choose>
@@ -126,18 +119,16 @@
            					 </c:forEach>
 					    	
 					    	
-					    	 <%--For displaying Next link --%>
-						    <c:if test="${currentPage lt noOfPages}">
-						        <a href="exchange.do?page=${currentPage + 1}&exchange=${currentExchange}" 
-						        	class="button next">
-						        	Next Page
-						        </a>
-						    </c:if>
-					    	
 					    </div>
 					    
 					    
-					   
+					    <%--For displaying Next link --%>
+					    <c:if test="${currentPage lt noOfPages}">
+					        <a href="exchange.do?page=${currentPage + 1}&exchange=${currentExchange}" 
+					        	class="button next">
+					        	Next Page
+					        </a>
+					    </c:if>
 					    
 					</div>
 					

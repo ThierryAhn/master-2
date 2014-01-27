@@ -2317,8 +2317,8 @@ div.content-module-heading span {
 .fl { float: left; }
 .fr { float: right; }
 
-.half-size-column {
-	width: 35%;
+.size-column {
+	width: 40%;
 }
 
 /* For modern browsers */
