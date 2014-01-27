@@ -1,13 +1,8 @@
 package model.util;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.persistence.ElementCollection;
 
 import model.jpa.Company;
 import model.jpa.Exchange;
@@ -15,6 +10,7 @@ import model.services.ExchangeService;
 import model.services.IExchangeService;
 import model.services.IService;
 import model.services.Service;
+import properties.Configuration;
 import au.com.bytecode.opencsv.CSVReader;
 
 
@@ -25,70 +21,63 @@ import au.com.bytecode.opencsv.CSVReader;
  */
 public class FillCompanyTable {
 	
-	@ElementCollection
-	private List<Company> listCompany = new ArrayList<Company>();
-	
-	@ElementCollection
-	private Set<Company> set = new HashSet<Company>();
-	
-	public FillCompanyTable(String filename, String exchangeName) throws IOException{
+	/**
+	 * Constructor
+	 * @param folderName
+	 * @param exchangeName, the exchange of the company
+	 * @param number, number of company to persist
+	 * @throws IOException
+	 */
+	public FillCompanyTable(String folderName, int number) throws IOException{
 		
+		File directory = new File(folderName);
 		
-		
-		
-		
-		
-		IService dao = new Service();
-		
-		// get the exchange
-		IExchangeService daoExchange = new ExchangeService();
-		Exchange exchange = daoExchange.getExchange(exchangeName);
-		
-		// load file
-		CSVReader reader = new CSVReader(new FileReader(filename));
-		
-		String [] nextLine;
-		
-		reader.readNext(); // skip labes lines
-	    
-		while ((nextLine = reader.readNext()) != null) {
+		for(int i = 0; i < directory.list().length; i++){
 			
-			String delim = "," +"\"";
-	    	
-			String [] values = nextLine[0].split(delim);
-			for(int i = 1; i < 9; i++){
-				values[i] = values[i].replace("\"", "");
-			}
-			values[8] = values[8].replace(";", "");
-			values[8] = values[8].replace(",", "");
-	    	
+			String filename = Configuration.getInstance().getCompanyDirectoryName() + "/"+directory.list()[i];
 			
-	    	
-	    	Company company = new Company(values[0], values[1], values[2], 
-	    			Double.parseDouble(values[3]), values[4], values[5], 
-	    			values[6], values[7], values[8], exchange);
-	    	
-	    	
-	    	//listCompany.add(company);
-	    	//set.add(company);
-	    	dao.insert(company);
-	        
-	    }
+			IService dao = new Service();
+			
+			// get the exchange
+			String exchangeName = directory.list()[i].substring(0, directory.list()[i].length() - 4).toUpperCase();
+			
+			
+			IExchangeService daoExchange = new ExchangeService();
+			Exchange exchange = daoExchange.getExchange(exchangeName);
+			
+			// load file
+			CSVReader reader = new CSVReader(new FileReader(filename));
+			
+			String [] nextLine;
+			
+			reader.readNext(); // skip labels lines
+		    
+			int j = 0;
+			
+			while ( ((nextLine = reader.readNext()) != null) && (j != number) ) {
+				
+				String delim = "," +"\"";
+		    	
+				String [] values = nextLine[0].split(delim);
+				for(int k = 1; k < 9; k++){
+					values[k] = values[k].replace("\"", "");
+				}
+				values[8] = values[8].replace(";", "");
+				values[8] = values[8].replace(",", "");
+		    	
+		    	Company company = new Company(values[0], values[1], values[2], 
+		    			Double.parseDouble(values[3]), values[4], values[5], 
+		    			values[6], values[7], values[8], exchange);
+		    	
+		    	dao.insert(company);
+		    	
+		    	j++;
+		        
+		    }
+			
+			reader.close();
+		}
 		
-		//dao.insert(set);
 		
-		System.err.println("End");
-		reader.close();
 	}
-	
-	
-	
-	public static void main(String [] args) throws IOException{
-		new FillCompanyTable("C:\\Users\\Folabi\\workspace\\master2\\JEE\\Portfolio\\data\\Nyse.csv", "NYSE");
-		new FillCompanyTable("C:\\Users\\Folabi\\workspace\\master2\\JEE\\Portfolio\\data\\Nasdaq.csv", "NASDAQ");
-		new FillCompanyTable("C:\\Users\\Folabi\\workspace\\master2\\JEE\\Portfolio\\data\\Amex.csv", "AMEX");
-		System.err.println("End");
-	}
-	
-	
 }
