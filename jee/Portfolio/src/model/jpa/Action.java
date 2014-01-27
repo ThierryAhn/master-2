@@ -1,6 +1,7 @@
 package model.jpa;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -98,6 +99,9 @@ public class Action {
 		this.volume = volume;
 		this.adj = adj;
 		this.company = company;
+		
+		lost = new ArrayList<Double>();
+		gain = new ArrayList<Double>();
 	}
 
 	/**
