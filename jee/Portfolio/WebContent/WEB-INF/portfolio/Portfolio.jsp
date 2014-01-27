@@ -24,19 +24,18 @@
 		<script src="js/collapse.js"></script>
 		
 		<!-- css -->
-		<link rel="stylesheet" href="css/skel-noscript.css" />
-		<link rel="stylesheet" href="css/style.css" />
-		<link rel="stylesheet" href="css/style-desktop.css" />
-		<link rel="stylesheet" href="css/style-wide.css" />
+		<noscript>
+			<link rel="stylesheet" href="css/skel-noscript.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-desktop.css" />
+			<link rel="stylesheet" href="css/style-wide.css" />
+		</noscript>
+		
 		<link
 			href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700|Open+Sans+Condensed:300,700"
 			rel="stylesheet" />
 		<link rel="stylesheet" href="css/style-login.css" />
 		
-		<!--[if lte IE 9]><link rel="stylesheet" href="css/ie9.css" /><![endif]-->
-		<!--[if lte IE 8]><script src="js/html5shiv.js"></script><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
-		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
-	
 	</head>
 
 	<body class="left-sidebar">
@@ -72,7 +71,7 @@
 							</ul>
 						</div>
 						
-						<div class="half-size-column fl">
+						<div class="size-column fl">
 							<div class="content-module">
 								
 								<div class="content-module-heading cf">
