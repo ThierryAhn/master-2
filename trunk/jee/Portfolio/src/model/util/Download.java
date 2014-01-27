@@ -1,10 +1,13 @@
 package model.util;
 
+import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
+import properties.Configuration;
 
 /**
  * Class Download which helps to download file on Internet
@@ -16,62 +19,35 @@ public class Download
 	/**
 	 * Get file from internet
 	 * @param host host of the file
+	 * @throws IOException 
 	 */
-	public static void getFile(String host)
+	public static void getFile(String host) throws IOException
 	{
-		InputStream input = null;
+		
+		URL url = new URL(host);
+		BufferedInputStream buf = new BufferedInputStream(url.openStream());
+		byte[] buffer = new byte[1024];
+		
+		int read;
 		FileOutputStream writeFile = null;
-
-		try
-		{
-			URL url = new URL(host);
-			URLConnection connection = url.openConnection();
-			int fileLength = connection.getContentLength();
-
-			if (fileLength == -1)
-			{
-				System.out.println("Invalide URL or file.");
-				return;
-			}
-
-			input = connection.getInputStream();
-			String fileName = url.getFile().substring(url.getFile().lastIndexOf('/') + 1);
-			writeFile = new FileOutputStream(fileName);
-			byte[] buffer = new byte[1024];
-			int read;
-
-			while ((read = input.read(buffer)) > 0)
-				writeFile.write(buffer, 0, read);
-			writeFile.flush();
+		
+		// construct file name
+		String filename = host.split("exchange=")[1].split("&")[0] +".csv";
+		
+		writeFile = new FileOutputStream(Configuration.getInstance().getCompanyDirectoryName()+"/" +filename);
+		
+		while ((read = buf.read(buffer)) > 0){
+			writeFile.write(buffer, 0, read);
 		}
-		catch (IOException e)
-		{
-			System.out.println("Error while trying to download the file.");
-			e.printStackTrace();
-		}
-		finally
-		{
-			try
-			{
-				writeFile.close();
-				input.close();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-		}
+		writeFile.flush();
+		writeFile.close();
 	}
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
-		if (args.length != 1)
-		{
-			System.out.println("You must give the URL of the file to download.");
-			return;
-		}
-
-		getFile(args[0]);
+		Download.getFile("http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=ametotjteitn&render=download");
+		
+		System.out.println("end");
 	}
 }
 
