@@ -9,10 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.jpa.User;
-import model.services.UserService;
 import model.services.IUserService;
+import model.services.UserService;
 
 /**
  * Servlet implementation class ClientServlet
@@ -58,7 +59,7 @@ public class UserServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
-
+		
 		User user = null;
 
 		// connecting user
@@ -74,7 +75,8 @@ public class UserServlet extends HttpServlet {
 						getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
 
 				// injection bean
-				request.setAttribute("client", user);
+				HttpSession session = request.getSession(true);
+				session.setAttribute("user", user);
 
 				// sending to portfolio jsp page
 				dispatcher.include(request, response);

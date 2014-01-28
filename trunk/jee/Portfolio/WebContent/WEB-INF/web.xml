@@ -7,10 +7,9 @@
 	<display-name>Portfolio</display-name>
 
 	<welcome-file-list>
-		<welcome-file>/WEB-INF/portfolio/Portfolio.jsp</welcome-file>
+		<welcome-file>/WEB-INF/user/LogOn.jsp</welcome-file>
 	</welcome-file-list>
-
-
+	
 	<servlet>
 		<servlet-name>ExchangeServlet</servlet-name>
 		<servlet-class>controller.ExchangeServlet</servlet-class>
