@@ -13,14 +13,40 @@ $(document).ready(function() {
 
 
 function toggle_visibility(id) {
+	
 	var e = document.getElementById(id);
 	
 	// opening account
 	if(id == 'openHidden'){
+		document.getElementById('withdrawHidden').style.display = 'none';
+		document.getElementById('depositHidden').style.display = 'none';
+		
 		if(e.style.display == 'block')
 			e.style.display = 'none';
 		else
 			e.style.display = 'block';
+	}else{
+		// deposit
+		if(id == 'depositHidden'){
+			document.getElementById('withdrawHidden').style.display = 'none';
+			document.getElementById('openHidden').style.display = 'none';
+			
+			if(e.style.display == 'block')
+				e.style.display = 'none';
+			else
+				e.style.display = 'block';
+		}else{
+			// deposit
+			if(id == 'withdrawHidden'){
+				document.getElementById('depositHidden').style.display = 'none';
+				document.getElementById('openHidden').style.display = 'none';
+				
+				if(e.style.display == 'block')
+					e.style.display = 'none';
+				else
+					e.style.display = 'block';
+			}
+		}
 	}
 }
 

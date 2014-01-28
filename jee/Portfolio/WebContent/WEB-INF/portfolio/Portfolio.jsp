@@ -7,6 +7,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE HTML>
+
 <html>
 	<head>
 	
@@ -75,36 +76,49 @@
 							<div class="content-module">
 								
 								<div class="content-module-heading cf">
-									<h3 class="fl">Mon Compte</h3>
+									
+									<h3 class="fl">
+										Mon Compte
+										<c:if test="${not empty user.account.amount}">
+											,&nbsp; ${user.account.amount} &#36;
+										</c:if>		
+									</h3>
+									
 									<span class="fr expand-collapse-text">Fermer</span>
 									<span class="fr expand-collapse-text initial-expand">Ouvrir</span>
 								</div>
 								
 								
 								<div class="content-module-main cf">
-									<a href="#" onclick="toggle_visibility('openHidden');">
-					 					Ouvrir compte
-									</a>
+									<!-- account -->
+									<c:choose>
+										<c:when test="${empty user.account}">
+											<a href="#" onclick="toggle_visibility('openHidden');">
+												 Ouvrir compte
+											</a>
+										</c:when>
+										<c:otherwise>
+											<a href="AccountServlet?userId=${user.userId}"> 
+												Fermer compte 
+											</a>
+										</c:otherwise>
+									</c:choose>
 									
+									<br/>
 									
+									<c:if test="${not empty user.account}">
+										<a href="#" onclick="toggle_visibility('depositHidden');">Déposer</a> - 
+										<a href="#" onclick="toggle_visibility('withdrawHidden');">Retirer</a>
+									</c:if>
 									
 									<!-- open account -->
 									<div id="openHidden" hidden=hidden>
 										<form method="post" action="AccountServlet">
-											
-											<input type="hidden" name="userId" 
-												value="${client.userId}" />
-											
-											Montant initial <input type="number" name="amount" step="10" 
-												placeholder="0.00" />
+											Montant initial <input type="text" name="amount"/>
 													
-											<!-- <input type="submit" name="accountSubmit" value="Creer"/>-->
-											
-											
 											<br/>
 											<input type="submit" name="accountSubmit" value="Creer"/>
 												
-											
 											<button type="button" onclick="hide('openHidden');">
 												Cancel
 											</button>
@@ -113,7 +127,33 @@
 									</div>
 									
 									
+									<!-- deposit cash -->
+									<div id="depositHidden" hidden=hidden>
+										<form method="post" action="AccountServlet">
+											Montant <input type="text" name="amount"/>
+													
+											<input type="submit" name="accountSubmit" value="Ajouter"/>
+											
+											<button type="button" onclick="hide('depositHidden');">
+												Cancel
+											</button>
+										</form>
+										<hr/>
+									</div>
 									
+									<!-- withdraw cash -->
+									<div id="withdrawHidden" hidden=hidden>
+										<form method="post" action="AccountServlet">
+											Montant <input type="text" name="amount"/>
+													
+											<input type="submit" name="accountSubmit" value="Retirer"/>
+											<button type="button" onclick="hide('withdrawHidden');">
+												Cancel
+											</button>
+										</form>
+										<hr/>
+									</div>
+								
 								</div>
 							</div>
 						</div>
@@ -129,6 +169,9 @@
 				<div id="logo">
 					<h1>PORTFOLIO</h1>
 				</div>
+				<br/>
+				
+				Bienvenue ${user.lastName}
 	
 				<!-- Nav -->
 				<nav id="nav">

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.jpa.Account;
 import model.jpa.User;
@@ -41,21 +42,16 @@ public class AccountServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//System.out.println("user : " +request.getParameter("userId"));
-
-		User client = userService.getUser(
-				Integer.parseInt(request.getParameter("userId")));
+		HttpSession session = request.getSession(true);
+		
+		User user = (User) session.getAttribute("user");
 
 		// close user account
-		client.closeAccount();
-		userService.update(client);
-
-		// injection bean
-		request.setAttribute("client", client);
+		user.closeAccount();
+		userService.update(user);
 
 		// getting dispatcher
-		RequestDispatcher dispatcher = getServletContext().
-			getRequestDispatcher("/WEB-INF/ServicePortfolio.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
 
 		// sending to portfolio jsp page
 		dispatcher.include(request, response); 
@@ -67,36 +63,36 @@ public class AccountServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		double amount = Double.parseDouble(request.getParameter("amount"));
-
-		User client = userService.getUser(
-				Integer.parseInt(request.getParameter("userId")));
-
+		
+		HttpSession session = request.getSession(true);
+		
+		User user = (User) session.getAttribute("user");
+		
 		// opening account
 		if(request.getParameter("accountSubmit").equals("Creer")){
 			Account account = new Account(amount);
-			client.setAccount(account);
+			user.setAccount(account);
 		}
 
 
 		// deposit cash
 		if(request.getParameter("accountSubmit").equals("Ajouter")){
-			client.deposit(amount);
+			user.deposit(amount);
 		}
 
 		// withdraw cash
 		if(request.getParameter("accountSubmit").equals("Retirer")){
-			client.withdraw(amount);
+			user.withdraw(amount);
 		}
 
 		// updating user
-		userService.update(client);
+		userService.update(user);
 
 		// injection bean
-		request.setAttribute("client", client);
-
+		//request.setAttribute("client", client);
+		
 		// getting dispatcher
-		RequestDispatcher dispatcher = getServletContext().
-				getRequestDispatcher("/WEB-INF/Portfolio.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
 
 		// sending to portfolio jsp page
 		dispatcher.include(request, response);
