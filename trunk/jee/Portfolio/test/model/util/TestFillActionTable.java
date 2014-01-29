@@ -35,10 +35,10 @@ public class TestFillActionTable {
 					+ "&ignore=.csv";
 			
 			
+			System.out.println("symbol : "+symbol);
+			Download.getActionFile(url, company);
 			
-			//Download.getActionFile(url);
-			
-			new FillTable(Configuration.getInstance().getActionDirectoryName()).fillActionTable(company);
+			//new FillTable(Configuration.getInstance().getActionDirectoryName()).fillActionTable(company);
 		}
 		
 		
