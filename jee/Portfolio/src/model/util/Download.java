@@ -109,28 +109,7 @@ public class Download
 		} catch (Exception e) {
 			System.out.println("fichier non trouvé");
 		}
-
-
-
-
-		/* int read;
-		FileOutputStream writeFile = null;
-
-		// construct file name (symbol of company + csv)
-		String filename = host.split("&")[0].split("=")[1] +".csv";
-
-		writeFile = new FileOutputStream(Configuration.getInstance().getActionDirectoryName()+"/" +filename);
-
-		while ((read = buf.read(buffer)) > 0){
-			writeFile.write(buffer, 0, read);
-		}
-		writeFile.flush();
-		writeFile.close();*/
-
-
-
-
-
+	
 	}
 }
 

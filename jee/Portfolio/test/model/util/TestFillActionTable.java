@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-import properties.Configuration;
 import model.jpa.Company;
 import model.services.CompanyService;
 import model.services.ICompanyService;

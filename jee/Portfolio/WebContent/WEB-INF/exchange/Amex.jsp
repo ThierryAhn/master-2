@@ -83,25 +83,15 @@
 									<td>${company.name}</td>
 									<td>${company.marketCap}</td>
 									<td>${company.sector}</td>
-									<td><a href="#" onclick="toggle_visibility('openHidden');">
-											Actions </a></td>
+									
+									<td>
+										<a href="action.do?symbol=${company.symbol}">Actions</a>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-
 				</article>
-
-				<!-- Pager -->
-				<!-- <div class="pager">
-						<a href="#" class="button previous">Previous Page</a>
-						<div class="pages">
-							<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-							<a href="#">4</a> <span>&hellip;</span> <a href="#">20</a>
-						</div>
-						<a href="#" class="button next">Next Page</a>
-					</div>   -->
-
 			</div>
 		</div>
 
@@ -121,8 +111,7 @@
 				<ul>
 					<li><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
 					<li><a href="exchange.do?exchange=Nyse">NYSE</a></li>
-					<li class="current_page_item"><a
-						href="exchange.do?exchange=Amex">AMEX</a></li>
+					<li class="current_page_item"><a href="exchange.do?exchange=Amex">AMEX</a></li>
 				</ul>
 
 
