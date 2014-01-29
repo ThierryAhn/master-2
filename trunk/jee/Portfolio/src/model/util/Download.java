@@ -10,6 +10,8 @@ import java.util.GregorianCalendar;
 import model.jpa.Action;
 import model.jpa.Company;
 import model.jpa.Exchange;
+import model.services.IService;
+import model.services.Service;
 import au.com.bytecode.opencsv.CSVReader;
 
 /**
@@ -26,6 +28,8 @@ public class Download
 	 */
 	public static void getCompanyFile(String host, Exchange exchange, int number) throws IOException
 	{
+		IService service = new Service();
+		
 		URL url = new URL(host);
 		BufferedReader buf = new BufferedReader(new InputStreamReader(url.openStream()));
 		
@@ -47,23 +51,15 @@ public class Download
 				
 				System.out.println(company);
 				
+				//service.insert(company);
+				
 				j++;
 			}
 			reader.close();
 
-
-
-
 		} catch (Exception e) {
 			System.out.println("fichier non trouvé");
 		}
-		
-		
-		
-		
-		
-		
-		
 	}
 
 	/**
@@ -74,26 +70,8 @@ public class Download
 	 */
 	public static void getActionFile(String host, Company company) throws IOException
 	{
-
-		/* URL url = new URL(host);
-		BufferedInputStream buf = new BufferedInputStream(url.openStream());
-		byte[] buffer = new byte[1024];
-
-		int read;
-		FileOutputStream writeFile = null;
-
-		// construct file name (symbol of company + csv)
-		String filename = host.split("&")[0].split("=")[1] +".csv";
-
-		writeFile = new FileOutputStream(Configuration.getInstance().getActionDirectoryName()+"/" +filename);
-
-		while ((read = buf.read(buffer)) > 0){
-			writeFile.write(buffer, 0, read);
-		}
-		writeFile.flush();
-		writeFile.close();*/
-
-
+		IService service = new Service();
+		
 		URL url = new URL(host);
 		BufferedReader buf = new BufferedReader(new InputStreamReader(url.openStream()));
 		byte[] buffer = new byte[1024];
@@ -121,7 +99,7 @@ public class Download
 				
 				System.out.println(action);
 				
-				//dao.insert(action);
+				//service.insert(action);
 
 			}
 			reader.close();
