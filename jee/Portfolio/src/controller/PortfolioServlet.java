@@ -33,31 +33,28 @@ public class PortfolioServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
-		/* RequestDispatcher dispatcher = null;
+		RequestDispatcher dispatcher = null;
 		
 		HttpSession session = request.getSession();
-		
-		
 		
 		User user = (User) session.getAttribute("user");
 		if(user == null){
 			// getting dispatcher
 			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user/LogOn.jsp");
 		}else{
-			
+			// getting dispatcher
+			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
 		}
 		
-		
-
 		// sending to login jsp page
-		dispatcher.include(request, response); */
+		dispatcher.include(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 	}
 
 }

@@ -88,6 +88,13 @@ public class Action {
 		this.adj = adj;
 		this.company = company;
 	}
+	
+	/**
+	 * @return the company
+	 */
+	public Company getCompany() {
+		return company;
+	}
 
 	/**
 	 * @return the date

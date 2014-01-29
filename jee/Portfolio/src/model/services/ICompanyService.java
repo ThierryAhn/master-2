@@ -24,7 +24,6 @@ public interface ICompanyService extends IService{
 	 * @return
 	 */
 	public List<Company> getAllCompany();
-	
 	/**
 	 * Return a limited number of company identified by an exchange
 	 * @param exchange
