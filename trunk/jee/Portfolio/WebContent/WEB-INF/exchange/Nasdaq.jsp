@@ -78,13 +78,13 @@
 								</thead>
 								
 								<tbody>
-									<c:forEach var="company"  items="${listCompany}" >
+									<c:forEach var="action"  items="${actionList}" >
 										<tr>
-											<td>${company.name}(${company.symbol})</td>
-											<td>${company.lastSale}</td>
-											<td>${company.actionList[0].volume}</td>
-											<td>${company.actionList[0].high}/${company.actionList[0].low}</td>
-											<td>${company.marketCap}</td>
+											<td>${action.company.name}(${action.company.symbol})</td>
+											<td>${action.company.lastSale}</td>
+											<td>${action.volume}</td>
+											<td>${action.high}/${action.low}</td>
+											<td>${action.company.marketCap}</td>
 										</tr>
 									</c:forEach>
 								</tbody>
