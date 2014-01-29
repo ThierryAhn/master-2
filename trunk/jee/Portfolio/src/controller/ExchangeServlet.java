@@ -10,11 +10,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.jpa.Action;
 import model.jpa.Company;
 import model.jpa.Exchange;
+import model.jpa.User;
+import model.services.ActionService;
 import model.services.CompanyService;
 import model.services.ExchangeService;
+import model.services.IActionService;
 import model.services.ICompanyService;
 import model.services.IExchangeService;
 
@@ -52,55 +57,86 @@ public class ExchangeServlet extends HttpServlet {
 		
 		//System.out.println("exchange : " +request.getParameter("exchange"));
 		
-		RequestDispatcher dispatcher = getServletContext().
-				getRequestDispatcher("/WEB-INF/exchange/Nasdaq.jsp");
+		RequestDispatcher dispatcher = null;
 		
-		Exchange exchange = null;
-		List<Company> listCompany = new ArrayList<Company>();
+		HttpSession session = request.getSession();
 		
 		
-		int page = 1;
-        int recordsPerPage = 5;
-        
-        if(request.getParameter("page") != null){
-            page = Integer.parseInt(request.getParameter("page"));
-        }
 		
-       
-        if(request.getParameter("exchange").equals("Nasdaq") || request.getParameter("exchange").equals("Nyse")
-        		|| request.getParameter("exchange").equals("Amex")){
-        	
-        	String choiceExchange = request.getParameter("exchange");
-        	
-        	dispatcher = getServletContext().
-					getRequestDispatcher("/WEB-INF/exchange/"+choiceExchange+".jsp");
-        	
-        	exchange = exchangeService.getExchange(choiceExchange);
-        	
-        	//System.out.println("exchange : "+exchange);
-        	
-        	int noOfRecords = companyService.count(exchange);
-        	
-        	listCompany = companyService.getAllCompanyByExchange(exchange, 
-					(page-1)*recordsPerPage, recordsPerPage);
-        	
-        	
-        	for(Company company : listCompany){
-        		company.getActionList().isEmpty();
-        	}
-        	
-        	
-        	//int noOfPages = 0;
-            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
-    		
-            request.setAttribute("noOfPages", noOfPages);
-            request.setAttribute("currentPage", page);
-        	request.setAttribute("currentExchange", choiceExchange);
-        	request.setAttribute("listCompany", listCompany);
- 
-        	dispatcher.include(request, response);
-        	
-        }
+		User user = (User) session.getAttribute("user");
+		if(user == null){
+			// getting dispatcher
+			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user/LogOn.jsp");
+		
+		}else{
+			
+			dispatcher = getServletContext().
+					getRequestDispatcher("/WEB-INF/exchange/Nasdaq.jsp");
+			
+			Exchange exchange = null;
+			List<Company> listCompany = new ArrayList<Company>();
+			
+			
+			int page = 1;
+	        int recordsPerPage = 5;
+	        
+	        if(request.getParameter("page") != null){
+	            page = Integer.parseInt(request.getParameter("page"));
+	        }
+			
+	       
+	        if(request.getParameter("exchange").equals("Nasdaq") || request.getParameter("exchange").equals("Nyse")
+	        		|| request.getParameter("exchange").equals("Amex")){
+	        	
+	        	String choiceExchange = request.getParameter("exchange");
+	        	
+	        	dispatcher = getServletContext().
+						getRequestDispatcher("/WEB-INF/exchange/"+choiceExchange+".jsp");
+	        	
+	        	exchange = exchangeService.getExchange(choiceExchange);
+	        	
+	        	//System.out.println("exchange : "+exchange);
+	        	
+	        	int noOfRecords = companyService.count(exchange);
+	        	
+	        	listCompany = companyService.getAllCompanyByExchange(exchange, 
+						(page-1)*recordsPerPage, recordsPerPage);
+	        	
+	        	
+	        	
+	        	
+	        	
+	        	List<Action> actionList = new ArrayList<Action>();
+	        	
+	        	IActionService actionService = new ActionService();
+	        	
+	        	for(Company company : listCompany){
+	        		actionList.addAll(actionService.getActionsByCompnay(company));
+	        	}
+	        	
+	        	//System.out.println("liste : "+actionList );
+	        	
+	        	//int noOfPages = 0;
+	            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+	    		
+	            request.setAttribute("noOfPages", noOfPages);
+	            request.setAttribute("currentPage", page);
+	        	request.setAttribute("currentExchange", choiceExchange);
+	        	request.setAttribute("actionList", actionList);
+	        	
+	        }
+		}
+		
+		
+		// sending to login jsp page
+		dispatcher.include(request, response);
+		
+		
+		
+		
+		
+		
+		
         
         
 		// filling company tables

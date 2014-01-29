@@ -55,9 +55,8 @@ public class AccountServlet extends HttpServlet {
 
 		// sending to portfolio jsp page
 		dispatcher.include(request, response); 
-
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -88,9 +87,6 @@ public class AccountServlet extends HttpServlet {
 		// updating user
 		userService.update(user);
 
-		// injection bean
-		//request.setAttribute("client", client);
-		
 		// getting dispatcher
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
 
