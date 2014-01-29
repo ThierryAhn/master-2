@@ -23,5 +23,8 @@
 	<classpathentry kind="lib" path="C:/Users/Folabi/workspace/master2/JEE/Portfolio/WebContent/WEB-INF/lib/gf-client-module.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/opencsv-2.4.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/appserv-rt.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jfreechart-1.0.13-experimental.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jcommon-1.0.16.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

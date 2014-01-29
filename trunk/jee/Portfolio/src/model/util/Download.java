@@ -40,7 +40,7 @@ public class Download
 			String [] nextLine;
 
 			reader.readNext(); // skip labels lines
-
+			
 			int j = 0;
 			
 			while ( ((nextLine = reader.readNext()) != null) && (j != number) ) {
@@ -74,8 +74,7 @@ public class Download
 		
 		URL url = new URL(host);
 		BufferedReader buf = new BufferedReader(new InputStreamReader(url.openStream()));
-		byte[] buffer = new byte[1024];
-
+		
 		// load file
 		try {
 			CSVReader reader = new CSVReader(buf);
