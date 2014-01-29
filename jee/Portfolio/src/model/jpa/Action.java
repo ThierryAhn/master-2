@@ -27,7 +27,7 @@ public class Action {
 	/**
 	 * 
 	 */
-	@Column(name = "DATE_FIELD")
+	//@Column(name = "DATE_FIELD")
 	private Date date;
 	/**
 	 * Minimal value to start bidding
@@ -53,18 +53,6 @@ public class Action {
 	 * The adjusted closing value
 	 */
 	private double adj;
-	/**
-	 * The current value of the action
-	 */
-	private double lastPrice;
-	/**
-	 * Action gains
-	 */
-	private List<Double> gain;
-	/**
-	 * Action lost
-	 */
-	private List<Double> lost;
 	/**
 	 * The company which owned the action
 	 */
@@ -99,9 +87,6 @@ public class Action {
 		this.volume = volume;
 		this.adj = adj;
 		this.company = company;
-		
-		lost = new ArrayList<Double>();
-		gain = new ArrayList<Double>();
 	}
 
 	/**
@@ -201,21 +186,7 @@ public class Action {
 	public void setAdj(double adj) {
 		this.adj = adj;
 	}
-
-	/**
-	 * @return the lastPrice
-	 */
-	public double getLastPrice() {
-		return lastPrice;
-	}
-
-	/**
-	 * @param lastPrice the lastPrice to set
-	 */
-	public void setLastPrice(double lastPrice) {
-		this.lastPrice = lastPrice;
-	}
-
+	
 	/**
 	 * @return the company
 	 */
@@ -237,9 +208,7 @@ public class Action {
 	public String toString() {
 		return "Action [actionId=" + actionId + ", date=" + date + ", open="
 				+ open + ", high=" + high + ", low=" + low + ", close=" + close
-				+ ", volume=" + volume + ", adj=" + adj + ", lastPrice="
-				+ lastPrice + ", gain=" + gain + ", lost=" + lost
-				+ ", company=" + company + "]";
+				+ ", volume=" + volume + ", adj=" + adj + ", company="
+				+ company + "]";
 	}
-	
 }

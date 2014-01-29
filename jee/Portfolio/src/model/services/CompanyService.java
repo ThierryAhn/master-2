@@ -44,4 +44,12 @@ public class CompanyService extends Service implements ICompanyService {
 							getResultList().size();
 	}
 
+	@Override
+	public Company getCompanyBySymbol(String symbol) {
+		return getEntityManager().
+				createQuery("SELECT c FROM Company c WHERE c.symbol = :symbol", 
+						Company.class).
+					setParameter("symbol", symbol).getSingleResult();
+	}
+
 }
