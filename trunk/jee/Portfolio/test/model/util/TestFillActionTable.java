@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
+import properties.Configuration;
 import model.jpa.Company;
 import model.services.CompanyService;
 import model.services.ICompanyService;
@@ -29,22 +30,15 @@ public class TestFillActionTable {
 			int lastMonth = 1;
 			int lastDay = 1;
 			
-			
-			
 			String url = "http://ichart.finance.yahoo.com/table.csv?s="+symbol+"&d=" +month 
 					+"&e=" +day +"&f=" +year + "&g=d&a=" +lastMonth +"&b=" +lastDay +"&c=" +lastYear
 					+ "&ignore=.csv";
 			
 			
 			
-			Download.getActionFile(url);
+			//Download.getActionFile(url);
 			
-			
-			
-			//System.out.println(symbol);
-			
-			
-			//new FillTable(Configuration.getInstance().getActionDirectoryName()).fillActionTable(company.getSymbol());
+			new FillTable(Configuration.getInstance().getActionDirectoryName()).fillActionTable(company);
 		}
 		
 		

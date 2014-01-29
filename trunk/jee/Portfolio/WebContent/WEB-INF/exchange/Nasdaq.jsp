@@ -69,26 +69,22 @@
 						<table class="style1">
 								<thead>
 									<tr>
-										<th>Symbole</th>
 										<th>Nom</th>
 										<th>Dernière vente</th>
-										<th>Market cap</th>
-										<th>IPO Year</th>
-										<th>Secteur</th>
-										<th>Industrie</th>
+										<th>Volume</th>
+										<th>(Aujourd'hui)Haut/Bas</th>
+										<th>Cours-marché</th>
 									</tr>
 								</thead>
 								
 								<tbody>
 									<c:forEach var="company"  items="${listCompany}" >
 										<tr>
-											<td>${company.symbol}</td>
-											<td>${company.name}</td>
+											<td>${company.name}(${company.symbol})</td>
 											<td>${company.lastSale}</td>
+											<td>${company.actionList[0].volume}</td>
+											<td>${company.actionList[0].high}/${company.actionList[0].low}</td>
 											<td>${company.marketCap}</td>
-											<td>${company.ipoYear}</td>
-											<td>${company.sector}</td>
-											<td>${company.industry}</td>
 										</tr>
 									</c:forEach>
 								</tbody>

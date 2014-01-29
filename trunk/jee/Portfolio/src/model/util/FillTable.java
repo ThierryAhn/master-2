@@ -1,9 +1,11 @@
 package model.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -25,13 +27,13 @@ import au.com.bytecode.opencsv.CSVReader;
  * 19 janv. 2014
  */
 public class FillTable {
-	
+
 	private File directory;
 	/**
 	 * Directory to scan
 	 */
 	private String folderName;
-	
+
 
 	/**
 	 * Constructor
@@ -48,7 +50,7 @@ public class FillTable {
 	 * @throws IOException
 	 */
 	public void fillCompanyTable(int number) throws IOException{
-		
+
 		// loop on all files in directory data/company
 		for(int i = 0; i < directory.list().length; i++){
 
@@ -58,7 +60,6 @@ public class FillTable {
 
 			// get the exchange
 			String exchangeName = directory.list()[i].substring(0, directory.list()[i].length() - 4).toUpperCase();
-
 
 			IExchangeService daoExchange = new ExchangeService();
 			Exchange exchange = daoExchange.getExchange(exchangeName);
@@ -71,101 +72,63 @@ public class FillTable {
 			reader.readNext(); // skip labels lines
 
 			int j = 0;
-
+			
 			while ( ((nextLine = reader.readNext()) != null) && (j != number) ) {
-
-				String delim = "," +"\"";
-
-				String [] values = nextLine[0].split(delim);
-				for(int k = 1; k < 9; k++){
-					values[k] = values[k].replace("\"", "");
-				}
-				values[8] = values[8].replace(";", "");
-				values[8] = values[8].replace(",", "");
-
-				Company company = new Company(values[0], values[1], values[2], 
-						Double.parseDouble(values[3]), values[4], values[5], 
-						values[6], values[7], values[8], exchange);
+				Company company = new Company(nextLine[0], nextLine[1], nextLine[2], 
+						Double.parseDouble(nextLine[3]), nextLine[4], nextLine[5], 
+						nextLine[6], nextLine[7], nextLine[8], exchange);
 
 				dao.insert(company);
-
+				
 				j++;
-
 			}
 			reader.close();
 		}
 	}
-	
+
 	/**
 	 * Fill action table
-	 * @param symbol
+	 * @param company, helps to get company symbol
 	 * @throws IOException
 	 */
-	public void fillActionTable(String symbol) throws IOException{
+	public void fillActionTable(Company company){
 		
-		// loop on all files in directory data/action
-		for(int i = 0; i < directory.list().length; i++){
+		// get file name
+		String filename = folderName + "/"+company.getSymbol().toUpperCase() +".csv";
 
-			String filename = folderName + "/"+directory.list()[i];
+		IService dao = new Service();
 
-			IService dao = new Service();
-
-			// get the exchange
-			//String exchangeName = directory.list()[i].substring(0, directory.list()[i].length() - 4).toUpperCase();
-
-
-			//IExchangeService daoExchange = new ExchangeService();
-			//Exchange exchange = daoExchange.getExchange(exchangeName);
-
-			// load file
+		// load file
+		try {
 			CSVReader reader = new CSVReader(new FileReader(filename));
-
+		
 			String [] nextLine;
 
 			reader.readNext(); // skip labels lines
-
+			
 			while ( ((nextLine = reader.readNext()) != null) ) {
-				
+
 				String []dateSplit = nextLine[0].split("-");
-				
-				@SuppressWarnings("deprecation")
-				Date date = new Date(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), 
-						Integer.parseInt(dateSplit[2]));
-				
-				// TODO change date to GregorianCalendar
+
+				// TODO change date to a simple date
 				Calendar cal=GregorianCalendar.getInstance();
 				cal.set(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), 
 						Integer.parseInt(dateSplit[2]));
-				
-				// getting company by his symbol
-				ICompanyService service = new CompanyService();
-				Company company = service.getCompanyBySymbol(symbol);
-				
-				Action action = new Action(date, Double.parseDouble(nextLine[1]), Double.parseDouble(nextLine[2]), 
+					
+				Action action = new Action(cal, Double.parseDouble(nextLine[1]), Double.parseDouble(nextLine[2]), 
 						Double.parseDouble(nextLine[3]), Double.parseDouble(nextLine[4]), 
 						Integer.parseInt(nextLine[5]), Double.parseDouble(nextLine[6]), company);
 				
-				System.out.println(action);
-				
-				/* String delim = "," +"\"";
-
-				String [] values = nextLine[0].split(delim);
-				for(int k = 1; k < 9; k++){
-					values[k] = values[k].replace("\"", "");
-				}
-				values[8] = values[8].replace(";", "");
-				values[8] = values[8].replace(",", "");
-
-				Company company = new Company(values[0], values[1], values[2], 
-						Double.parseDouble(values[3]), values[4], values[5], 
-						values[6], values[7], values[8], exchange);
-
-				dao.insert(company);
-
-				*/
-
+				dao.insert(action);
+			
 			}
 			reader.close();
+			
+			
+		
+		
+		} catch (Exception e) {
+			System.out.println("fichier non trouvé");
 		}
 	}
 }
