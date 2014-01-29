@@ -152,7 +152,9 @@
 				<div id="logo">
 					<h1>PORTFOLIO</h1>
 				</div>
-	
+				
+				Bienvenue ${user.lastName}
+				
 				<!-- Nav -->
 				<nav id="nav">
 					

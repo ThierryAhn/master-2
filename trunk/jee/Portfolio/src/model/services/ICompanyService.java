@@ -36,6 +36,13 @@ public interface ICompanyService extends IService{
 			int noOfRecords);
 	
 	/**
+	 * Find a Company identified by his symbol
+	 * @param symbol
+	 * @return
+	 */
+	public Company getCompanyBySymbol(String symbol);
+	
+	/**
 	 * Return number of company identified by an exchange
 	 * @param exchange
 	 * @return

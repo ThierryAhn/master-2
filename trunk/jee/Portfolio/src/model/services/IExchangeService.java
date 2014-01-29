@@ -1,5 +1,7 @@
 package model.services;
 
+import java.util.List;
+
 import javax.ejb.Remote;
 
 import model.jpa.Exchange;
@@ -19,4 +21,9 @@ public interface IExchangeService extends IService{
 	 */
 	public Exchange getExchange(String name);
 	
+	/**
+	 * Get all exchanges
+	 * @return
+	 */
+	public List<Exchange> getAllExchange();
 }

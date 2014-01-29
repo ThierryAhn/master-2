@@ -17,11 +17,11 @@ import properties.Configuration;
 public class Download
 {
 	/**
-	 * Get file from internet
+	 * Get company file from internet
 	 * @param host host of the file
 	 * @throws IOException 
 	 */
-	public static void getFile(String host) throws IOException
+	public static void getCompanyFile(String host) throws IOException
 	{
 		
 		URL url = new URL(host);
@@ -42,12 +42,33 @@ public class Download
 		writeFile.flush();
 		writeFile.close();
 	}
-
-	public static void main(String[] args) throws IOException
+	
+	/**
+	 * Get action file from internet
+	 * @param host host of the file
+	 * @throws IOException 
+	 */
+	public static void getActionFile(String host) throws IOException
 	{
-		Download.getFile("http://www.nasdaq.com/screening/companies-by-industry.aspx?exchange=ametotjteitn&render=download");
 		
-		System.out.println("end");
+		URL url = new URL(host);
+		BufferedInputStream buf = new BufferedInputStream(url.openStream());
+		byte[] buffer = new byte[1024];
+		
+		int read;
+		FileOutputStream writeFile = null;
+		
+		// construct file name (symbol of company + csv)
+		String filename = host.split("&")[0].split("=")[1] +".csv";
+		
+		writeFile = new FileOutputStream(Configuration.getInstance().getCompanyDirectoryName()+"/" +filename);
+		
+		while ((read = buf.read(buffer)) > 0){
+			writeFile.write(buffer, 0, read);
+		}
+		writeFile.flush();
+		writeFile.close();
+	
 	}
 }
 
