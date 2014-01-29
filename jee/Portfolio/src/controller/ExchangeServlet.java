@@ -67,7 +67,6 @@ public class ExchangeServlet extends HttpServlet {
         }
 		
        
-        
         if(request.getParameter("exchange").equals("Nasdaq") || request.getParameter("exchange").equals("Nyse")
         		|| request.getParameter("exchange").equals("Amex")){
         	
@@ -78,12 +77,18 @@ public class ExchangeServlet extends HttpServlet {
         	
         	exchange = exchangeService.getExchange(choiceExchange);
         	
-        	System.out.println("exchange : "+exchange);
+        	//System.out.println("exchange : "+exchange);
         	
         	int noOfRecords = companyService.count(exchange);
         	
         	listCompany = companyService.getAllCompanyByExchange(exchange, 
 					(page-1)*recordsPerPage, recordsPerPage);
+        	
+        	
+        	for(Company company : listCompany){
+        		company.getActionList().isEmpty();
+        	}
+        	
         	
         	//int noOfPages = 0;
             int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
@@ -93,9 +98,7 @@ public class ExchangeServlet extends HttpServlet {
         	request.setAttribute("currentExchange", choiceExchange);
         	request.setAttribute("listCompany", listCompany);
  
-        	
-        	
-			dispatcher.include(request, response);
+        	dispatcher.include(request, response);
         	
         }
         

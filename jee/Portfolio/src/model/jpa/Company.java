@@ -3,12 +3,16 @@
  */
 package model.jpa;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /**
@@ -65,6 +69,12 @@ public class Company {
 	private Exchange exchange;
 	
 	/**
+	 * Company action
+	 */
+	@OneToMany(cascade=CascadeType.ALL, mappedBy="company")
+	private List<Action> actionList;
+	
+	/**
 	 * Default constructor
 	 */
 	public Company(){
@@ -96,6 +106,30 @@ public class Company {
 		this.industry = industry;
 		this.summaryQuote = summaryQuote;
 		this.exchange = exchange;
+		this.actionList = new ArrayList<Action>();
+	}
+	
+	/**
+	 * @return the companyId
+	 */
+	public int getCompanyId() {
+		return companyId;
+	}
+
+	/**
+	 * Add new line of the same action
+	 * @param action
+	 */
+	public void addAction(Action action){
+		this.actionList.add(action);
+	}
+	
+	/**
+	 * Return all line of the action
+	 * @return
+	 */
+	public List<Action> getActionList(){
+		return actionList;
 	}
 	
 	/**

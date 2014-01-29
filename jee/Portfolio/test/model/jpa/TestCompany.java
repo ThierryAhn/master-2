@@ -21,7 +21,7 @@ public class TestCompany {
 		
 		ICompanyService daoCompany = new CompanyService();
 		
-		Exchange exchange = daoExchange.getExchange("NASDAQ");
+		/* Exchange exchange = daoExchange.getExchange("NASDAQ");
 		
 		Company company = new Company("FLWS","1-900 FLOWERS.COM, Inc.", "5.48",
 				361424160.72, "n/a", "1999", "Consumer Services","Other Specialty Stores", 
@@ -47,15 +47,14 @@ public class TestCompany {
 				9304748811.49, "n/a", "n/a", 
 				"Technology","Computer Software: Prepackaged Software",
 				"http://www.nasdaq.com/symbol/ddd", exchange);
-		dao.insert(company);
+		dao.insert(company);*/
 		
 		
 		// get company
-		List<Company> listCompany = new ArrayList<Company>();
-		//listCompany = daoCompany.getAllCompanyByExchange(exchange);
+		Company company = daoCompany.getCompany("Aberdeen Asia-Pacific Income Fund Inc");
 		
-		System.out.println("Liste");
-		System.out.println(listCompany);
+		company.getActionList().isEmpty();
+		System.out.println(company.getActionList().get(0));
 		
 	}
 }	

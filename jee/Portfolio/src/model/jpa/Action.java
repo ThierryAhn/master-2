@@ -1,8 +1,6 @@
 package model.jpa;
 
-import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Calendar;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +9,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Class Action
@@ -27,8 +28,9 @@ public class Action {
 	/**
 	 * 
 	 */
-	//@Column(name = "DATE_FIELD")
-	private Date date;
+	@Column(name = "DATE_FIELD")
+	@Temporal(TemporalType.DATE)
+	private Calendar date;
 	/**
 	 * Minimal value to start bidding
 	 */
@@ -53,11 +55,9 @@ public class Action {
 	 * The adjusted closing value
 	 */
 	private double adj;
-	/**
-	 * The company which owned the action
-	 */
-	@OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.MERGE})
-	@JoinColumn(name = "companyId")
+	
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name="COMPANY_ID")
 	private Company company;
 	
 	/**
@@ -77,7 +77,7 @@ public class Action {
 	 * @param adj
 	 * @param company
 	 */
-	public Action(Date date, double open, double high, double low, double close,
+	public Action(Calendar date, double open, double high, double low, double close,
 			int volume, double adj, Company company) {
 		this.date = date;
 		this.open = open;
@@ -92,14 +92,14 @@ public class Action {
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public Calendar getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(Calendar date) {
 		this.date = date;
 	}
 
@@ -186,20 +186,6 @@ public class Action {
 	public void setAdj(double adj) {
 		this.adj = adj;
 	}
-	
-	/**
-	 * @return the company
-	 */
-	public Company getCompany() {
-		return company;
-	}
-
-	/**
-	 * @param company the company to set
-	 */
-	public void setCompany(Company company) {
-		this.company = company;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -208,7 +194,6 @@ public class Action {
 	public String toString() {
 		return "Action [actionId=" + actionId + ", date=" + date + ", open="
 				+ open + ", high=" + high + ", low=" + low + ", close=" + close
-				+ ", volume=" + volume + ", adj=" + adj + ", company="
-				+ company + "]";
+				+ ", volume=" + volume + ", adj=" + adj + "]";
 	}
 }
