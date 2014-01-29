@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
@@ -19,19 +20,11 @@ import model.services.IActionService;
 import model.services.ICompanyService;
 
 import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartRenderingInfo;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.plot.XYPlot;
-import org.jfree.chart.renderer.xy.StandardXYItemRenderer;
-import org.jfree.chart.renderer.xy.XYItemRenderer;
+import org.jfree.chart.entity.StandardEntityCollection;
 import org.jfree.data.general.DefaultPieDataset;
-import org.jfree.data.time.Day;
-import org.jfree.data.time.TimeSeriesCollection;
-import org.jfree.data.xy.IntervalXYDataset;
-import org.jfree.data.xy.XYDataset;
-import org.jfree.date.SerialDate;
-import org.jfree.experimental.chart.plot.CombinedXYPlot;
 
 /**
  * Servlet implementation class ActionServlet
@@ -65,43 +58,15 @@ public class ActionServlet extends HttpServlet {
 
 		
 		request.setAttribute("actions", actions);
+		request.setAttribute("company", company);
 		
+		//createChart(response);
 		
 		// getting dispatcher
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/action/Action.jsp");
 
 		// sending to action jsp page
 		dispatcher.include(request, response);
-		
-
-//		OutputStream out = response.getOutputStream();
-//		
-//		try {
-//			DefaultPieDataset myServletPieChart = new DefaultPieDataset();
-//			myServletPieChart.setValue("Maths", 74);
-//			myServletPieChart.setValue("Physics", 87);
-//			myServletPieChart.setValue("Chemistry", 62);
-//			myServletPieChart.setValue("Biology", 92);
-//			myServletPieChart.setValue("English", 51);        
-//			
-//			JFreeChart mychart = ChartFactory.createPieChart("Programming - Colored Pie Chart Example",myServletPieChart,true,true,false);  
-//			
-//			response.setContentType("image/png"); /* Set the HTTP Response Type */
-//			ChartUtilities.writeChartAsPNG(out, mychart, 400, 300);/* Write the data to the output stream */
-//		
-//			// getting dispatcher
-//			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/action/Action.jsp");
-//
-//			// sending to portfolio jsp page
-//			dispatcher.include(request, response); 
-//		
-//		}
-//		catch (Exception e) {
-//			System.err.println(e.toString()); /* Throw exceptions to log files */
-//		}
-//		finally {
-//			out.close();/* Close the output stream */
-//		}
 	}
 
 	
@@ -111,6 +76,39 @@ public class ActionServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("here");
+	}
+	
+	private void createChart(HttpServletResponse response) throws IOException{
+		OutputStream out = response.getOutputStream();
+		
+		try {
+			DefaultPieDataset myServletPieChart = new DefaultPieDataset();
+			myServletPieChart.setValue("Maths", 74);
+			myServletPieChart.setValue("Physics", 87);
+			myServletPieChart.setValue("Chemistry", 62);
+			myServletPieChart.setValue("Biology", 92);
+			myServletPieChart.setValue("English", 51);        
+			
+			JFreeChart mychart = ChartFactory.createPieChart("Programming - Colored Pie Chart Example",myServletPieChart,true,true,false);  
+			
+			response.setContentType("image/png"); /* Set the HTTP Response Type */
+			
+			final ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+			
+			final File file = new File("./data/areachart.png");
+			
+			//ChartUtilities.saveChartAsPNG(file, mychart, 400, 300, info);
+			
+			
+			ChartUtilities.writeChartAsPNG(out, mychart, 400, 300);/* Write the data to the output stream */
+		
+		}
+		catch (Exception e) {
+			System.err.println(e.toString()); /* Throw exceptions to log files */
+		}
+		finally {
+			out.close();/* Close the output stream */
+		}
 	}
 
 }
