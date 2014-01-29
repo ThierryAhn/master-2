@@ -28,6 +28,7 @@
 			<link rel="stylesheet" href="css/style-desktop.css" />
 			<link rel="stylesheet" href="css/style-wide.css" />
 		</noscript>
+		
 		<link
 			href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400italic,700|Open+Sans+Condensed:300,700"
 			rel="stylesheet" />
@@ -47,7 +48,7 @@
 					<article class="is-post is-post-excerpt">
 						<header>
 							<span class="byline">
-								Liste des sociétés
+								Liste des actions
 							</span>
 						</header>
 						
@@ -61,36 +62,46 @@
 							</ul>
 						</div>
 						
+						<!--  transaction modal form -->
+						<div id="popup_name" class="popub_block">
+							<h2>Toto</h2>
+						</div>
 						
 						<!-- table -->
 						<table class="style1">
-								<thead>
-									<tr>
-										<th>Symbole</th>
-										<th>Nom</th>
-										<th>Dernière vente</th>
-										<th>Market cap</th>
-										<th>IPO Year</th>
-										<th>Secteur</th>
-										<th>Industrie</th>
-									</tr>
-								</thead>
+							<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Dernière vente</th>
+									<th>Volume</th>
+									<th>Haut/Bas</th>
+									<th>Cours-marché</th>
+								</tr>
+							</thead>
 								
-								<tbody>
-									<c:forEach var="company"  items="${listCompany}" >
-										<tr>
-											<td>${company.symbol}</td>
-											<td>${company.name}</td>
-											<td>${company.lastSale}</td>
-											<td>${company.marketCap}</td>
-											<td>${company.ipoYear}</td>
-											<td>${company.sector}</td>
-											<td>${company.industry}</td>
-										</tr>
-									</c:forEach>
-								</tbody>
+							<tbody>
+								<c:forEach var="action"  items="${actionList}" >
+									<tr>
+										<td>
+											<a href="action.do?symbol=${action.company.symbol}">
+												${action.company.name}
+											</a>
+												(${action.company.symbol})
+										
+										</td>
+										<td>${action.company.lastSale}</td>
+										<td>${action.volume}</td>
+										<td>${action.high}/${action.low}</td>											<td>${action.company.marketCap}</td>
+											
+										<td>
+											<a href="#">Acheter</a> |
+											<a href="#">Vendre</a> |
+											<a href="#">Historique</a>
+										</td>
+									</tr>
+								</c:forEach>
+							</tbody>
 						</table>
-						
 						
 					</article>
 	
@@ -106,7 +117,8 @@
 	
 				</div>
 			</div>
-	
+		
+			
 			<!-- Sidebar -->
 			<div id="sidebar">
 	
