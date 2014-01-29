@@ -52,27 +52,13 @@ public class ExchangeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//System.out.println("get");
-		
-		//System.out.println("exchange : " +request.getParameter("exchange"));
-		
 		RequestDispatcher dispatcher = null;
-		
 		HttpSession session = request.getSession();
-		
-		
-		
 		User user = (User) session.getAttribute("user");
 		if(user == null){
 			// getting dispatcher
 			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user/LogOn.jsp");
-		
 		}else{
-			
-			dispatcher = getServletContext().
-					getRequestDispatcher("/WEB-INF/exchange/Nasdaq.jsp");
-			
 			Exchange exchange = null;
 			List<Company> listCompany = new ArrayList<Company>();
 			
@@ -95,16 +81,10 @@ public class ExchangeServlet extends HttpServlet {
 	        	
 	        	exchange = exchangeService.getExchange(choiceExchange);
 	        	
-	        	//System.out.println("exchange : "+exchange);
-	        	
 	        	int noOfRecords = companyService.count(exchange);
 	        	
 	        	listCompany = companyService.getAllCompanyByExchange(exchange, 
 						(page-1)*recordsPerPage, recordsPerPage);
-	        	
-	        	
-	        	
-	        	
 	        	
 	        	List<Action> actionList = new ArrayList<Action>();
 	        	
@@ -113,76 +93,17 @@ public class ExchangeServlet extends HttpServlet {
 	        	for(Company company : listCompany){
 	        		actionList.addAll(actionService.getActionsByCompnay(company));
 	        	}
-	        	
-	        	//System.out.println("liste : "+actionList );
-	        	
-	        	//int noOfPages = 0;
 	            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 	    		
 	            request.setAttribute("noOfPages", noOfPages);
 	            request.setAttribute("currentPage", page);
 	        	request.setAttribute("currentExchange", choiceExchange);
-	        	request.setAttribute("actionList", actionList);
-	        	
+	        	request.setAttribute("listCompany", listCompany);
+//	        	request.setAttribute("actionList", actionList);
 	        }
 		}
-		
-		
 		// sending to login jsp page
 		dispatcher.include(request, response);
-		
-		
-		
-		
-		
-		
-		
-        
-        
-		// filling company tables
-		/* if(request.getParameter("exchange").equals("nasdaq")){
-			
-			exchange = exchangeService.getExchange("NASDAQ");
-			
-			listCompany = companyService.getAllCompanyByExchange(exchange, 
-					(page-1)*recordsPerPage, recordsPerPage);
-			
-			request.setAttribute("listCompany", listCompany);
-			
-			dispatcher.include(request, response);
-		}else{
-			
-			if(request.getParameter("exchange").equals("nyse")){
-				dispatcher = getServletContext().
-						getRequestDispatcher("/WEB-INF/exchange/Nyse.jsp");
-				
-				exchange = exchangeService.getExchange("NYSE");
-				listCompany = companyService.getAllCompanyByExchange(exchange, 
-						(page-1)*recordsPerPage, recordsPerPage);
-				
-				
-				request.setAttribute("listCompany", listCompany);
-				
-				
-				dispatcher.include(request, response);
-			}else{
-				dispatcher = getServletContext().
-						getRequestDispatcher("/WEB-INF/exchange/Amex.jsp");
-				
-				exchange = exchangeService.getExchange("AMEX");
-				
-				listCompany = companyService.getAllCompanyByExchange(exchange, 
-						(page-1)*recordsPerPage, recordsPerPage);
-				
-				request.setAttribute("listCompany", listCompany);
-				
-				
-				dispatcher.include(request, response);
-			}
-			
-		}*/
-		
-		
 	}
 
 	/**
