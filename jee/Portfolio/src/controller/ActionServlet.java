@@ -52,12 +52,8 @@ public class ActionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
-		System.out.println("test");
 		
 		String  symbol = request.getParameter("symbol");
-		
-		System.out.println("symbol : "+symbol);
-		
 		
 		ICompanyService serviceCompany = new CompanyService();
 		Company company = serviceCompany.getCompanyBySymbol(symbol);
@@ -67,36 +63,45 @@ public class ActionServlet extends HttpServlet {
 
 		System.out.println("Taille : "+actions.size() +"\n" +actions);
 
-
-
-		OutputStream out = response.getOutputStream();
 		
-		try {
-			DefaultPieDataset myServletPieChart = new DefaultPieDataset();
-			myServletPieChart.setValue("Maths", 74);
-			myServletPieChart.setValue("Physics", 87);
-			myServletPieChart.setValue("Chemistry", 62);
-			myServletPieChart.setValue("Biology", 92);
-			myServletPieChart.setValue("English", 51);        
-			
-			JFreeChart mychart = ChartFactory.createPieChart("Programming - Colored Pie Chart Example",myServletPieChart,true,true,false);  
-			
-			response.setContentType("image/png"); /* Set the HTTP Response Type */
-			ChartUtilities.writeChartAsPNG(out, mychart, 400, 300);/* Write the data to the output stream */
+		request.setAttribute("actions", actions);
 		
-			// getting dispatcher
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/action/Action.jsp");
+		
+		// getting dispatcher
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/action/Action.jsp");
 
-			// sending to portfolio jsp page
-			dispatcher.include(request, response); 
+		// sending to action jsp page
+		dispatcher.include(request, response);
 		
-		}
-		catch (Exception e) {
-			System.err.println(e.toString()); /* Throw exceptions to log files */
-		}
-		finally {
-			out.close();/* Close the output stream */
-		}
+
+//		OutputStream out = response.getOutputStream();
+//		
+//		try {
+//			DefaultPieDataset myServletPieChart = new DefaultPieDataset();
+//			myServletPieChart.setValue("Maths", 74);
+//			myServletPieChart.setValue("Physics", 87);
+//			myServletPieChart.setValue("Chemistry", 62);
+//			myServletPieChart.setValue("Biology", 92);
+//			myServletPieChart.setValue("English", 51);        
+//			
+//			JFreeChart mychart = ChartFactory.createPieChart("Programming - Colored Pie Chart Example",myServletPieChart,true,true,false);  
+//			
+//			response.setContentType("image/png"); /* Set the HTTP Response Type */
+//			ChartUtilities.writeChartAsPNG(out, mychart, 400, 300);/* Write the data to the output stream */
+//		
+//			// getting dispatcher
+//			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/action/Action.jsp");
+//
+//			// sending to portfolio jsp page
+//			dispatcher.include(request, response); 
+//		
+//		}
+//		catch (Exception e) {
+//			System.err.println(e.toString()); /* Throw exceptions to log files */
+//		}
+//		finally {
+//			out.close();/* Close the output stream */
+//		}
 	}
 
 	
