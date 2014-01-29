@@ -52,8 +52,13 @@ public class ActionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		System.out.println("test");
+		
 		String  symbol = request.getParameter("symbol");
-
+		
+		System.out.println("symbol : "+symbol);
+		
+		
 		ICompanyService serviceCompany = new CompanyService();
 		Company company = serviceCompany.getCompanyBySymbol(symbol);
 
@@ -100,6 +105,7 @@ public class ActionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		System.out.println("here");
 	}
 
 }

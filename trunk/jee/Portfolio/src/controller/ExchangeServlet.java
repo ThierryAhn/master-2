@@ -64,7 +64,7 @@ public class ExchangeServlet extends HttpServlet {
 			
 			
 			int page = 1;
-	        int recordsPerPage = 5;
+	        int recordsPerPage = 1;
 	        
 	        if(request.getParameter("page") != null){
 	            page = Integer.parseInt(request.getParameter("page"));
@@ -86,20 +86,12 @@ public class ExchangeServlet extends HttpServlet {
 	        	listCompany = companyService.getAllCompanyByExchange(exchange, 
 						(page-1)*recordsPerPage, recordsPerPage);
 	        	
-	        	List<Action> actionList = new ArrayList<Action>();
-	        	
-	        	IActionService actionService = new ActionService();
-	        	
-	        	for(Company company : listCompany){
-	        		actionList.addAll(actionService.getActionsByCompnay(company));
-	        	}
-	            int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
+	        	int noOfPages = (int) Math.ceil(noOfRecords * 1.0 / recordsPerPage);
 	    		
 	            request.setAttribute("noOfPages", noOfPages);
 	            request.setAttribute("currentPage", page);
 	        	request.setAttribute("currentExchange", choiceExchange);
 	        	request.setAttribute("listCompany", listCompany);
-//	        	request.setAttribute("actionList", actionList);
 	        }
 		}
 		// sending to login jsp page
