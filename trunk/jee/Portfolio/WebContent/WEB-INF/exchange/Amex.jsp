@@ -60,11 +60,6 @@
 						</ul>
 					</div>
 
-					<!--  transaction modal form -->
-					<div id="popup_name" class="popub_block">
-						<!-- <h2>Toto</h2> -->
-					</div>
-
 					<!-- table -->
 					<table class="style1">
 						<thead>
@@ -92,7 +87,40 @@
 						</tbody>
 					</table>
 				</article>
-			</div>
+				
+				<!-- pagination -->
+				<div class="pager">
+					<%--For displaying Previous link except for the previous page page --%>
+					<c:if test="${currentPage != 1}">
+						<a href="exchange.do?page=${currentPage - 1}&exchange=${currentExchange}"
+							class="button previous"> Previous Page </a>
+					</c:if>
+	
+					<div class="pages">
+						<c:forEach begin="1" end="${noOfPages}" var="i">
+							<c:choose>
+								<c:when test="${currentPage eq i}">
+									<a href="exchange.do?page=${i}&exchange=${currentExchange}"
+										class="active">${i}</a>
+								</c:when>
+	
+								<c:otherwise>
+									<a href="exchange.do?page=${i}&exchange=${currentExchange}">${i}</a>
+								</c:otherwise>
+	
+							</c:choose>
+						</c:forEach>
+					</div>
+	
+					<%--For displaying Next link --%>
+					<c:if test="${currentPage lt noOfPages}">
+						<a
+							href="exchange.do?page=${currentPage + 1}&exchange=${currentExchange}"
+							class="button next"> Next Page </a>
+					</c:if>
+				</div>
+				<!-- end pagination -->
+				</div>
 		</div>
 
 
