@@ -52,9 +52,11 @@ public class ExchangeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		RequestDispatcher dispatcher = null;
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
+		
 		if(user == null){
 			// getting dispatcher
 			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user/LogOn.jsp");

@@ -81,8 +81,9 @@
 									<td>${company.name}</td>
 									<td>${company.marketCap}</td>
 									<td>${company.sector}</td>
-									<td><a href="#" onclick="toggle_visibility('openHidden');">
-											Actions </a></td>
+									<td>
+										<a href="action.do?symbol=${company.symbol}">Actions</a>
+									</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -91,15 +92,38 @@
 
 				</article>
 
-				<!-- Pager -->
-				<!-- <div class="pager">
-						<a href="#" class="button previous">Previous Page</a>
-						<div class="pages">
-							<a href="#" class="active">1</a> <a href="#">2</a> <a href="#">3</a>
-							<a href="#">4</a> <span>&hellip;</span> <a href="#">20</a>
-						</div>
-						<a href="#" class="button next">Next Page</a>
-					</div>   -->
+				<!-- pagination -->
+				<div class="pager">
+					<%--For displaying Previous link except for the previous page page --%>
+					<c:if test="${currentPage != 1}">
+						<a href="exchange.do?page=${currentPage - 1}&exchange=${currentExchange}"
+							class="button previous"> Previous Page </a>
+					</c:if>
+	
+					<div class="pages">
+						<c:forEach begin="1" end="${noOfPages}" var="i">
+							<c:choose>
+								<c:when test="${currentPage eq i}">
+									<a href="exchange.do?page=${i}&exchange=${currentExchange}"
+										class="active">${i}</a>
+								</c:when>
+	
+								<c:otherwise>
+									<a href="exchange.do?page=${i}&exchange=${currentExchange}">${i}</a>
+								</c:otherwise>
+	
+							</c:choose>
+						</c:forEach>
+					</div>
+	
+					<%--For displaying Next link --%>
+					<c:if test="${currentPage lt noOfPages}">
+						<a
+							href="exchange.do?page=${currentPage + 1}&exchange=${currentExchange}"
+							class="button next"> Next Page </a>
+					</c:if>
+				</div>
+				<!-- end pagination -->
 
 			</div>
 		</div>
