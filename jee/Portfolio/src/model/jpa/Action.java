@@ -1,6 +1,7 @@
 package model.jpa;
 
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,7 +29,7 @@ public class Action {
 	 */
 	@Column(name = "DATE_FIELD")
 	@Temporal(TemporalType.DATE)
-	private Calendar date;
+	private Date date;
 	/**
 	 * Minimal value to start bidding
 	 */
@@ -75,7 +76,7 @@ public class Action {
 	 * @param adj
 	 * @param company
 	 */
-	public Action(Calendar date, double open, double high, double low, double close,
+	public Action(Date date, double open, double high, double low, double close,
 			int volume, double adj, Company company) {
 		this.date = date;
 		this.open = open;
@@ -97,14 +98,14 @@ public class Action {
 	/**
 	 * @return the date
 	 */
-	public Calendar getDate() {
+	public Date getDate() {
 		return date;
 	}
 
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Calendar date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

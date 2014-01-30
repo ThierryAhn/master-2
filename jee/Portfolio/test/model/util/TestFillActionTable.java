@@ -25,22 +25,17 @@ public class TestFillActionTable {
 			
 			// getting the date of the last client conncect
 			// TODO have to change this in the servlet
-			int lastYear = 1100;
-			int lastMonth = 1;
-			int lastDay = 1;
+			int lastYear = 2014;
+			int lastMonth = 0;
+			int lastDay = 27;
 			
 			String url = "http://ichart.finance.yahoo.com/table.csv?s="+symbol+"&d=" +month 
 					+"&e=" +day +"&f=" +year + "&g=d&a=" +lastMonth +"&b=" +lastDay +"&c=" +lastYear
 					+ "&ignore=.csv";
 			
-			
-			System.out.println("symbol : "+symbol);
 			Download.getActionFile(url, company);
 			
-			//new FillTable(Configuration.getInstance().getActionDirectoryName()).fillActionTable(company);
 		}
-		
-		
 		
 		System.err.println("End");
 		
