@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import model.jpa.Action;
@@ -49,9 +50,7 @@ public class Download
 						Double.parseDouble(nextLine[3]), nextLine[4], nextLine[5], 
 						nextLine[6], nextLine[7], nextLine[8], exchange);
 				
-				System.out.println(company);
-				
-				//service.insert(company);
+				service.insert(company);
 				
 				j++;
 			}
@@ -91,14 +90,17 @@ public class Download
 				cal.set(Integer.parseInt(dateSplit[0]), Integer.parseInt(dateSplit[1]), 
 						Integer.parseInt(dateSplit[2]));
 			
-				Action action = new Action(cal, Double.parseDouble(nextLine[1]), Double.parseDouble(nextLine[2]), 
+				
+				Date date = new Date();
+				
+				date = cal.getTime();
+				
+				Action action = new Action(date, Double.parseDouble(nextLine[1]), Double.parseDouble(nextLine[2]), 
 						Double.parseDouble(nextLine[3]), Double.parseDouble(nextLine[4]), 
 						Integer.parseInt(nextLine[5]), Double.parseDouble(nextLine[6]), company);
 				
 				
-				System.out.println(action);
-				
-				//service.insert(action);
+				service.insert(action);
 
 			}
 			reader.close();

@@ -22,6 +22,6 @@ public class TestFillCompanyTable {
 			
 		}
 		
-		System.out.println("---> End <---");
+		System.err.println("End");
 	}
 }
