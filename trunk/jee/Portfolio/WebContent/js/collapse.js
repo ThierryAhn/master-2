@@ -45,6 +45,14 @@ function toggle_visibility(id) {
 					e.style.display = 'none';
 				else
 					e.style.display = 'block';
+			}else{
+				// transaction
+				if(id == 'transactionHidden'){
+					if(e.style.display == 'block')
+						e.style.display = 'none';
+					else
+						e.style.display = 'block';
+				}
 			}
 		}
 	}

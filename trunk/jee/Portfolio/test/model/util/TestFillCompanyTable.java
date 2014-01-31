@@ -10,10 +10,12 @@ import model.services.IExchangeService;
 public class TestFillCompanyTable {
 	public static void main(String [] args) throws IOException{
 		
-		// téléchargement des fichiers
+		// downloading company files
 		IExchangeService service = new ExchangeService();
 		List<Exchange> exchangeList = service.getAllExchange();
 		
+		
+		long start = System.currentTimeMillis();
 		for(Exchange exchange : exchangeList){
 			String exchangeName = exchange.getName().toLowerCase();
 			
@@ -21,7 +23,8 @@ public class TestFillCompanyTable {
 					exchangeName+"&render=download", exchange, 2);
 			
 		}
+		long end = System.currentTimeMillis();
 		
-		System.err.println("End");
+		System.err.println("End in "+(end - start)/1000 +" s");
 	}
 }

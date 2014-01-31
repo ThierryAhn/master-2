@@ -3,9 +3,9 @@
  */
 package model.jpa;
 
-import java.sql.Date;
 
-import javax.persistence.CascadeType;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,8 +13,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * Class Transaction
@@ -35,6 +36,7 @@ public class Transaction {
 	 * The date of the transaction
 	 */
 	@Column(name = "DATE_FIELD")
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	/**
 	 * Action cost
@@ -52,14 +54,12 @@ public class Transaction {
 	/**
 	 * Action concerned by the transaction
 	 */
-	@OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST})
-	@JoinColumn(name = "actionId")
+	@OneToOne(fetch = FetchType.LAZY)
 	private Action action;
 	/**
 	 * Client concerned by the transaction
 	 */
-	@OneToOne(fetch = FetchType.LAZY, cascade={CascadeType.PERSIST})
-	@JoinColumn(name = "userId")
+	@OneToOne(fetch = FetchType.LAZY)
 	private User user;
 	
 	/**
@@ -199,6 +199,17 @@ public class Transaction {
 	 */
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Transaction [transactionId=" + transactionId + ", type=" + type
+				+ ", date=" + date + ", price=" + price + ", number=" + number
+				+ ", fee=" + fee + ", action=" + action + ", user=" + user
+				+ "]";
 	}
 	
 	

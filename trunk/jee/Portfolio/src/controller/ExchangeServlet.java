@@ -12,14 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.jpa.Action;
 import model.jpa.Company;
 import model.jpa.Exchange;
 import model.jpa.User;
-import model.services.ActionService;
 import model.services.CompanyService;
 import model.services.ExchangeService;
-import model.services.IActionService;
 import model.services.ICompanyService;
 import model.services.IExchangeService;
 
@@ -66,7 +63,7 @@ public class ExchangeServlet extends HttpServlet {
 			
 			
 			int page = 1;
-	        int recordsPerPage = 1;
+	        int recordsPerPage = 10;
 	        
 	        if(request.getParameter("page") != null){
 	            page = Integer.parseInt(request.getParameter("page"));

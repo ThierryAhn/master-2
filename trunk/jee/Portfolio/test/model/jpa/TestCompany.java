@@ -1,9 +1,4 @@
 package model.jpa;
-import java.util.ArrayList;
-import java.util.List;
-
-import model.jpa.Company;
-import model.jpa.Exchange;
 import model.services.CompanyService;
 import model.services.ExchangeService;
 import model.services.ICompanyService;
@@ -21,7 +16,7 @@ public class TestCompany {
 		
 		ICompanyService daoCompany = new CompanyService();
 		
-		/* Exchange exchange = daoExchange.getExchange("NASDAQ");
+		Exchange exchange = daoExchange.getExchange("NASDAQ");
 		
 		Company company = new Company("FLWS","1-900 FLOWERS.COM, Inc.", "5.48",
 				361424160.72, "n/a", "1999", "Consumer Services","Other Specialty Stores", 
@@ -47,12 +42,13 @@ public class TestCompany {
 				9304748811.49, "n/a", "n/a", 
 				"Technology","Computer Software: Prepackaged Software",
 				"http://www.nasdaq.com/symbol/ddd", exchange);
-		dao.insert(company);*/
+		dao.insert(company);
 		
 		
 		// get company
-		Company company = daoCompany.getCompany("Aberdeen Asia-Pacific Income Fund Inc");
+		company = daoCompany.getCompany("Aberdeen Asia-Pacific Income Fund Inc");
 		
+		// force lazy mode to load
 		company.getActionList().isEmpty();
 		System.out.println(company.getActionList().get(0));
 		

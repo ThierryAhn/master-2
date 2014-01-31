@@ -20,6 +20,7 @@
 		<script src="js/skel.min.js"></script>
 		<script src="js/skel-panels.min.js"></script>
 		<script src="js/init.js"></script>
+		<script src="js/collapse.js"></script>
 		
 		<!-- css -->
 		<noscript>
@@ -53,30 +54,49 @@
 						<div class="info">
 	
 							<ul class="page-name">
+								<li class="letter-name">H</li>
 								<li class="letter-name">I</li>
-								<li class="letter-name">N</li>
-								<li class="letter-name">F</li>
-								<li class="letter-name">O</li>
 								<li class="letter-name">S</li>
+								<li class="letter-name">T</li>
+								<li class="letter-name">O</li>
+								<li class="letter-name">R</li>
+								<li class="letter-name">I</li>
+								<li class="letter-name">Q</li>
+								<li class="letter-name">U</li>
+								<li class="letter-name">E</li>
 							</ul>
 						</div>
 						
-						
 						<!-- Company complete informations -->
 						
-						
-						
-						<div>
-							<input type="submit"  value="Acheter"/>
-						</div>
-						
-						
-						<div>
-							<h3>Historique action</h3>
-						</div>
-						
-						
-						
+						<!-- table -->
+						<table class="style1">
+							<thead>
+								<tr>
+									<th>Date</th>
+									<th>Volume</th>
+									<th>Prix d'ouverture</th>
+									<th>Plus haut</th>
+									<th>Plus bas</th>
+									<th>Prix de fermeture</th>
+									<th>Valeur actuelle</th>
+								</tr>
+							</thead>
+	
+							<tbody>
+								<c:forEach var="action" items="${actions}">
+									<tr>
+										<td><fmt:formatDate pattern="yyyy-MM-dd" value="${action.date}" /></td>
+										<td>${action.volume}</td>
+										<td>${action.open}</td>
+										<td>${action.high}</td>
+										<td>${action.low}</td>
+										<td>${action.close}</td>
+										<td>${action.adj}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
 						
 					</article>
 				</div>
@@ -98,31 +118,11 @@
 					<ul>
 						<li><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
 						<li><a href="exchange.do?exchange=Nyse">NYSE</a></li>
-						<li class="current_page_item"><a href="exchange.do?exchange=Amex">AMEX</a></li>
-					</ul>
-	
-	
-					<ul>
+						<li><a href="exchange.do?exchange=Amex">AMEX</a></li>
+						<li><a href="TransactionServlet">Actions</a></li>
 						<li><a href="PortfolioServlet">Mon portfolio</a></li>
 					</ul>
 				</nav>
-	
-				<!-- Search -->
-				<section class="is-search">
-					<form method="post" action="#">
-						<input type="text" class="input-large text" name="search"
-							placeholder="Search" />
-					</form>
-				</section>
-	
-				<!-- Text -->
-				<section class="is-text-style1">
-					<div class="inner">
-						<p>
-							<strong>Info:</strong> Achat
-						</p>
-					</div>
-				</section>
 	
 				<!-- Copyright -->
 				<div id="copyright">

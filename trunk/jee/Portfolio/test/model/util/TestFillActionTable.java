@@ -12,6 +12,8 @@ public class TestFillActionTable {
 
 	public static void main(String[] args) throws IOException {
 		
+		long start = System.currentTimeMillis();
+		
 		ICompanyService service = new CompanyService();
 		for(Company company : service.getAllCompany()){
 			
@@ -25,19 +27,20 @@ public class TestFillActionTable {
 			
 			// getting the date of the last client conncect
 			// TODO have to change this in the servlet
-			int lastYear = 2014;
+			int lastYear = 2014; // 1100
 			int lastMonth = 0;
-			int lastDay = 27;
+			int lastDay = 25;
 			
 			String url = "http://ichart.finance.yahoo.com/table.csv?s="+symbol+"&d=" +month 
 					+"&e=" +day +"&f=" +year + "&g=d&a=" +lastMonth +"&b=" +lastDay +"&c=" +lastYear
 					+ "&ignore=.csv";
-			
-			Download.getActionFile(url, company);
+			if(!url.contains("^"))
+				Download.getActionFile(url, company);
 			
 		}
 		
-		System.err.println("End");
+		long end = System.currentTimeMillis();
+		System.err.println("End in "+(end - start)/1000 +" s");
 		
 	}
 

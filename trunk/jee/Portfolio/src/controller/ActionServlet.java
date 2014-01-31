@@ -1,8 +1,6 @@
 package controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -18,13 +16,6 @@ import model.services.ActionService;
 import model.services.CompanyService;
 import model.services.IActionService;
 import model.services.ICompanyService;
-
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartRenderingInfo;
-import org.jfree.chart.ChartUtilities;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.entity.StandardEntityCollection;
-import org.jfree.data.general.DefaultPieDataset;
 
 /**
  * Servlet implementation class ActionServlet
@@ -52,7 +43,7 @@ public class ActionServlet extends HttpServlet {
 		Company company = serviceCompany.getCompanyBySymbol(symbol);
 
 		IActionService serviceAction = new ActionService();
-		List<Action> actions = serviceAction.getActionsByCompnay(company);
+		List<Action> actions = serviceAction.getActionsByCompany(company);
 
 		System.out.println("Taille : "+actions.size() +"\n" +actions);
 
@@ -63,7 +54,7 @@ public class ActionServlet extends HttpServlet {
 		//createChart(response);
 		
 		// getting dispatcher
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/action/Action.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/action/HistoriqueAction.jsp");
 
 		// sending to action jsp page
 		dispatcher.include(request, response);
@@ -75,40 +66,43 @@ public class ActionServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("here");
+		String transactionType = request.getParameter("transaction_type");
+		int volume = Integer.parseInt(request.getParameter("volume"));
+		
+		System.out.println(transactionType +" - " +volume);
 	}
 	
-	private void createChart(HttpServletResponse response) throws IOException{
-		OutputStream out = response.getOutputStream();
-		
-		try {
-			DefaultPieDataset myServletPieChart = new DefaultPieDataset();
-			myServletPieChart.setValue("Maths", 74);
-			myServletPieChart.setValue("Physics", 87);
-			myServletPieChart.setValue("Chemistry", 62);
-			myServletPieChart.setValue("Biology", 92);
-			myServletPieChart.setValue("English", 51);        
-			
-			JFreeChart mychart = ChartFactory.createPieChart("Programming - Colored Pie Chart Example",myServletPieChart,true,true,false);  
-			
-			response.setContentType("image/png"); /* Set the HTTP Response Type */
-			
-			final ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
-			
-			final File file = new File("./data/areachart.png");
-			
-			//ChartUtilities.saveChartAsPNG(file, mychart, 400, 300, info);
-			
-			
-			ChartUtilities.writeChartAsPNG(out, mychart, 400, 300);/* Write the data to the output stream */
-		
-		}
-		catch (Exception e) {
-			System.err.println(e.toString()); /* Throw exceptions to log files */
-		}
-		finally {
-			out.close();/* Close the output stream */
-		}
-	}
+//	private void createChart(HttpServletResponse response) throws IOException{
+//		OutputStream out = response.getOutputStream();
+//		
+//		try {
+//			DefaultPieDataset myServletPieChart = new DefaultPieDataset();
+//			myServletPieChart.setValue("Maths", 74);
+//			myServletPieChart.setValue("Physics", 87);
+//			myServletPieChart.setValue("Chemistry", 62);
+//			myServletPieChart.setValue("Biology", 92);
+//			myServletPieChart.setValue("English", 51);        
+//			
+//			JFreeChart mychart = ChartFactory.createPieChart("Programming - Colored Pie Chart Example",myServletPieChart,true,true,false);  
+//			
+//			response.setContentType("image/png"); /* Set the HTTP Response Type */
+//			
+//			final ChartRenderingInfo info = new ChartRenderingInfo(new StandardEntityCollection());
+//			
+//			final File file = new File("./data/areachart.png");
+//			
+//			//ChartUtilities.saveChartAsPNG(file, mychart, 400, 300, info);
+//			
+//			
+//			ChartUtilities.writeChartAsPNG(out, mychart, 400, 300);/* Write the data to the output stream */
+//		
+//		}
+//		catch (Exception e) {
+//			System.err.println(e.toString()); /* Throw exceptions to log files */
+//		}
+//		finally {
+//			out.close();/* Close the output stream */
+//		}
+//	}
 
 }

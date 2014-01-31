@@ -82,7 +82,7 @@
 									<td>${company.marketCap}</td>
 									<td>${company.sector}</td>
 									<td>
-										<a href="action.do?symbol=${company.symbol}">Actions</a>
+										<a href="action.do?symbol=${company.symbol}">Histor actions</a>
 									</td>
 								</tr>
 							</c:forEach>
@@ -145,29 +145,10 @@
 						href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
 					<li><a href="exchange.do?exchange=Nyse">NYSE</a></li>
 					<li><a href="exchange.do?exchange=Amex">AMEX</a></li>
-				</ul>
-
-				<ul>
+					<li><a href="TransactionServlet">Actions</a></li>
 					<li><a href="PortfolioServlet">Mon portfolio</a></li>
 				</ul>
 			</nav>
-
-			<!-- Search -->
-			<section class="is-search">
-				<form method="post" action="#">
-					<input type="text" class=" input-large text" name="search"
-						placeholder="Search" />
-				</form>
-			</section>
-
-			<!-- Text -->
-			<section class="is-text-style1">
-				<div class="inner">
-					<p>
-						<strong>Info:</strong> Achat
-					</p>
-				</div>
-			</section>
 
 			<!-- Copyright -->
 			<div id="copyright">
