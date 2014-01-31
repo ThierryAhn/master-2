@@ -61,12 +61,6 @@
 							</ul>
 						</div>
 						
-						<!--<div id="exchange-images">
-							<div><img class="roundedImage" src="images/nasdaq.jpg" alt="Nasdaq"/></div>
-							<div><img class="roundedImage" src="images/nyse.jpg" alt="Nyse"/></div>
-							<div><img class="roundedImage" src="images/amex.jpg" alt="Amex"/> </div>
-						</div> -->
-							
 						<div>
 							<form action="UserServlet" method="POST" id="form">
 									
@@ -83,7 +77,16 @@
 										class="input-large round full-width-input" value="${firstName}"
 										placeholder="Nom de famille" required />
 								</p>
+								
+								<span style="display:inline;">
+									<label for="confidenceLevel">Niveau de confidence !</label>
+									<input type = "radio" name = "confidence" value = "NORMAL" checked = "checked" />
+									<label for="normal">Normal</label>
 									
+									<input type = "radio" name = "confidence" value = "PRIVILEGIE"/>
+									<label for="privilegie">Privilegie</label>
+								</span>
+								
 								<p>
 									<!-- login -->
 									<label for="login">Login</label>
@@ -140,21 +143,6 @@
 					</ul>
 				</nav>
 	
-				<!-- Search -->
-				<section class="is-search">
-					<form method="post" action="#">
-						<input type="text" class="input-large text" name="search" placeholder="Search" />
-					</form>
-				</section>
-	
-				<!-- Text -->
-				<section class="is-text-style1">
-					<div class="inner">
-						<p>
-							<strong>Info:</strong> Achat
-						</p>
-					</div>
-				</section>
 				
 				<!-- Copyright -->
 				<div id="copyright">

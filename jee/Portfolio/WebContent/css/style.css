@@ -97,6 +97,11 @@ sup {
 	font-size: 0.8em;
 }
 
+
+.clear {
+  clear: both;
+}
+
 table {
 	width: 100%;
 }
@@ -152,7 +157,7 @@ input[type=submit].link {
 
 
 /* ici pour input 100% */
-form .input-large, form select, form textarea {
+form .input-large, form textarea {
 	border-radius: 0.4em;
 	-webkit-appearance: none;
 	border: solid 1px #ddd;

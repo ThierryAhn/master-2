@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.jpa.Action;
+import model.jpa.Transaction;
+import model.jpa.TransactionType;
 import model.jpa.User;
+import model.services.ITransactionService;
+import model.services.TransactionService;
 
 /**
  * Servlet implementation class PortfolioServlet
@@ -42,6 +49,29 @@ public class PortfolioServlet extends HttpServlet {
 			// getting dispatcher
 			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user/LogOn.jsp");
 		}else{
+			
+			ITransactionService transactionService = new TransactionService();
+
+			List<Transaction> transactions = transactionService.getTransactionOfUser(user);
+			
+			List<Action> actionsBuy = new ArrayList<Action>();
+			
+			List<Action> actionsSell = new ArrayList<Action>();
+			
+			for(Transaction t : transactions){
+				if(t.getType().equals(TransactionType.SELL)){
+					actionsSell.add(t.getAction());
+				}else{
+					actionsBuy.add(t.getAction());
+				}
+				
+				
+			}
+			
+			request.setAttribute("actionsBuy", actionsBuy);
+			request.setAttribute("actionsSell", actionsSell);
+			
+			
 			// getting dispatcher
 			dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
 		}

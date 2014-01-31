@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.NoResultException;
 import javax.servlet.RequestDispatcher;
@@ -11,8 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.jpa.Action;
+import model.jpa.ConfidenceLevel;
+import model.jpa.Transaction;
 import model.jpa.User;
+import model.services.ITransactionService;
 import model.services.IUserService;
+import model.services.TransactionService;
 import model.services.UserService;
 
 /**
@@ -47,9 +54,9 @@ public class UserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, 
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		RequestDispatcher dispatcher = getServletContext().
-				getRequestDispatcher("/WEB-INF/user/Register.jsp");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/WEB-INF/user/Register.jsp");
 		
+		// sending to connection or register jsp page
 		dispatcher.include(request, response);
 	}
 
@@ -73,7 +80,18 @@ public class UserServlet extends HttpServlet {
 
 				RequestDispatcher dispatcher = getServletContext().
 						getRequestDispatcher("/WEB-INF/portfolio/Portfolio.jsp");
+				
+				ITransactionService transactionService = new TransactionService();
 
+				List<Transaction> transactions = transactionService.getTransactionOfUser(user);
+				
+				List<Action> actions = new ArrayList<Action>();
+				for(Transaction t : transactions){
+					actions.add(t.getAction());
+				}
+				
+				request.setAttribute("actions", actions);
+				
 				// injection bean
 				HttpSession session = request.getSession(true);
 				session.setAttribute("user", user);
@@ -140,7 +158,10 @@ public class UserServlet extends HttpServlet {
 
 					// creating new client object
 					user = new User(lastName, firstName, login, password);
-
+					
+					if(request.getParameter("confidence").equals("PRIVILEGIE"))
+						user.setConfidenceLevel(ConfidenceLevel.PRIVILEDGED);
+					
 					// persist client
 					userService.insert(user);
 

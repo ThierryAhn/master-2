@@ -13,11 +13,25 @@ import model.jpa.Company;
 public class ActionService extends Service implements IActionService{
 
 	@Override
-	public List<Action> getActionsByCompnay(Company company) {
+	public List<Action> getActionsByCompany(Company company) {
 		return getEntityManager().
-				createQuery("SELECT a FROM Action a WHERE a.company = :company", 
-						Action.class).
+				createQuery("SELECT a FROM Action a WHERE a.company = :company", Action.class).
 					setParameter("company", company).getResultList();
+	}
+
+	@Override
+	public List<Action> getDistinctActions() {
+		return getEntityManager().
+				createQuery("SELECT a FROM Action a GROUP BY a.company", 
+						Action.class).getResultList();
+	}
+
+	@Override
+	public Action getActionById(int actionId) {
+		return getEntityManager().
+				createQuery("SELECT a FROM Action a WHERE a.actionId = :actionId", 
+						Action.class).
+					setParameter("actionId", actionId).getSingleResult();
 	}
 
 }

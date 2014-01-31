@@ -99,7 +99,7 @@ public class Download
 						Double.parseDouble(nextLine[3]), Double.parseDouble(nextLine[4]), 
 						Integer.parseInt(nextLine[5]), Double.parseDouble(nextLine[6]), company);
 				
-				
+				System.out.println(host);
 				service.insert(action);
 
 			}

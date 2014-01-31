@@ -93,7 +93,10 @@
 										class="input-large button round image-right ic-right-arrow" 
 										value="Se connecter" />
 								
+									<!--<p>Nouveau <a href="UserServlet">Créer un compte</a>.</p> -->
+									
 									<p>Nouveau <a href="UserServlet">Créer un compte</a>.</p>
+									
 									
 								</form>
 							</div>
@@ -123,23 +126,7 @@
 						<li class="current_page_item"><a href="PortfolioServlet">Mon portfolio</a></li>
 					</ul>
 				</nav>
-	
-				<!-- Search -->
-				<section class="is-search">
-					<form method="post" action="#">
-						<input type="text" class="input-large text" name="search" placeholder="Search" />
-					</form>
-				</section>
-	
-				<!-- Text -->
-				<section class="is-text-style1">
-					<div class="inner">
-						<p>
-							<strong>Info:</strong> Achat
-						</p>
-					</div>
-				</section>
-				
+							
 				<!-- Copyright -->
 				<div id="copyright">
 					<p>

@@ -15,5 +15,17 @@ public interface IActionService {
 	 * @param company
 	 * @return
 	 */
-	public List<Action> getActionsByCompnay(Company company);
+	public List<Action> getActionsByCompany(Company company);
+	/**
+	 * Get all distinct action (the first one with the last price )
+	 * @return
+	 */
+	public List<Action> getDistinctActions();
+	
+	/**
+	 * Return action identified by id
+	 * @param actionId
+	 * @return
+	 */
+	public Action getActionById(int actionId);
 }

@@ -72,6 +72,97 @@
 							</ul>
 						</div>
 						
+						<div class="page-full-width cf">
+
+							<div class="content-module">
+							
+								<div class="content-module-heading cf">
+								
+									<h3 class="fl">Actions achetées</h3>
+									<span class="fr expand-collapse-text">Fermer</span>
+									<span class="fr expand-collapse-text initial-expand">Ouvrir</span>
+								
+								</div> <!-- end content-module-heading -->
+								
+								
+								<div class="content-module-main">
+								
+									<!-- table -->
+									<table class="style1">
+										<thead>
+											<tr>
+												<th>Date</th>
+												<th>Symbole</th>
+												<th>Plus haut</th>
+												<th>Plus bas</th>
+												<th>Valeur actuelle</th>
+											</tr>
+										</thead>
+				
+										<tbody>
+											<c:forEach var="action" items="${actionsBuy}">
+												<tr>
+													<td><fmt:formatDate pattern="yyyy-MM-dd" value="${action.date}"/></td>
+													<td>${action.company.symbol}</td>
+													<td>${action.high}</td>
+													<td>${action.low}</td>
+													<td>${action.adj}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+						
+								</div> <!-- end full-width -->
+							</div>
+						</div>
+						
+						
+						<div class="page-full-width cf">
+
+							<div class="content-module">
+							
+								<div class="content-module-heading cf">
+								
+									<h3 class="fl">Actions vendues</h3>
+									<span class="fr expand-collapse-text">Fermer</span>
+									<span class="fr expand-collapse-text initial-expand">Ouvrir</span>
+								
+								</div> <!-- end content-module-heading -->
+								
+								
+								<div class="content-module-main">
+								
+									<!-- table -->
+									<table class="style1">
+										<thead>
+											<tr>
+												<th>Date</th>
+												<th>Symbole</th>
+												<th>Plus haut</th>
+												<th>Plus bas</th>
+												<th>Valeur actuelle</th>
+											</tr>
+										</thead>
+				
+										<tbody>
+											<c:forEach var="action" items="${actionsSell}">
+												<tr>
+													<td><fmt:formatDate pattern="yyyy-MM-dd" value="${action.date}"/></td>
+													<td>${action.company.symbol}</td>
+													<td>${action.high}</td>
+													<td>${action.low}</td>
+													<td>${action.adj}</td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
+						
+								</div> <!-- end full-width -->
+							</div>
+						</div>
+						
+						
+						
 						<div class="size-column fl">
 							<div class="content-module">
 								
@@ -80,7 +171,8 @@
 									<h3 class="fl">
 										Mon Compte
 										<c:if test="${not empty user.account.amount}">
-											,&nbsp; ${user.account.amount} &#36;
+											,&nbsp;
+											<fmt:formatNumber pattern="0.00" value="${user.account.amount}" /> &#36;
 										</c:if>		
 									</h3>
 									
@@ -103,6 +195,8 @@
 											</a>
 										</c:otherwise>
 									</c:choose>
+									
+									
 									
 									<br/>
 									
@@ -157,6 +251,7 @@
 								</div>
 							</div>
 						</div>
+						
 					</article>
 	
 				</div>
@@ -169,9 +264,8 @@
 				<div id="logo">
 					<h1>PORTFOLIO</h1>
 				</div>
-				<br/>
-				
 				Bienvenue ${user.lastName}
+				<!--<a href="user.do?userAction=logout"> Déconnexion </a>-->
 	
 				<!-- Nav -->
 				<nav id="nav">
@@ -179,30 +273,11 @@
 						<li><a href="exchange.do?exchange=Nasdaq">NASDAQ</a></li>
 						<li><a href="exchange.do?exchange=Nyse">NYSE</a></li>
 						<li><a href="exchange.do?exchange=Amex">AMEX</a></li>
-					</ul>
-						
-					<ul>
+						<li><a href="TransactionServlet">Actions</a></li>
 						<li class="current_page_item"><a href="PortfolioServlet">Mon portfolio</a></li>
 					</ul>
-					
 				</nav>
 	
-				<!-- Search -->
-				<section class="is-search">
-					<form method="post" action="#">
-						<input type="text" class="input-large text" name="search" placeholder="Search" />
-					</form>
-				</section>
-	
-				<!-- Text -->
-				<section class="is-text-style1">
-					<div class="inner">
-						<p>
-							<strong>Info:</strong> Achat
-						</p>
-					</div>
-				</section>
-				
 				<!-- Copyright -->
 				<div id="copyright">
 					<p>

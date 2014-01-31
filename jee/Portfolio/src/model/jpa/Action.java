@@ -1,6 +1,5 @@
 package model.jpa;
 
-import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -62,7 +61,7 @@ public class Action {
 	/**
 	 * Default constructor
 	 */
-	Action(){
+	public Action(){
 	}
 
 	/**
@@ -88,6 +87,38 @@ public class Action {
 		this.company = company;
 	}
 	
+	
+	/**
+	 * Construct an action from other action
+	 * @param action
+	 */
+	public Action(Action action) {
+		this.actionId = action.actionId;
+		this.date = action.date;
+		this.open = action.open;
+		this.high = action.high;
+		this.low = action.low;
+		this.close = action.close;
+		this.volume = 0;
+		this.adj = action.adj;
+		this.company = action.company;
+	}
+	
+	
+	/**
+	 * @return the actionId
+	 */
+	public int getActionId() {
+		return actionId;
+	}
+
+	/**
+	 * @param actionId the actionId to set
+	 */
+	public void setActionId(int actionId) {
+		this.actionId = actionId;
+	}
+
 	/**
 	 * @return the company
 	 */
